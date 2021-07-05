@@ -6,7 +6,7 @@ Vue.component('home-page', {
     },
     template: `
     <div>
-        <!-- <navigation-bar></navigation-bar> -->
+        <navigation-bar></navigation-bar>
         <h1>Pocetna strana</h1>
     </div> `,
     methods: {
