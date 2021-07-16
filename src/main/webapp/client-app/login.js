@@ -29,7 +29,36 @@ Vue.component("login-page", {
     methods: {
         login() {
             if (this.validation()) {
-                alert("sve ok");
+                var user = {
+                    "korisnickoIme" : this.username,
+                    "lozinka" : this.password
+                };
+
+                axios.post("rest/user/login", user)
+                    .then(response => {
+                        if (response.status == 200) {
+                            // dodati mozda ime, prezime i tako neke stvari u localStorage?
+                            // inace treba redirekcija na korisnikov profil, za sada ce biti na /home
+                            this.$router.push("/");
+                            // window.location.href = "#/home";
+                        } else {
+                            console.log(response);
+                        }
+                    })
+                    .catch(error => {
+                        if (error.response.data == "ALREADY LOGGED IN") {
+                            alert("You're already logged in!");
+                            // redirekcija na home
+                        } else if (error.response.data == "INVALID") {
+                            alert("Input fields cannot be empty!");
+                        } else if (error.response.data == "USER DOES NOT EXIST") {
+                            alert("User with username " + this.username + " doesn't exist!");
+                        } else if (error.response.data == "WRONG PASSWORD") {
+                            alert("Password you entered is incorrect!");
+                        } else {
+                            console.log(error);
+                        }
+                    });
             } else {
                 alert("nije ok");
             }

@@ -35,7 +35,23 @@ Vue.component("navigation-bar", {
     </div> `,
     methods: {
         logout() {
-            alert("not implemented yet!");
+            axios.post("rest/user/logout")
+                .then(response => {
+                    if (response.status == 200) {
+                        // kada se izlogujemo, trebalo bi da nestane logout dugme iz navbara i obrnuto ...
+                        alert("You successfully logged out!");
+                        this.$router.push("/");
+                    } else {
+                        console.log(response);
+                    }
+                })
+                .catch(error => {
+                    if (error.response.data == "NOT LOGGED IN") {
+                        alert("You're not logged in!");
+                    } else {
+                        console.log(error.response.data);
+                    }
+                });
         }
     },
     beforeMount() {
