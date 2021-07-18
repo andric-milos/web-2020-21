@@ -38,9 +38,13 @@ Vue.component("navigation-bar", {
             axios.post("rest/user/logout")
                 .then(response => {
                     if (response.status == 200) {
-                        // kada se izlogujemo, trebalo bi da nestane logout dugme iz navbara i obrnuto ...
                         alert("You successfully logged out!");
-                        this.$router.push("/");
+
+                        if (window.location == "http://localhost:8080/web-2020-21/#/") {
+                            window.location.reload();
+                        } else {
+                            this.$router.push("/");
+                        }
                     } else {
                         console.log(response);
                     }
@@ -55,6 +59,18 @@ Vue.component("navigation-bar", {
         }
     },
     beforeMount() {
-        
+        axios.get("rest/user/loggedIn")
+            .then(response => {
+                // metoda "rest/user/loggedIn" vraća true ili false
+
+                if (response.data) {
+                    this.loggedIn = true;
+                } else {
+                    this.loggedIn = false;
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }
 });

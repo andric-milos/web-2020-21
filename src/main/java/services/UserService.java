@@ -1,12 +1,12 @@
 package services;
 
-import java.io.File;
 import java.util.HashMap;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -85,6 +85,18 @@ public class UserService {
 		} else {
 			request.getSession().invalidate();
 			return Response.status(Status.OK).build();
+		}
+	}
+	
+	@GET
+	@Path("/loggedIn")
+	public Response loggedIn() {
+		Korisnik korisnik = (Korisnik) request.getSession().getAttribute("korisnik");
+		
+		if (korisnik == null) {
+			return Response.status(Status.OK).entity(false).build();
+		} else {
+			return Response.status(Status.OK).entity(true).build();
 		}
 	}
 
