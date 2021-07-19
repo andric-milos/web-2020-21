@@ -38,9 +38,18 @@ Vue.component("login-page", {
                     .then(response => {
                         if (response.status == 200) {
                             // dodati mozda ime, prezime i tako neke stvari u localStorage?
-                            // inace treba redirekcija na korisnikov profil, za sada ce biti na /home
-                            this.$router.push("/");
-                            // window.location.href = "#/home";
+                            
+                            if (response.data == "ADMINISTRATOR") {
+                                this.$router.push("/admin");
+                            } else if (response.data == "KUPAC") {
+                                this.$router.push("/customer");
+                            } else if (response.data == "DOSTAVLJAC") {
+                                this.$router.push("/deliverer");
+                            } else if (response.data == "MENADZER") {
+                                this.$router.push("/manager");
+                            } else {
+                                alert("Something went wrong!");
+                            }
                         } else {
                             console.log(response);
                         }
@@ -60,7 +69,7 @@ Vue.component("login-page", {
                         }
                     });
             } else {
-                alert("nije ok");
+                alert("Input fields cannot be empty!");
             }
         },
         validation() {

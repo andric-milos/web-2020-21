@@ -67,7 +67,7 @@ public class UserService {
 		if (korisnik.getLozinka().equals(k.getLozinka())) {
 			// 4. scenario: kredencijali su dobri
 			request.getSession().setAttribute("korisnik", korisnik);
-			return Response.status(Status.OK).build();
+			return Response.status(Status.OK).entity(korisnik.getTipKorisnika().toString()).build();
 		} else {
 			// 5. scenario: uneto korisnicko ime postoji, ali sifra je pogresna
 			return Response.status(Status.BAD_REQUEST).entity("WRONG PASSWORD").build();
