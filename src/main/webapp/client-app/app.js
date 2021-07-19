@@ -1,5 +1,6 @@
 const HomePage = { template: '<home-page></home-page>' }
 const LoginPage = { template: '<login-page></login-page>' }
+const KupacInfo = { template: '<kupac-info></kupac-info>' }
 
 const router = new VueRouter({
     mode: 'hash',
@@ -11,6 +12,10 @@ const router = new VueRouter({
         {
             path: '/login',
             component: LoginPage
+        },
+        {
+            path: '/kupac',
+            component: KupacInfo
         }
     ]
 });
