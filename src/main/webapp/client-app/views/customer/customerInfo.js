@@ -1,4 +1,4 @@
-Vue.component("kupac-info", {
+Vue.component("customer-info", {
     data: function() {
         return {
             
@@ -9,7 +9,7 @@ Vue.component("kupac-info", {
         <navigation-bar></navigation-bar>
 
         <div class="d-flex" id="wrapper">
-            <kupac-sidebar></kupac-sidebar>
+            <customer-sidebar></customer-sidebar>
             <user-info></user-info>
         </div>
     </div> `,
