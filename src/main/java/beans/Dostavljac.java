@@ -16,9 +16,10 @@ public class Dostavljac extends Korisnik {
 					  String ime, 
 					  String prezime, 
 					  Pol pol, 
-					  Date datumRodjenja, 
+					  Date datumRodjenja,
+					  TipKorisnika tipKorisnika,
 					  List<Porudzbina> porudzbine) {
-		super(korisnickoIme, lozinka, ime, prezime, pol, datumRodjenja);
+		super(korisnickoIme, lozinka, ime, prezime, pol, datumRodjenja, tipKorisnika);
 		this.porudzbine = porudzbine;
 	}
 

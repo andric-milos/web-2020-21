@@ -15,6 +15,7 @@ import java.util.StringTokenizer;
 
 import beans.Korisnik;
 import beans.Pol;
+import beans.TipKorisnika;
 
 public class KorisnikDAO {
 	private HashMap<String, Korisnik> korisnici;	// key = korisnicko ime; value = objekat (korisnik)
@@ -37,14 +38,17 @@ public class KorisnikDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		korisnici.put("proba", new Korisnik("proba", "proba", "proba", "proba", Pol.MUSKO, date));
+		korisnici.put("proba", new Korisnik("proba", "proba", "proba", "proba", Pol.MUSKO, date, TipKorisnika.KUPAC));
+		korisnici.put("admin", new Korisnik("admin", "admin", "admin", "admin", Pol.MUSKO, date, TipKorisnika.ADMINISTRATOR));
+		korisnici.put("dostavljac", new Korisnik("dostavljac", "dostavljac", "dostavljac", "dostavljac", Pol.MUSKO, date, TipKorisnika.DOSTAVLJAC));
+		korisnici.put("menadzerka", new Korisnik("menadzerka", "menadzerka", "menadzerka", "menadzerka", Pol.ZENSKO, date, TipKorisnika.MENADZER));
 	}
 	
 	/* ucitava korisnike iz web-2020-21/data/korisnici.txt fajla i dodaje ih u hashmap-u
 	 * kljuc hashmap-e je username korisnika
 	 * u fajlu korisnici.txt jedan red predstavlja jednog korisnika
-	 * svaki red je oblika: korisnickoIme;lozinka;ime;prezime;pol,datumRodjenja(dd-MM-yyyy)
-	 * primer: mj;goat;michael;jordan;MUSKO;09-06-1997
+	 * svaki red je oblika: korisnickoIme;lozinka;ime;prezime;pol;datumRodjenja(dd-MM-yyyy);tipKorisnika
+	 * primer: mj;goat;michael;jordan;MUSKO;09-06-1997;KUPAC
 	 */
 	private void ucitajKorisnike(String contextPath) {
 		String path = contextPath + "data\\korisnici.txt";
@@ -79,7 +83,10 @@ public class KorisnikDAO {
 					SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 					Date datum = dateFormat.parse(datumString);
 					
-					korisnici.put(korisnickoIme, new Korisnik(korisnickoIme, lozinka, ime, prezime, pol, datum));
+					String tipKorisnikaString = st.nextToken().trim();
+					TipKorisnika tipKorisnika = TipKorisnika.stringToTipKorisnika(tipKorisnikaString);
+					
+					korisnici.put(korisnickoIme, new Korisnik(korisnickoIme, lozinka, ime, prezime, pol, datum, tipKorisnika));
 				}
 			}
 		} catch (NullPointerException e) {

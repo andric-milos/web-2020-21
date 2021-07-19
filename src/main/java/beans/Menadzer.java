@@ -13,9 +13,10 @@ public class Menadzer extends Korisnik {
 					String ime, 
 					String prezime, 
 					Pol pol, 
-					Date datumRodjenja, 
+					Date datumRodjenja,
+					TipKorisnika tipKorisnika,
 					Restoran restoran) {
-		super(korisnickoIme, lozinka, ime, prezime, pol, datumRodjenja);
+		super(korisnickoIme, lozinka, ime, prezime, pol, datumRodjenja, tipKorisnika);
 		this.restoran = restoran;
 	}
 

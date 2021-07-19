@@ -9,6 +9,7 @@ public class Korisnik {
 	private String prezime;
 	private Pol pol;
 	private Date datumRodjenja;
+	private TipKorisnika tipKorisnika;
 	
 	public Korisnik() {
 	}
@@ -18,13 +19,15 @@ public class Korisnik {
 					String ime, 
 					String prezime, 
 					Pol pol, 
-					Date datumRodjenja) {
+					Date datumRodjenja,
+					TipKorisnika tipKorisnika) {
 		this.korisnickoIme = korisnickoIme;
 		this.lozinka = lozinka;
 		this.ime = ime;
 		this.prezime = prezime;
 		this.pol = pol;
 		this.datumRodjenja = datumRodjenja;
+		this.tipKorisnika = tipKorisnika;
 	}
 
 	public String getKorisnickoIme() {
@@ -73,6 +76,14 @@ public class Korisnik {
 
 	public void setDatumRodjenja(Date datumRodjenja) {
 		this.datumRodjenja = datumRodjenja;
+	}
+
+	public TipKorisnika getTipKorisnika() {
+		return tipKorisnika;
+	}
+
+	public void setTipKorisnika(TipKorisnika tipKorisnika) {
+		this.tipKorisnika = tipKorisnika;
 	}
 
 }
