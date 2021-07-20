@@ -1,6 +1,7 @@
 package beans;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Kupac extends Korisnik {
@@ -16,10 +17,18 @@ public class Kupac extends Korisnik {
 		this.sakupljeniBodovi = 0;
 	}
 
-	public Kupac(TipKupca tipKupca, 
+	public Kupac(String korisnickoIme, 
+			  	 String lozinka, 
+			  	 String ime, 
+			  	 String prezime, 
+			  	 Pol pol, 
+			  	 Date datumRodjenja,
+			  	 TipKorisnika tipKorisnika,
+			  	 TipKupca tipKupca, 
 				 List<Porudzbina> svePorudzbine, 
 				 Korpa korpa, 
 				 int sakupljeniBodovi) {
+		super(korisnickoIme, lozinka, ime, prezime, pol, datumRodjenja, tipKorisnika);
 		this.tipKupca = tipKupca;
 		this.svePorudzbine = svePorudzbine;
 		this.korpa = korpa;
