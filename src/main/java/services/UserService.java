@@ -94,9 +94,9 @@ public class UserService {
 		Korisnik korisnik = (Korisnik) request.getSession().getAttribute("korisnik");
 		
 		if (korisnik == null) {
-			return Response.status(Status.OK).entity(false).build();
+			return Response.status(Status.OK).entity("NOT LOGGED IN").build();
 		} else {
-			return Response.status(Status.OK).entity(true).build();
+			return Response.status(Status.OK).entity(korisnik.getTipKorisnika().toString()).build();
 		}
 	}
 

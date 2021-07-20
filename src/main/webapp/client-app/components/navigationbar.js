@@ -1,7 +1,8 @@
 Vue.component("navigation-bar", {
     data: function() {
         return {
-            loggedIn: true
+            loggedIn: false,
+            userTypeHref: undefined
         }
     },
     template: `
@@ -20,7 +21,7 @@ Vue.component("navigation-bar", {
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item" v-if="loggedIn">
-                    <a class="nav-link" href="#/">Profile</a>
+                    <a id="navbar-profile" class="nav-link" v-bind:href="userTypeHref">Profile</a>
                 </li>
                 <li class="nav-item" v-if="loggedIn">
 					<button 
@@ -61,12 +62,25 @@ Vue.component("navigation-bar", {
     beforeMount() {
         axios.get("rest/user/loggedIn")
             .then(response => {
-                // metoda "rest/user/loggedIn" vraća true ili false
-
-                if (response.data) {
+                if (response.data == "ADMINISTRATOR") {
                     this.loggedIn = true;
-                } else {
+                    this.userTypeHref = "#/admin";
+                } else if (response.data == "KUPAC") {
+                    this.loggedIn = true;
+                    this.userTypeHref = "#/customer";
+                } else if (response.data == "DOSTAVLJAC") {
+                    this.loggedIn = true;
+                    this.userTypeHref = "#/deliverer";
+                } else if (response.data == "MENADZER") {
+                    this.loggedIn = true;
+                    this.userTypeHref = "#/manager";
+                } else if (response.data == "NOT LOGGED IN") {
                     this.loggedIn = false;
+                    this.userTypeHref = "#/";
+                } else {
+                    console.log(response);
+                    this.loggedIn = true;
+                    this.userTypeHref = "#/";
                 }
             })
             .catch(error => {
