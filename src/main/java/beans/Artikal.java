@@ -4,7 +4,7 @@ public class Artikal {
 	private String naziv;
 	private int cena;
 	private TipArtikla tip;
-	private Restoran restoran; // restoran kojem pripada
+	private String restoran; // naziv restorana kojem pripada
 	private int kolicina; // u gramima ili mililitrima
 	private String opis;
 	// slika
@@ -15,7 +15,7 @@ public class Artikal {
 	public Artikal(String naziv, 
 				   int cena, 
 				   TipArtikla tip, 
-				   Restoran restoran, 
+				   String restoran, 
 				   int kolicina, 
 				   String opis) {
 		this.naziv = naziv;
@@ -50,11 +50,11 @@ public class Artikal {
 		this.tip = tip;
 	}
 
-	public Restoran getRestoran() {
+	public String getRestoran() {
 		return restoran;
 	}
 
-	public void setRestoran(Restoran restoran) {
+	public void setRestoran(String restoran) {
 		this.restoran = restoran;
 	}
 

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Restoran {
-	private String naziv;
+	private String naziv;	// trebalo bi da bude unique, jer na primer u klasi Porudzbina imamo polje koje predstavlja ime restorana
 	private TipRestorana tip;
 	private List<Artikal> artikli; // artikli koje restoran ima u ponudi
 	private StatusRestorana status;

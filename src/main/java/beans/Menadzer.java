@@ -3,7 +3,7 @@ package beans;
 import java.util.Date;
 
 public class Menadzer extends Korisnik {
-	private Restoran restoran;
+	private String restoran;	// naziv restorana kojim menadzerise
 	
 	public Menadzer() {
 	}
@@ -15,16 +15,16 @@ public class Menadzer extends Korisnik {
 					Pol pol, 
 					Date datumRodjenja,
 					TipKorisnika tipKorisnika,
-					Restoran restoran) {
+					String restoran) {
 		super(korisnickoIme, lozinka, ime, prezime, pol, datumRodjenja, tipKorisnika);
 		this.restoran = restoran;
 	}
 
-	public Restoran getRestoran() {
+	public String getRestoran() {
 		return restoran;
 	}
 
-	public void setRestoran(Restoran restoran) {
+	public void setRestoran(String restoran) {
 		this.restoran = restoran;
 	}
 }

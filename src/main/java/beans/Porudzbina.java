@@ -7,10 +7,10 @@ import java.util.List;
 public class Porudzbina {
 	private String id; // 10 karaktera
 	private List<Artikal> poruceniArtikli;
-	private Restoran restoran; // restoran iz kojeg je poruceno
+	private String restoran; // naziv restorana iz kojeg je poruceno
 	private Date vremePorudzbine;
 	private int cena;
-	private Kupac kupac;
+	private String kupac;	// naziv kupca
 	private StatusPorudzbine status;
 	
 	public Porudzbina() {
@@ -18,10 +18,10 @@ public class Porudzbina {
 	}
 	
 	public Porudzbina(String id, List<Artikal> poruceniArtikli, 
-					  Restoran restoran, 
+					  String restoran, 
 					  Date vremePorudzbine, 
 					  int cena,
-					  Kupac kupac, 
+					  String kupac, 
 					  StatusPorudzbine status) {
 		this.id = id;
 		this.poruceniArtikli = poruceniArtikli;
@@ -48,11 +48,11 @@ public class Porudzbina {
 		this.poruceniArtikli = poruceniArtikli;
 	}
 
-	public Restoran getRestoran() {
+	public String getRestoran() {
 		return restoran;
 	}
 
-	public void setRestoran(Restoran restoran) {
+	public void setRestoran(String restoran) {
 		this.restoran = restoran;
 	}
 
@@ -72,11 +72,11 @@ public class Porudzbina {
 		this.cena = cena;
 	}
 
-	public Kupac getKupac() {
+	public String getKupac() {
 		return kupac;
 	}
 
-	public void setKupac(Kupac kupac) {
+	public void setKupac(String kupac) {
 		this.kupac = kupac;
 	}
 

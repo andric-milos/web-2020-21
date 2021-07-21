@@ -5,16 +5,16 @@ import java.util.List;
 
 public class Korpa {
 	private List<ArtikalSaKolicinom> artikli; // lista objekata koji u sebi sadrže objekat klase Artikal i kolicinu
-	private Kupac korisnik; // korisnik cija je korpa
+	private String kupac; // naziv kupca cija je korpa
 	private int cena;
 	
 	public Korpa() {
 		this.artikli = new ArrayList<>();
 	}
 
-	public Korpa(List<ArtikalSaKolicinom> artikli, Kupac korisnik, int cena) {
+	public Korpa(List<ArtikalSaKolicinom> artikli, String kupac, int cena) {
 		this.artikli = artikli;
-		this.korisnik = korisnik;
+		this.kupac = kupac;
 		this.cena = cena;
 	}
 
@@ -26,12 +26,12 @@ public class Korpa {
 		this.artikli = artikli;
 	}
 
-	public Kupac getKorisnik() {
-		return korisnik;
+	public String getKupac() {
+		return kupac;
 	}
 
-	public void setKorisnik(Kupac korisnik) {
-		this.korisnik = korisnik;
+	public void setKupac(String kupac) {
+		this.kupac = kupac;
 	}
 
 	public int getCena() {

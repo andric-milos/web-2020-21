@@ -1,16 +1,16 @@
 package beans;
 
 public class Komentar {
-	private Kupac kupac; // kupac porudzbine koji je ostavio komentar
-	private Restoran restoran; // restoran na koji se komentar odnosi
+	private String kupac; // naziv kupac porudzbine koji je ostavio komentar
+	private String restoran; // naziv restorana na koji se komentar odnosi
 	private String tekst;
 	private int ocena; // na skali od 1 do 5
 	
 	public Komentar() {
 	}
 
-	public Komentar(Kupac kupac, 
-					Restoran restoran, 
+	public Komentar(String kupac, 
+					String restoran, 
 					String tekst, 
 					int ocena) {
 		this.kupac = kupac;
@@ -19,19 +19,19 @@ public class Komentar {
 		this.ocena = ocena;
 	}
 
-	public Kupac getKupac() {
+	public String getKupac() {
 		return kupac;
 	}
 
-	public void setKupac(Kupac kupac) {
+	public void setKupac(String kupac) {
 		this.kupac = kupac;
 	}
 
-	public Restoran getRestoran() {
+	public String getRestoran() {
 		return restoran;
 	}
 
-	public void setRestoran(Restoran restoran) {
+	public void setRestoran(String restoran) {
 		this.restoran = restoran;
 	}
 
