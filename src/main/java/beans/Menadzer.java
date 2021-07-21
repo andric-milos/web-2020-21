@@ -15,8 +15,9 @@ public class Menadzer extends Korisnik {
 					Pol pol, 
 					Date datumRodjenja,
 					TipKorisnika tipKorisnika,
+					Boolean obrisan,
 					String restoran) {
-		super(korisnickoIme, lozinka, ime, prezime, pol, datumRodjenja, tipKorisnika);
+		super(korisnickoIme, lozinka, ime, prezime, pol, datumRodjenja, tipKorisnika, obrisan);
 		this.restoran = restoran;
 	}
 

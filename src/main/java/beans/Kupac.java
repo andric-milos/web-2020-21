@@ -24,11 +24,12 @@ public class Kupac extends Korisnik {
 			  	 Pol pol, 
 			  	 Date datumRodjenja,
 			  	 TipKorisnika tipKorisnika,
+			  	 Boolean obrisan,
 			  	 TipKupca tipKupca, 
 				 List<Porudzbina> svePorudzbine, 
 				 Korpa korpa, 
 				 int sakupljeniBodovi) {
-		super(korisnickoIme, lozinka, ime, prezime, pol, datumRodjenja, tipKorisnika);
+		super(korisnickoIme, lozinka, ime, prezime, pol, datumRodjenja, tipKorisnika, obrisan);
 		this.tipKupca = tipKupca;
 		this.svePorudzbine = svePorudzbine;
 		this.korpa = korpa;

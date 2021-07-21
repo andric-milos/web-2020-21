@@ -38,10 +38,10 @@ public class KorisnikDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		korisnici.put("proba", new Korisnik("proba", "proba", "proba", "proba", Pol.MUSKO, date, TipKorisnika.KUPAC));
-		korisnici.put("admin", new Korisnik("admin", "admin", "admin", "admin", Pol.MUSKO, date, TipKorisnika.ADMINISTRATOR));
-		korisnici.put("dostavljac", new Korisnik("dostavljac", "dostavljac", "dostavljac", "dostavljac", Pol.MUSKO, date, TipKorisnika.DOSTAVLJAC));
-		korisnici.put("menadzerka", new Korisnik("menadzerka", "menadzerka", "menadzerka", "menadzerka", Pol.ZENSKO, date, TipKorisnika.MENADZER));
+		korisnici.put("proba", new Korisnik("proba", "proba", "proba", "proba", Pol.MUSKO, date, TipKorisnika.KUPAC, false));
+		korisnici.put("admin", new Korisnik("admin", "admin", "admin", "admin", Pol.MUSKO, date, TipKorisnika.ADMINISTRATOR, false));
+		korisnici.put("dostavljac", new Korisnik("dostavljac", "dostavljac", "dostavljac", "dostavljac", Pol.MUSKO, date, TipKorisnika.DOSTAVLJAC, false));
+		korisnici.put("menadzerka", new Korisnik("menadzerka", "menadzerka", "menadzerka", "menadzerka", Pol.ZENSKO, date, TipKorisnika.MENADZER, false));
 	}
 	
 	/* ucitava korisnike iz web-2020-21/data/korisnici.txt fajla i dodaje ih u hashmap-u

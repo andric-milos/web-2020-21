@@ -18,8 +18,9 @@ public class Dostavljac extends Korisnik {
 					  Pol pol, 
 					  Date datumRodjenja,
 					  TipKorisnika tipKorisnika,
+					  Boolean obrisan,
 					  List<Porudzbina> porudzbine) {
-		super(korisnickoIme, lozinka, ime, prezime, pol, datumRodjenja, tipKorisnika);
+		super(korisnickoIme, lozinka, ime, prezime, pol, datumRodjenja, tipKorisnika, obrisan);
 		this.porudzbine = porudzbine;
 	}
 

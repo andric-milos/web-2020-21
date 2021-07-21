@@ -10,6 +10,7 @@ public class Korisnik {
 	private Pol pol;
 	private Date datumRodjenja;
 	private TipKorisnika tipKorisnika;
+	private Boolean obrisan; // logicko brisanje
 	
 	public Korisnik() {
 	}
@@ -20,7 +21,8 @@ public class Korisnik {
 					String prezime, 
 					Pol pol, 
 					Date datumRodjenja,
-					TipKorisnika tipKorisnika) {
+					TipKorisnika tipKorisnika,
+					Boolean obrisan) {
 		this.korisnickoIme = korisnickoIme;
 		this.lozinka = lozinka;
 		this.ime = ime;
@@ -28,6 +30,7 @@ public class Korisnik {
 		this.pol = pol;
 		this.datumRodjenja = datumRodjenja;
 		this.tipKorisnika = tipKorisnika;
+		this.obrisan = obrisan;
 	}
 
 	public String getKorisnickoIme() {
@@ -86,4 +89,11 @@ public class Korisnik {
 		this.tipKorisnika = tipKorisnika;
 	}
 
+	public Boolean getObrisan() {
+		return obrisan;
+	}
+
+	public void setObrisan(Boolean obrisan) {
+		this.obrisan = obrisan;
+	}
 }
