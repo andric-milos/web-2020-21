@@ -43,5 +43,8 @@
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/org.osgi.core-6.0.0.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/osgi-resource-locator-1.0.3.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/yasson-1.0.6.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/jackson-annotations-2.9.8.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/jackson-core-2.9.8.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/jackson-databind-2.9.8.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
