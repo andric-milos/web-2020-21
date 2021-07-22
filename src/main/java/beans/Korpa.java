@@ -17,6 +17,12 @@ public class Korpa {
 		this.kupac = kupac;
 		this.cena = cena;
 	}
+	
+	public Korpa(String kupac) {
+		this.kupac = kupac;
+		this.artikli = new ArrayList<ArtikalSaKolicinom>();
+		this.cena = 0;
+	}
 
 	public List<ArtikalSaKolicinom> getArtikli() {
 		return artikli;

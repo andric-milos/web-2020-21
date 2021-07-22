@@ -23,6 +23,18 @@ public class Dostavljac extends Korisnik {
 		super(korisnickoIme, lozinka, ime, prezime, pol, datumRodjenja, tipKorisnika, obrisan);
 		this.porudzbine = porudzbine;
 	}
+	
+	public Dostavljac(Korisnik k) {
+		super(k.getKorisnickoIme(),
+			  k.getLozinka(),
+			  k.getIme(),
+			  k.getPrezime(),
+			  k.getPol(),
+			  k.getDatumRodjenja(),
+			  k.getTipKorisnika(),
+			  k.getObrisan());
+		this.porudzbine = new ArrayList<Porudzbina>();
+	}
 
 	public List<Porudzbina> getPorudzbine() {
 		return porudzbine;

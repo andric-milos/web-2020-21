@@ -35,6 +35,21 @@ public class Kupac extends Korisnik {
 		this.korpa = korpa;
 		this.sakupljeniBodovi = sakupljeniBodovi;
 	}
+	
+	public Kupac(Korisnik korisnik) {
+		super(korisnik.getKorisnickoIme(),
+			  korisnik.getLozinka(),
+			  korisnik.getIme(),
+			  korisnik.getPrezime(),
+			  korisnik.getPol(),
+			  korisnik.getDatumRodjenja(),
+			  korisnik.getTipKorisnika(),
+			  korisnik.getObrisan());
+		this.tipKupca = new TipKupca("pocetnik", 0, 0);
+		this.svePorudzbine = new ArrayList<Porudzbina>();
+		this.korpa = new Korpa(korisnik.getKorisnickoIme());
+		this.sakupljeniBodovi = 0;
+	}
 
 	public TipKupca getTipKupca() {
 		return tipKupca;
