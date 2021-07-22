@@ -49,10 +49,10 @@ public class KorisnikDAO {
 		ucitajDostavljace(contextPath);
 		
 		// dodavanje korisnika kako bih mogao da istestiram login/logout
-		SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = null;
 		try {
-			date = dateFormat.parse("06-09-1997");
+			date = dateFormat.parse("1997-06-09");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -81,7 +81,7 @@ public class KorisnikDAO {
 	
 	/* ucitava korisnike iz web-2020-21/data/korisnici.json fajla i dodaje ih u hashmap-u
 	 * kljuc hashmap-e je username korisnika
-	 * datum se cuva u obliku "MM-dd-yyyy" (jer je html standard "MM-dd-yyyy" u <input type="date">, pa da ne komplikujem za milisekundama ...)
+	 * datum se cuva u obliku "yyyy-MM-dd" (jer je html standard "yyyy-MM-dd" u <input type="date">, pa da ne komplikujem za milisekundama ...)
 	 * primer jednog json objekta u korisnici.json fajlu:
 	 * 	{
 	  		"korisnickoIme" : "proba",
@@ -97,7 +97,7 @@ public class KorisnikDAO {
 		String path = contextPath + "data\\korisnici.json";
 		
 		ObjectMapper objectMapper = new ObjectMapper();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		objectMapper.setDateFormat(dateFormat);
 		
 		try {
@@ -116,7 +116,7 @@ public class KorisnikDAO {
 		String path = contextPath + "data\\kupci.json";
 		
 		ObjectMapper objectMapper = new ObjectMapper();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		objectMapper.setDateFormat(dateFormat);
 		
 		try {
@@ -135,7 +135,7 @@ public class KorisnikDAO {
 		String path = contextPath + "data\\administratori.json";
 		
 		ObjectMapper objectMapper = new ObjectMapper();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		objectMapper.setDateFormat(dateFormat);
 		
 		try {
@@ -154,7 +154,7 @@ public class KorisnikDAO {
 		String path = contextPath + "data\\dostavljaci.json";
 		
 		ObjectMapper objectMapper = new ObjectMapper();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		objectMapper.setDateFormat(dateFormat);
 		
 		try {
@@ -173,7 +173,7 @@ public class KorisnikDAO {
 		String path = contextPath + "data\\menadzeri.json";
 		
 		ObjectMapper objectMapper = new ObjectMapper();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		objectMapper.setDateFormat(dateFormat);
 		
 		try {
@@ -193,7 +193,7 @@ public class KorisnikDAO {
 		String path = contextPath + "data\\korisnici.json";
 		
 		ObjectMapper objectMapper = new ObjectMapper();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		objectMapper.setDateFormat(dateFormat);
 		
 		try {
@@ -211,7 +211,7 @@ public class KorisnikDAO {
 		String path = contextPath + "data\\kupci.json";
 		
 		ObjectMapper objectMapper = new ObjectMapper();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		objectMapper.setDateFormat(dateFormat);
 		
 		try {
@@ -229,7 +229,7 @@ public class KorisnikDAO {
 		String path = contextPath + "data\\administratori.json";
 		
 		ObjectMapper objectMapper = new ObjectMapper();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		objectMapper.setDateFormat(dateFormat);
 		
 		try {
@@ -247,7 +247,7 @@ public class KorisnikDAO {
 		String path = contextPath + "data\\dostavljaci.json";
 		
 		ObjectMapper objectMapper = new ObjectMapper();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		objectMapper.setDateFormat(dateFormat);
 		
 		try {
@@ -265,7 +265,7 @@ public class KorisnikDAO {
 		String path = contextPath + "data\\menadzeri.json";
 		
 		ObjectMapper objectMapper = new ObjectMapper();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		objectMapper.setDateFormat(dateFormat);
 		
 		try {

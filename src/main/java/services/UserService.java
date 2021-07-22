@@ -127,7 +127,7 @@ public class UserService {
 		}
 		
 		// 3. scenario: datum ne valja
-		SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date datumRodjenja = null;
 		try {
 			datumRodjenja = dateFormat.parse(dto.getDatumRodjenja());

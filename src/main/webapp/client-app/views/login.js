@@ -38,7 +38,7 @@ Vue.component("login-page", {
                     .then(response => {
                         if (response.status == 200) {
                             // dodati mozda ime, prezime i tako neke stvari u localStorage?
-                            
+
                             if (response.data == "ADMINISTRATOR") {
                                 this.$router.push("/admin");
                             } else if (response.data == "KUPAC") {
@@ -68,14 +68,12 @@ Vue.component("login-page", {
                             console.log(error);
                         }
                     });
-            } else {
-                alert("Input fields cannot be empty!");
             }
         },
         validation() {
             let flag = 0;
 
-            if (this.username == undefined || this.username == ""){
+            if (this.username == undefined || this.username == "") {    // ovo je moglo jednostavno sa if (!this.username)
                 document.getElementById("usernameError").innerHTML = "Username input field cannot be empty!";
 
                 ++flag;
@@ -83,7 +81,7 @@ Vue.component("login-page", {
                 document.getElementById("usernameError").innerHTML = "";
             }
 
-            if (this.password == undefined || this.password == ""){
+            if (this.password == undefined || this.password == "") {    // ovo je moglo jednostavno sa if (!this.password)
                 document.getElementById("passwordError").innerHTML = "Password input field cannot be empty!";
 
                 ++flag;
