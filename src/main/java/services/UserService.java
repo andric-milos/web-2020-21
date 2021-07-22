@@ -1,5 +1,8 @@
 package services;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 import javax.annotation.PostConstruct;
@@ -16,7 +19,11 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import beans.Korisnik;
+import beans.Kupac;
+import beans.Pol;
+import beans.TipKorisnika;
 import dao.KorisnikDAO;
+import dto.RegistracijaDTO;
 
 @Path("/user")
 public class UserService {
@@ -98,6 +105,75 @@ public class UserService {
 		} else {
 			return Response.status(Status.OK).entity(korisnik.getTipKorisnika().toString()).build();
 		}
+	}
+	
+	@POST
+	@Path("/register")
+	public Response register(RegistracijaDTO dto) {
+		// 1. scenario: nevalidan unos podataka
+		if (dto.getKorisnickoIme().equals("") ||
+			dto.getLozinka().equals("") ||
+			dto.getIme().equals("") ||
+			dto.getPrezime().equals("") ||
+			dto.getPotvrda_lozinke().equals("") ||
+			dto.getPol().equals("") ||
+			dto.getDatumRodjenja().equals("")) {
+			return Response.status(Status.BAD_REQUEST).entity("EMPTY FIELDS").build();
+		}
+		
+		// 2. scenario: nevalidan unos pola
+		if (!(dto.getPol().equals("MUSKO") || dto.getPol().equals("ZENSKO"))) {
+			return Response.status(Status.BAD_REQUEST).entity("INVALID GENDER").build();
+		}
+		
+		// 3. scenario: datum ne valja
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+		Date datumRodjenja = null;
+		try {
+			datumRodjenja = dateFormat.parse(dto.getDatumRodjenja());
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return Response.status(Status.BAD_REQUEST).entity("INVALID DATE FORMAT").build();
+		}
+		
+		KorisnikDAO korisnikDAO = (KorisnikDAO) ctx.getAttribute("korisnici");
+		HashMap<String, Korisnik> korisnici = korisnikDAO.getKorisniciHashMap();
+		
+		// 4. scenario: korisnicko ime je zauzeto tj. vec postoji korisnik sa takvim korisnickim imenom
+		if (korisnici.containsKey(dto.getKorisnickoIme())) {
+			return Response.status(Status.BAD_REQUEST).entity("USERNAME ALREADY TAKEN").build();
+		}
+		
+		// 5. scenario: sadržaj polja za potvrdu lozinke se ne poklapa sa unetom lozinkom
+		if (!dto.getLozinka().equals(dto.getPotvrda_lozinke())) {
+			return Response.status(Status.BAD_REQUEST).entity("PASSWORDS DO NOT MATCH").build();
+		}
+		
+		// 6. scenario: sve je u redu
+		Korisnik korisnik = new Korisnik(
+			dto.getKorisnickoIme(),
+			dto.getLozinka(),
+			dto.getIme(),
+			dto.getPrezime(),
+			Pol.stringToPol(dto.getPol()),
+			datumRodjenja,
+			TipKorisnika.KUPAC,
+			false
+		);
+		
+		/* TipKupca: ime, popust, brojBodova
+		 * 		3 kategorije:
+		 * 			- pocetnik, 0, 0
+		 * 			- bronzana, 5, 50
+		 * 			- srebrna, 10, 100
+		 * 			- zlatna, 15, 150
+		 */
+		
+		Kupac kupac = new Kupac(korisnik);
+		
+		korisnikDAO.dodajKupca(kupac);
+		
+		return Response.status(Status.OK).build();
 	}
 
 }
