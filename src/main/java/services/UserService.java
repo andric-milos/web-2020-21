@@ -2,8 +2,10 @@ package services;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
@@ -23,6 +25,7 @@ import beans.Kupac;
 import beans.Pol;
 import beans.TipKorisnika;
 import dao.KorisnikDAO;
+import dto.KorisnikDTO;
 import dto.RegistracijaDTO;
 
 @Path("/user")
@@ -174,6 +177,32 @@ public class UserService {
 		korisnikDAO.dodajKupca(kupac);
 		
 		return Response.status(Status.OK).build();
+	}
+	
+	@GET
+	@Path("/all")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAllUsers() {
+		KorisnikDAO korisnikDAO = (KorisnikDAO) ctx.getAttribute("korisnici");
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		
+		List<KorisnikDTO> responseData = new ArrayList<KorisnikDTO>();
+		
+		for (Korisnik k : korisnikDAO.getAllKorisnici()) {
+			KorisnikDTO dto = new KorisnikDTO();
+			dto.setKorisnickoIme(k.getKorisnickoIme());
+			dto.setIme(k.getIme());
+			dto.setPrezime(k.getPrezime());
+			dto.setPol(Pol.polToString(k.getPol()));
+			dto.setTipKorisnika(TipKorisnika.tipKorisnikaToString(k.getTipKorisnika()));
+			dto.setDatumRodjenja(dateFormat.format(k.getDatumRodjenja()));
+			dto.setObrisan(k.getObrisan());
+			
+			responseData.add(dto);
+		}
+		
+		return Response.status(Status.OK).entity(responseData).build();
 	}
 
 }
