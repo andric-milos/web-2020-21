@@ -47,36 +47,6 @@ public class KorisnikDAO {
 		ucitajKupce(contextPath);
 		ucitajMenadzere(contextPath);
 		ucitajDostavljace(contextPath);
-		
-		// dodavanje korisnika kako bih mogao da istestiram login/logout
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = null;
-		try {
-			date = dateFormat.parse("1997-06-09");
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		Korisnik korisnik1 = new Korisnik("proba", "proba", "proba", "proba", Pol.MUSKO, date, TipKorisnika.KUPAC, false);
-		Korisnik korisnik2 = new Korisnik("admin", "admin", "admin", "admin", Pol.MUSKO, date, TipKorisnika.ADMINISTRATOR, false);
-		Korisnik korisnik3 = new Korisnik("dostavljac", "dostavljac", "dostavljac", "dostavljac", Pol.MUSKO, date, TipKorisnika.DOSTAVLJAC, false);
-		Korisnik korisnik4 = new Korisnik("menadzerka", "menadzerka", "menadzerka", "menadzerka", Pol.ZENSKO, date, TipKorisnika.MENADZER, false);
-		
-		Kupac kupac = new Kupac(korisnik1);
-		Administrator admin = new Administrator(korisnik2);
-		Dostavljac dostavljac = new Dostavljac(korisnik3);
-		Menadzer menadzerka = new Menadzer(korisnik4);
-		
-		korisnici.put(korisnik1.getKorisnickoIme(), korisnik1);
-		korisnici.put(korisnik2.getKorisnickoIme(), korisnik2);
-		korisnici.put(korisnik3.getKorisnickoIme(), korisnik3);
-		korisnici.put(korisnik4.getKorisnickoIme(), korisnik4);
-		
-		kupci.put(kupac.getKorisnickoIme(), kupac);
-		administratori.put(admin.getKorisnickoIme(), admin);
-		dostavljaci.put(dostavljac.getKorisnickoIme(), dostavljac);
-		menadzeri.put(menadzerka.getKorisnickoIme(), menadzerka);
 	}
 	
 	/* ucitava korisnike iz web-2020-21/data/korisnici.json fajla i dodaje ih u hashmap-u
