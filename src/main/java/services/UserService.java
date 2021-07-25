@@ -204,5 +204,29 @@ public class UserService {
 		
 		return Response.status(Status.OK).entity(responseData).build();
 	}
+	
+	@GET
+	@Path("/getLoggedInUserData")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getLoggedInUserData() {
+		Korisnik korisnik = (Korisnik) request.getSession().getAttribute("korisnik");
+		
+		if (korisnik == null) {
+			return Response.status(Status.OK).entity("NOT LOGGED IN").build();
+		}
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		
+		KorisnikDTO dto = new KorisnikDTO();
+		dto.setKorisnickoIme(korisnik.getKorisnickoIme());
+		dto.setIme(korisnik.getIme());
+		dto.setPrezime(korisnik.getPrezime());
+		dto.setDatumRodjenja(dateFormat.format(korisnik.getDatumRodjenja()));
+		dto.setPol(Pol.polToString(korisnik.getPol()));
+		dto.setTipKorisnika(TipKorisnika.tipKorisnikaToString(korisnik.getTipKorisnika()));
+		dto.setObrisan(korisnik.getObrisan());
+		
+		return Response.status(Status.OK).entity(dto).build();
+	}
 
 }

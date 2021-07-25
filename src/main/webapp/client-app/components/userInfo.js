@@ -5,6 +5,7 @@ Vue.component("user-info", {
             firstname: undefined,
             lastname:undefined,
             gender: undefined,
+            date: undefined,
 
             firstname_backup: undefined,
             lastname_backup: undefined,
@@ -25,6 +26,9 @@ Vue.component("user-info", {
 
                 <label class="p-2"><b>Last name</b></label>
                 <input type="text" class="p-2" id="lastname" v-model="lastname" disabled>
+
+                <label class="p-2"><b>Date of birth</b></label>
+                <input type="date" class="p-2" id="date" v-model="date" disabled>
 
                 <label class="p-2"><b>Gender</b></label>
                 <select name="gender" class="p-2" id="gender" v-model="gender" disabled>
@@ -68,6 +72,7 @@ Vue.component("user-info", {
             document.getElementById("firstname").removeAttribute("disabled");
             document.getElementById("lastname").removeAttribute("disabled");
             document.getElementById("gender").removeAttribute("disabled");
+            document.getElementById("date").removeAttribute("disabled");
             document.getElementById("div-edit").setAttribute("hidden", true);
             document.getElementById("div-submit-cancel").removeAttribute("hidden");
         },
@@ -75,6 +80,7 @@ Vue.component("user-info", {
             document.getElementById("firstname").setAttribute("disabled", true);
             document.getElementById("lastname").setAttribute("disabled", true);
             document.getElementById("gender").setAttribute("disabled", true);
+            document.getElementById("date").setAttribute("disabled", true);
             document.getElementById("div-edit").removeAttribute("hidden");
             document.getElementById("div-submit-cancel").setAttribute("hidden", true);  
         },
@@ -86,11 +92,29 @@ Vue.component("user-info", {
             document.getElementById("firstname").setAttribute("disabled", true);
             document.getElementById("lastname").setAttribute("disabled", true);
             document.getElementById("gender").setAttribute("disabled", true);
+            document.getElementById("date").setAttribute("disabled", true);
             document.getElementById("div-edit").removeAttribute("hidden");
             document.getElementById("div-submit-cancel").setAttribute("hidden", true);
         },
         validation() {
             
         }
+    },
+    mounted() {
+        axios.get("rest/user/getLoggedInUserData")
+            .then(response => {
+                if (response.data == "NOT LOGGED IN") {
+                    console.log("Couldn't fetch user's data because user is not logged in!");
+                } else {
+                    this.username = response.data.korisnickoIme;
+                    this.firstname = response.data.ime;
+                    this.lastname = response.data.prezime;
+                    this.gender = response.data.pol;
+                    this.date = response.data.datumRodjenja;
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }
 });
