@@ -509,4 +509,65 @@ public class KorisnikDAO {
 		
 		return false;
 	}
+	
+	/* returns true if it was successful, false if it wasn't */
+	public Boolean promeniLozinku(Korisnik korisnik, String novaLozinka) {
+		if (korisnici.containsKey(korisnik.getKorisnickoIme())) {
+			if (korisnik.getTipKorisnika() == TipKorisnika.KUPAC) {
+				Kupac kupac = kupci.get(korisnik.getKorisnickoIme());
+				
+				korisnik.setLozinka(novaLozinka);
+				kupac.setLozinka(novaLozinka);
+				
+				korisnici.replace(korisnik.getKorisnickoIme(), korisnik);
+				kupci.replace(kupac.getKorisnickoIme(), kupac);
+				
+				sacuvajKorisnike(contextPath);
+				sacuvajKupce(contextPath);
+				
+				return true;
+			} else if (korisnik.getTipKorisnika() == TipKorisnika.ADMINISTRATOR) {
+				Administrator admin = administratori.get(korisnik.getKorisnickoIme());
+					
+				korisnik.setLozinka(novaLozinka);
+				admin.setLozinka(novaLozinka);
+					
+				korisnici.replace(korisnik.getKorisnickoIme(), korisnik);
+				administratori.replace(admin.getKorisnickoIme(), admin);
+					
+				sacuvajKorisnike(contextPath);
+				sacuvajAdministratore(contextPath);
+					
+				return true;
+			} else if (korisnik.getTipKorisnika() == TipKorisnika.DOSTAVLJAC) {
+				Dostavljac dostavljac = dostavljaci.get(korisnik.getKorisnickoIme());
+				
+				korisnik.setLozinka(novaLozinka);
+				dostavljac.setLozinka(novaLozinka);
+				
+				korisnici.replace(korisnik.getKorisnickoIme(), korisnik);
+				dostavljaci.replace(dostavljac.getKorisnickoIme(), dostavljac);
+				
+				sacuvajKorisnike(contextPath);
+				sacuvajDostavljace(contextPath);
+				
+				return true;
+			} else if (korisnik.getTipKorisnika() == TipKorisnika.MENADZER) {
+				Menadzer menadzer = menadzeri.get(korisnik.getKorisnickoIme());
+				
+				korisnik.setLozinka(novaLozinka);
+				menadzer.setLozinka(novaLozinka);
+				
+				korisnici.replace(korisnik.getKorisnickoIme(), korisnik);
+				menadzeri.replace(menadzer.getKorisnickoIme(), menadzer);
+				
+				sacuvajKorisnike(contextPath);
+				sacuvajMenadzere(contextPath);
+				
+				return true;
+			}
+		}
+		
+		return false;
+	}
 }

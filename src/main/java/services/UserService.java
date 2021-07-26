@@ -27,6 +27,7 @@ import beans.Pol;
 import beans.TipKorisnika;
 import dao.KorisnikDAO;
 import dto.KorisnikDTO;
+import dto.PromenaLozinkeDTO;
 import dto.RegistracijaDTO;
 
 @Path("/user")
@@ -289,4 +290,47 @@ public class UserService {
 		return Response.status(Status.BAD_REQUEST).entity("SOMETHING WENT WRONG").build();
 	}
 
+	@PUT
+	@Path("/changePassword")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response changePassword(PromenaLozinkeDTO dto) {
+		Korisnik korisnik = (Korisnik) request.getSession().getAttribute("korisnik");
+		
+		// 1. scenario: korisnik nije ulogovan
+		if (korisnik == null) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT LOGGED IN").build();
+		}
+		
+		// 2. scenario: nevalidan unos podataka
+		if (dto.getLozinka().equals("") ||
+			dto.getNova_lozinka().equals("") ||
+			dto.getPotvrda_nove_lozinke().equals("")) {
+			return Response.status(Status.BAD_REQUEST).entity("EMPTY FIELDS").build();
+		}
+		
+		// 3. scenario: netacna lozinka
+		if (!dto.getLozinka().equals(korisnik.getLozinka())) {
+			return Response.status(Status.BAD_REQUEST).entity("WRONG PASSWORD").build();
+		}
+		
+		// 4. scenario: sadrzaj polja za potvrdu lozinke se ne poklapa sa unetom novom lozinkom
+		if (!dto.getNova_lozinka().equals(dto.getPotvrda_nove_lozinke())) {
+			return Response.status(Status.BAD_REQUEST).entity("PASSWORDS DO NOT MATCH").build();
+		}
+		
+		// 5. scenario: nema potrebe za promenom lozinke, jer je uneta ista
+		if (dto.getNova_lozinka().equals(korisnik.getLozinka())) {
+			return Response.status(Status.OK).entity("SUCCESS").build();
+		}
+		
+		// 6. scenario: nova_lozinka != stara_lozinka
+		KorisnikDAO korisnikDAO = (KorisnikDAO) ctx.getAttribute("korisnici");
+		Boolean success = korisnikDAO.promeniLozinku(korisnik, dto.getNova_lozinka());
+		
+		if (success) {
+			return Response.status(Status.OK).entity("SUCCESS").build();
+		} 
+		
+		return Response.status(Status.BAD_REQUEST).entity("SOMETHING WENT WRONG").build();
+	}
 }

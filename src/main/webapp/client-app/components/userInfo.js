@@ -112,6 +112,8 @@ Vue.component("user-info", {
                             alert("User with username \"" + this.username + "\" doesn't exist!");
                         } else if (error.response.data == "CANNOT CHANGE OTHERS' DATA") {
                             alert("You are not authorized to change info of other users!");
+                        } else {
+                            console.log(error);
                         }
                     });
             }
