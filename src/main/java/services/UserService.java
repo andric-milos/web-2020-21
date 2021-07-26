@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
@@ -112,6 +113,7 @@ public class UserService {
 	
 	@POST
 	@Path("/register")
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response register(RegistracijaDTO dto) {
 		// 1. scenario: nevalidan unos podataka
 		if (dto.getKorisnickoIme().equals("") ||
@@ -227,6 +229,64 @@ public class UserService {
 		dto.setObrisan(korisnik.getObrisan());
 		
 		return Response.status(Status.OK).entity(dto).build();
+	}
+	
+	@PUT
+	@Path("/update")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response updateUserInfo(KorisnikDTO dto) {
+		Korisnik korisnik = (Korisnik) request.getSession().getAttribute("korisnik");
+		
+		// 1. scenario: korisnik nije ulogovan
+		if (korisnik == null) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT LOGGED IN").build();
+		}
+		
+		// 2. scenario: nevalidan unos podataka
+		if (dto.getKorisnickoIme().equals("") ||
+			dto.getIme().equals("") ||
+			dto.getPrezime().equals("") ||
+			dto.getPol().equals("") ||
+			dto.getDatumRodjenja().equals("")) {
+			return Response.status(Status.BAD_REQUEST).entity("EMPTY FIELDS").build();
+		}
+		
+		// 3. scenario: nevalidan unos pola
+		if (!(dto.getPol().equals("MUSKO") || dto.getPol().equals("ZENSKO"))) {
+			return Response.status(Status.BAD_REQUEST).entity("INVALID GENDER").build();
+		}
+		
+		// 4. scenario: datum ne valja
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date datumRodjenja = null;
+		try {
+			datumRodjenja = dateFormat.parse(dto.getDatumRodjenja());
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return Response.status(Status.BAD_REQUEST).entity("INVALID DATE FORMAT").build();
+		}
+		
+		// 5. scenario: korisnik ne postoji
+		KorisnikDAO korisnikDAO = (KorisnikDAO) ctx.getAttribute("korisnici");
+		if (!korisnikDAO.getKorisniciHashMap().containsKey(dto.getKorisnickoIme())) {
+			return Response.status(Status.BAD_REQUEST).entity("USER DOES NOT EXIST").build();
+		}
+		
+		// 6. scenario: ulogovani korisnik != korisnik ciji se podaci menjaju
+		if (!korisnik.getKorisnickoIme().equals(dto.getKorisnickoIme())) {
+			return Response.status(Status.FORBIDDEN).entity("CANNOT CHANGE OTHERS' DATA").build();
+		}
+		
+		Boolean success = korisnikDAO.azurirajKorisnika(dto);
+		
+		// 7. scenario: korisnik je uspesno azuriran
+		if (success) {
+			return Response.status(Status.OK).entity("SUCCESS").build();
+		}
+		
+		// 8. scenario: korisnk nije azuriran uspesno
+		return Response.status(Status.BAD_REQUEST).entity("SOMETHING WENT WRONG").build();
 	}
 
 }

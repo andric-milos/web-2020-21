@@ -21,6 +21,7 @@ import beans.Kupac;
 import beans.Menadzer;
 import beans.Pol;
 import beans.TipKorisnika;
+import dto.KorisnikDTO;
 
 public class KorisnikDAO {
 	private HashMap<String, Korisnik> korisnici;	// key = korisnicko ime; value = objekat (korisnik)
@@ -378,5 +379,134 @@ public class KorisnikDAO {
 
 	public HashMap<String, Menadzer> getMenadzeriHashMap() {
 		return menadzeri;
+	}
+	
+	/* returns true if it was successful, false if it wasn't */
+	public Boolean azurirajKorisnika(KorisnikDTO dto) {
+		if (korisnici.containsKey(dto.getKorisnickoIme())) {
+			Korisnik korisnik = korisnici.get(dto.getKorisnickoIme());
+			
+			if (korisnik.getTipKorisnika() == TipKorisnika.KUPAC) {
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				
+				Date datumRodjenja = null;
+				try {
+					datumRodjenja = dateFormat.parse(dto.getDatumRodjenja());
+					
+					korisnik.setIme(dto.getIme());
+					korisnik.setPrezime(dto.getPrezime());
+					korisnik.setPol(Pol.stringToPol(dto.getPol()));
+					korisnik.setDatumRodjenja(datumRodjenja);
+					
+					Kupac kupac = kupci.get(dto.getKorisnickoIme());
+					
+					kupac.setIme(dto.getIme());
+					kupac.setPrezime(dto.getPrezime());
+					kupac.setPol(Pol.stringToPol(dto.getPol()));
+					kupac.setDatumRodjenja(datumRodjenja);
+					
+					korisnici.replace(dto.getKorisnickoIme(), korisnik);
+					kupci.replace(dto.getKorisnickoIme(), kupac);
+					
+					sacuvajKorisnike(contextPath);
+					sacuvajKupce(contextPath);
+					
+					return true;
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			} else if (korisnik.getTipKorisnika() == TipKorisnika.ADMINISTRATOR) {
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				
+				Date datumRodjenja = null;
+				try {
+					datumRodjenja = dateFormat.parse(dto.getDatumRodjenja());
+					
+					korisnik.setIme(dto.getIme());
+					korisnik.setPrezime(dto.getPrezime());
+					korisnik.setPol(Pol.stringToPol(dto.getPol()));
+					korisnik.setDatumRodjenja(datumRodjenja);
+					
+					Administrator admin = administratori.get(dto.getKorisnickoIme());
+					
+					admin.setIme(dto.getIme());
+					admin.setPrezime(dto.getPrezime());
+					admin.setPol(Pol.stringToPol(dto.getPol()));
+					admin.setDatumRodjenja(datumRodjenja);
+					
+					korisnici.replace(dto.getKorisnickoIme(), korisnik);
+					administratori.replace(dto.getKorisnickoIme(), admin);
+					
+					sacuvajKorisnike(contextPath);
+					sacuvajAdministratore(contextPath);
+					
+					return true;
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			} else if (korisnik.getTipKorisnika() == TipKorisnika.DOSTAVLJAC) {
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				
+				Date datumRodjenja = null;
+				try {
+					datumRodjenja = dateFormat.parse(dto.getDatumRodjenja());
+					
+					korisnik.setIme(dto.getIme());
+					korisnik.setPrezime(dto.getPrezime());
+					korisnik.setPol(Pol.stringToPol(dto.getPol()));
+					korisnik.setDatumRodjenja(datumRodjenja);
+					
+					Dostavljac dostavljac = dostavljaci.get(dto.getKorisnickoIme());
+					
+					dostavljac.setIme(dto.getIme());
+					dostavljac.setPrezime(dto.getPrezime());
+					dostavljac.setPol(Pol.stringToPol(dto.getPol()));
+					dostavljac.setDatumRodjenja(datumRodjenja);
+					
+					korisnici.replace(dto.getKorisnickoIme(), korisnik);
+					dostavljaci.replace(dto.getKorisnickoIme(), dostavljac);
+					
+					sacuvajKorisnike(contextPath);
+					sacuvajDostavljace(contextPath);
+					
+					return true;
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			} else if (korisnik.getTipKorisnika() == TipKorisnika.MENADZER) {
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				
+				Date datumRodjenja = null;
+				try {
+					datumRodjenja = dateFormat.parse(dto.getDatumRodjenja());
+					
+					korisnik.setIme(dto.getIme());
+					korisnik.setPrezime(dto.getPrezime());
+					korisnik.setPol(Pol.stringToPol(dto.getPol()));
+					korisnik.setDatumRodjenja(datumRodjenja);
+					
+					Menadzer menadzer = menadzeri.get(dto.getKorisnickoIme());
+					
+					menadzer.setIme(dto.getIme());
+					menadzer.setPrezime(dto.getPrezime());
+					menadzer.setPol(Pol.stringToPol(dto.getPol()));
+					menadzer.setDatumRodjenja(datumRodjenja);
+					
+					korisnici.replace(dto.getKorisnickoIme(), korisnik);
+					menadzeri.replace(dto.getKorisnickoIme(), menadzer);
+					
+					sacuvajKorisnike(contextPath);
+					sacuvajMenadzere(contextPath);
+					
+					return true;
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			return false;
+		}
+		
+		return false;
 	}
 }
