@@ -21,8 +21,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import beans.Dostavljac;
 import beans.Korisnik;
 import beans.Kupac;
+import beans.Menadzer;
 import beans.Pol;
 import beans.TipKorisnika;
 import dao.KorisnikDAO;
@@ -332,5 +334,151 @@ public class UserService {
 		} 
 		
 		return Response.status(Status.BAD_REQUEST).entity("SOMETHING WENT WRONG").build();
+	}
+	
+	@POST
+	@Path("/newManager")
+	public Response addNewManager(RegistracijaDTO dto) {
+		Korisnik korisnik = (Korisnik) request.getSession().getAttribute("korisnik");
+		
+		// 1. scenario: korisnik nije ulogovan
+		if (korisnik == null) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT LOGGED IN").build();
+		}
+		
+		// 2. scenario: tipKorisnika mora biti ADMINISTRATOR
+		if (korisnik.getTipKorisnika() != TipKorisnika.ADMINISTRATOR) {
+			return Response.status(Status.FORBIDDEN).entity("NOT ADMINISTRATOR").build();
+		}
+		
+		// 3. scenario: nevalidan unos podataka
+		if (dto.getKorisnickoIme().equals("") ||
+			dto.getLozinka().equals("") ||
+			dto.getIme().equals("") ||
+			dto.getPrezime().equals("") ||
+			dto.getPotvrda_lozinke().equals("") ||
+			dto.getPol().equals("") ||
+			dto.getDatumRodjenja().equals("")) {
+			return Response.status(Status.BAD_REQUEST).entity("EMPTY FIELDS").build();
+		}
+				
+		// 4. scenario: nevalidan unos pola
+		if (!(dto.getPol().equals("MUSKO") || dto.getPol().equals("ZENSKO"))) {
+			return Response.status(Status.BAD_REQUEST).entity("INVALID GENDER").build();
+		}
+				
+		// 5. scenario: datum ne valja
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date datumRodjenja = null;
+		try {
+			datumRodjenja = dateFormat.parse(dto.getDatumRodjenja());
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return Response.status(Status.BAD_REQUEST).entity("INVALID DATE FORMAT").build();
+		}
+				
+		KorisnikDAO korisnikDAO = (KorisnikDAO) ctx.getAttribute("korisnici");
+		HashMap<String, Korisnik> korisnici = korisnikDAO.getKorisniciHashMap();
+				
+		// 6. scenario: korisnicko ime je zauzeto tj. vec postoji korisnik sa takvim korisnickim imenom
+		if (korisnici.containsKey(dto.getKorisnickoIme())) {
+			return Response.status(Status.BAD_REQUEST).entity("USERNAME ALREADY TAKEN").build();
+		}
+				
+		// 7. scenario: sadrzaj polja za potvrdu lozinke se ne poklapa sa unetom lozinkom
+		if (!dto.getLozinka().equals(dto.getPotvrda_lozinke())) {
+			return Response.status(Status.BAD_REQUEST).entity("PASSWORDS DO NOT MATCH").build();
+		}
+		
+		// 8. scenario: sve je u redu
+		Korisnik noviKorisnik = new Korisnik(
+			dto.getKorisnickoIme(),
+			dto.getLozinka(),
+			dto.getIme(),
+			dto.getPrezime(),
+			Pol.stringToPol(dto.getPol()),
+			datumRodjenja,
+			TipKorisnika.MENADZER,
+			false
+		);
+		
+		Menadzer menadzer = new Menadzer(noviKorisnik);
+		
+		korisnikDAO.dodajMenadzera(menadzer);
+		
+		return Response.status(Status.OK).build();
+	}
+	
+	@POST
+	@Path("/newDeliverer")
+	public Response addNewDeliverer(RegistracijaDTO dto) {
+		Korisnik korisnik = (Korisnik) request.getSession().getAttribute("korisnik");
+		
+		// 1. scenario: korisnik nije ulogovan
+		if (korisnik == null) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT LOGGED IN").build();
+		}
+		
+		// 2. scenario: tipKorisnika mora biti ADMINISTRATOR
+		if (korisnik.getTipKorisnika() != TipKorisnika.ADMINISTRATOR) {
+			return Response.status(Status.FORBIDDEN).entity("NOT ADMINISTRATOR").build();
+		}
+		
+		// 3. scenario: nevalidan unos podataka
+		if (dto.getKorisnickoIme().equals("") ||
+			dto.getLozinka().equals("") ||
+			dto.getIme().equals("") ||
+			dto.getPrezime().equals("") ||
+			dto.getPotvrda_lozinke().equals("") ||
+			dto.getPol().equals("") ||
+			dto.getDatumRodjenja().equals("")) {
+			return Response.status(Status.BAD_REQUEST).entity("EMPTY FIELDS").build();
+		}
+				
+		// 4. scenario: nevalidan unos pola
+		if (!(dto.getPol().equals("MUSKO") || dto.getPol().equals("ZENSKO"))) {
+			return Response.status(Status.BAD_REQUEST).entity("INVALID GENDER").build();
+		}
+				
+		// 5. scenario: datum ne valja
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date datumRodjenja = null;
+		try {
+			datumRodjenja = dateFormat.parse(dto.getDatumRodjenja());
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return Response.status(Status.BAD_REQUEST).entity("INVALID DATE FORMAT").build();
+		}
+				
+		KorisnikDAO korisnikDAO = (KorisnikDAO) ctx.getAttribute("korisnici");
+		HashMap<String, Korisnik> korisnici = korisnikDAO.getKorisniciHashMap();
+				
+		// 6. scenario: korisnicko ime je zauzeto tj. vec postoji korisnik sa takvim korisnickim imenom
+		if (korisnici.containsKey(dto.getKorisnickoIme())) {
+			return Response.status(Status.BAD_REQUEST).entity("USERNAME ALREADY TAKEN").build();
+		}
+				
+		// 7. scenario: sadrzaj polja za potvrdu lozinke se ne poklapa sa unetom lozinkom
+		if (!dto.getLozinka().equals(dto.getPotvrda_lozinke())) {
+			return Response.status(Status.BAD_REQUEST).entity("PASSWORDS DO NOT MATCH").build();
+		}
+		
+		// 8. scenario: sve je u redu
+		Korisnik noviKorisnik = new Korisnik(
+			dto.getKorisnickoIme(),
+			dto.getLozinka(),
+			dto.getIme(),
+			dto.getPrezime(),
+			Pol.stringToPol(dto.getPol()),
+			datumRodjenja,
+			TipKorisnika.DOSTAVLJAC,
+			false
+		);
+		
+		Dostavljac dostavljac = new Dostavljac(noviKorisnik);
+		
+		korisnikDAO.dodajDostavljaca(dostavljac);
+		
+		return Response.status(Status.OK).build();
 	}
 }
