@@ -29,6 +29,7 @@ import beans.Pol;
 import beans.TipKorisnika;
 import dao.KorisnikDAO;
 import dto.KorisnikDTO;
+import dto.MenadzerDTO;
 import dto.PromenaLozinkeDTO;
 import dto.RegistracijaDTO;
 
@@ -480,5 +481,16 @@ public class UserService {
 		korisnikDAO.dodajDostavljaca(dostavljac);
 		
 		return Response.status(Status.OK).build();
+	}
+	
+	@GET
+	@Path("/allAvailableManagers")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAllAvailableManagers() {
+		KorisnikDAO korisnikDAO = (KorisnikDAO) ctx.getAttribute("korisnici");
+		
+		List<MenadzerDTO> available = korisnikDAO.slobodniMenadzeri();
+		
+		return Response.status(Status.OK).entity(available).build();
 	}
 }

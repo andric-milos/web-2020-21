@@ -4,9 +4,11 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
@@ -22,6 +24,7 @@ import beans.Menadzer;
 import beans.Pol;
 import beans.TipKorisnika;
 import dto.KorisnikDTO;
+import dto.MenadzerDTO;
 
 public class KorisnikDAO {
 	private HashMap<String, Korisnik> korisnici;	// key = korisnicko ime; value = objekat (korisnik)
@@ -569,5 +572,27 @@ public class KorisnikDAO {
 		}
 		
 		return false;
+	}
+	
+	public List<MenadzerDTO> slobodniMenadzeri() {
+		List<MenadzerDTO> returnList = new ArrayList<MenadzerDTO>();
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		
+		for (Menadzer m : menadzeri.values()) {
+			if (m.getRestoran() == null) {
+				MenadzerDTO dto = new MenadzerDTO();
+				dto.setKorisnickoIme(m.getKorisnickoIme());
+				dto.setIme(m.getIme());
+				dto.setPrezime(m.getPrezime());
+				dto.setRestoran(m.getRestoran());
+				dto.setPol(m.getPol().toString());
+				dto.setDatumRodjenja(dateFormat.format(m.getDatumRodjenja()));
+				
+				returnList.add(dto);
+			}
+		}
+		
+		return returnList;
 	}
 }
