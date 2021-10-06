@@ -22,7 +22,7 @@ Vue.component("user-info", {
                 <label class="p-2"><b>Username</b></label>
                 <input type="text" class="p-2" id="username" v-model="username" disabled>
 
-                <label class="p-2"><b>First Name</b></label>
+                <label class="p-2"><b>First name</b></label>
                 <input type="text" class="p-2" id="firstname" v-model="firstname" disabled>
                 <label id="firstnameError" class="p-2 text-danger"></label>
 
