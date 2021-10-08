@@ -4,7 +4,6 @@ public class Adresa {
 	private String ulica;
 	private int broj;
 	private String mesto;
-	private String grad;
 	private int postanskiBroj;
 	
 	public Adresa() {
@@ -12,13 +11,11 @@ public class Adresa {
 
 	public Adresa(String ulica, 
 				  int broj, 
-				  String mesto, 
-				  String grad, 
+				  String mesto,  
 				  int postanskiBroj) {
 		this.ulica = ulica;
 		this.broj = broj;
 		this.mesto = mesto;
-		this.grad = grad;
 		this.postanskiBroj = postanskiBroj;
 	}
 
@@ -44,14 +41,6 @@ public class Adresa {
 
 	public void setMesto(String mesto) {
 		this.mesto = mesto;
-	}
-
-	public String getGrad() {
-		return grad;
-	}
-
-	public void setGrad(String grad) {
-		this.grad = grad;
 	}
 
 	public int getPostanskiBroj() {
