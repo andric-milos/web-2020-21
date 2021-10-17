@@ -4,5 +4,6 @@ public enum TipRestorana {
 	ITALIJANSKI,
 	KINESKI,
 	ROSTILJ,
-	MEKSICKI
+	MEKSICKI,
+	PICERIJA
 }

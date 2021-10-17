@@ -1,5 +1,6 @@
 package beans;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +10,8 @@ public class Restoran {
 	private List<Artikal> artikli; // artikli koje restoran ima u ponudi
 	private StatusRestorana status;
 	private Lokacija lokacija;
-	// logo restorana (slika)
+	private transient File logo;
+	private String menadzer;
 	
 	public Restoran() {
 		this.artikli = new ArrayList<Artikal>();
@@ -17,14 +19,18 @@ public class Restoran {
 	
 	public Restoran(String naziv, 
 					TipRestorana tip, 
-					List<Artikal> artikli, 
 					StatusRestorana status, 
-					Lokacija lokacija) {
+					Lokacija lokacija,
+					File logo,
+					String menadzer) {
 		this.naziv = naziv;
 		this.tip = tip;
-		this.artikli = artikli;
 		this.status = status;
 		this.lokacija = lokacija;
+		this.logo = logo;
+		this.menadzer = menadzer;
+		
+		this.artikli = new ArrayList<Artikal>();
 	}
 
 	public String getNaziv() {
@@ -65,5 +71,21 @@ public class Restoran {
 
 	public void setLokacija(Lokacija lokacija) {
 		this.lokacija = lokacija;
+	}
+
+	public File getLogo() {
+		return logo;
+	}
+
+	public void setLogo(File logo) {
+		this.logo = logo;
+	}
+
+	public String getMenadzer() {
+		return menadzer;
+	}
+
+	public void setMenadzer(String menadzer) {
+		this.menadzer = menadzer;
 	}
 }

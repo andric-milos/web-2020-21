@@ -28,6 +28,7 @@ import beans.Menadzer;
 import beans.Pol;
 import beans.TipKorisnika;
 import dao.KorisnikDAO;
+import dao.RestoranDAO;
 import dto.KorisnikDTO;
 import dto.MenadzerDTO;
 import dto.PromenaLozinkeDTO;
@@ -51,6 +52,11 @@ public class UserService {
 		if (ctx.getAttribute("korisnici") == null) {
 			String path = ctx.getRealPath("");
 			ctx.setAttribute("korisnici", new KorisnikDAO(path));
+		}
+		
+		if (ctx.getAttribute("restorani") == null) {
+			String path = ctx.getRealPath("");
+			ctx.setAttribute("restorani", new RestoranDAO(path));
 		}
 	}
 	
