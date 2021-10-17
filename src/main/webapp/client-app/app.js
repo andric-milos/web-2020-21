@@ -10,6 +10,7 @@ const ListOfUsers = { template: '<admin-list-of-users></admin-list-of-users>' }
 const AdminChangePasswordPage = { template: '<admin-change-password></admin-change-password>' }
 const AddNewManager = { template: '<admin-new-manager></admin-new-manager>' }
 const AddNewDeliverer = { template: '<admin-new-deliverer></admin-new-deliverer>' }
+const AddNewRestaurant = { template: '<admin-new-restaurant></admin-new-restaurant>' }
 
 const ManagerInfo = { template: '<manager-info></manager-info>' }
 const ManagerChangePasswordPage = { template: '<manager-change-password></manager-change-password>' }
@@ -60,6 +61,10 @@ const router = new VueRouter({
         {
             path: '/admin/newDeliverer',
             component: AddNewDeliverer
+        },
+        {
+            path: '/admin/newRestaurant',
+            component: AddNewRestaurant
         },
         {
             path: '/manager',
