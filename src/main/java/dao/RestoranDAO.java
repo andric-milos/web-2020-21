@@ -85,4 +85,12 @@ public class RestoranDAO {
 			System.out.println("RestoranDAO[method ucitajRestorane]: File " + path + " couldn't be open. It probably doesn't exist.");
 		}
 	}
+	
+	public Restoran getRestaurantByItsName(String name) {
+		if (!this.restorani.containsKey(name)) {
+			return null;
+		}
+		
+		return this.restorani.get(name);
+	}
 }

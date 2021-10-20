@@ -16,6 +16,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -25,6 +26,7 @@ import javax.ws.rs.core.Response.Status;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
 import beans.Adresa;
+import beans.Artikal;
 import beans.Korisnik;
 import beans.Lokacija;
 import beans.Menadzer;
@@ -34,6 +36,8 @@ import beans.TipKorisnika;
 import beans.TipRestorana;
 import dao.KorisnikDAO;
 import dao.RestoranDAO;
+import dto.ArtikalDTO;
+import dto.RestoranDTO;
 
 @Path("/restaurant")
 public class RestoranService {
@@ -244,5 +248,48 @@ public class RestoranService {
 		List<Restoran> restorani = restoranDAO.getAllRestoraniList();
 		
 		return Response.status(Status.OK).entity(restorani).build();
+	}
+	
+	@GET
+	@Path("/byManager/{manager}")
+	public Response getRestaurantByItsManager(@PathParam("manager") String manager) {
+		KorisnikDAO korisnikDAO = (KorisnikDAO) ctx.getAttribute("korisnici");
+		
+		// 1. scenario: menadzer sa zadatim korisnickim imenom ne postoji
+		if (!korisnikDAO.getMenadzeriHashMap().containsKey(manager)) {
+			return Response.status(Status.BAD_REQUEST).entity("MANAGER DOES NOT EXIST").build();
+		}
+		
+		// 2. scenario: menadzer ne rukovodi ni jednim restoranom
+		Menadzer menadzer = korisnikDAO.getMenadzeriHashMap().get(manager);
+		if (menadzer.getRestoran() == null) {
+			return Response.status(Status.BAD_REQUEST).entity("RESTAURANT IS NULL").build();
+		}
+		
+		// 3. scenario: vratiti restoran kojim menadzer rukovodi
+		RestoranDAO restoranDAO = (RestoranDAO) ctx.getAttribute("restorani");
+		Restoran restoran = restoranDAO.getRestaurantByItsName(menadzer.getRestoran());
+		
+		RestoranDTO dto = new RestoranDTO();
+		dto.setNaziv(restoran.getNaziv());
+		dto.setTip(restoran.getTip().toString());
+		List<ArtikalDTO> artikli = new ArrayList<ArtikalDTO>();
+		for (Artikal a : restoran.getArtikli()) {
+			ArtikalDTO artikalDTO = new ArtikalDTO();
+			artikalDTO.setNaziv(a.getNaziv());
+			artikalDTO.setCena(a.getCena());
+			artikalDTO.setTip(a.getTip().toString());
+			artikalDTO.setRestoran(a.getRestoran());
+			artikalDTO.setKolicina(a.getKolicina());
+			artikalDTO.setOpis(a.getOpis());
+			
+			artikli.add(artikalDTO);
+		}
+		dto.setArtikli(artikli);
+		dto.setStatus(restoran.getStatus().toString());
+		dto.setLokacija(restoran.getLokacija());
+		dto.setMenadzer(restoran.getMenadzer());
+		
+		return Response.status(Status.OK).entity(dto).build();
 	}
 }
