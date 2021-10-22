@@ -34,9 +34,14 @@ Vue.component("restaurant-info", {
                     <h3 class="p-2"><b>Articles</b></h3>
                     <button 
                         type="button" 
-                        class="btn btn-secondary m-2" >
+                        class="btn btn-secondary m-2"
+                        data-bs-toggle="modal"
+                        data-bs-target="#addNewArticleModal" >
                     Add new article
                     </button>
+
+                    <!-- Modal -->
+                    <add-new-article-modal v-if="restaurant" modalId="addNewArticleModal" v-bind:restaurantName="restaurant.naziv"></add-new-article-modal>
                 </div>
                 
                 <div class="d-flex flex-row flex-wrap justify-content-between" style="max-width:570px;">
@@ -111,7 +116,11 @@ Vue.component("restaurant-info", {
             document.getElementById("restaurantName").innerHTML = this.restaurant.naziv;
             document.getElementById("restaurantLogo").setAttribute("src", "http://localhost:8080/web-2020-21/images/restaurant-logos/" + this.restaurant.naziv + ".jpg");
 
-            var map = L.map('map').setView([45.2460312, 19.8359505], 13);
+            // var map = L.map('map').setView([this.restaurant.lokacija.geografskaSirina, this.restaurant.lokacija.geografskaDuzina], 13);
+            var map = L.map('map', {
+                center: [this.restaurant.lokacija.geografskaSirina, this.restaurant.lokacija.geografskaDuzina],
+                zoom: 13
+            });
 
             L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
                 attribution: '',
@@ -133,7 +142,6 @@ Vue.component("restaurant-info", {
                     this.showRestaurant = false;
                 } else {
                     if (response.data.tipKorisnika == "MENADZER") {
-                        // novi axios poziv
                         axios.get("rest/restaurant/byManager/" + response.data.korisnickoIme)
                             .then(response => {
                                 this.restaurant = response.data;
