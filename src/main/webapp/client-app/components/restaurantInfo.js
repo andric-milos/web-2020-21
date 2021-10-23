@@ -2,7 +2,8 @@ Vue.component("restaurant-info", {
     data: function() {
         return {
             showRestaurant: undefined,
-            restaurant: undefined
+            restaurant: undefined,
+            artikli: []
         }
     },
     template: `
@@ -45,62 +46,14 @@ Vue.component("restaurant-info", {
                 </div>
                 
                 <div class="d-flex flex-row flex-wrap justify-content-between" style="max-width:570px;">
-                    <div class="card my-1" style="width: 17rem;">
-                        <img class="card-img-top" src="https://imgsv.imaging.nikon.com/lineup/dslr/df/img/sample/img_01.jpg" alt="Card image cap">
+                    <div class="card my-1" style="width: 17rem;" v-for="a in artikli">
+                        <img class="card-img-top" v-bind:src="'http://localhost:8080/web-2020-21/images/article-images/' + a.restoran + '-' + a.naziv + '.jpg'" alt="Card image cap">
                         <div class="card-body">
-                            <h5 class="card-title">Artikal 1</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <h5 class="card-title">{{ a.naziv }}</h5>
+                            <p class="card-text">{{ a.opis }}</p>
                             <div class="d-flex flex-row justify-content-between">
-                                <p>250 g</p>
-                                <p>500 RSD</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card my-1" style="width: 17rem;">
-                        <img class="card-img-top" src="https://imgsv.imaging.nikon.com/lineup/dslr/df/img/sample/img_01.jpg" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Mali pepsi</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <div class="d-flex flex-row justify-content-between">
-                                <p>100 ml</p>
-                                <p>70 RSD</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card my-1" style="width: 17rem;">
-                        <img class="card-img-top" src="https://imgsv.imaging.nikon.com/lineup/dslr/df/img/sample/img_01.jpg" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Parce pice</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <div class="d-flex flex-row justify-content-between">
-                                <p>150 g</p>
-                                <p>150 RSD</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card my-1" style="width: 17rem;">
-                        <img class="card-img-top" src="https://imgsv.imaging.nikon.com/lineup/dslr/df/img/sample/img_01.jpg" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Artikal 3</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <div class="d-flex flex-row justify-content-between">
-                                <p>250 g</p>
-                                <p>500 RSD</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card my-1" style="width: 17rem;">
-                        <img class="card-img-top" src="https://imgsv.imaging.nikon.com/lineup/dslr/df/img/sample/img_01.jpg" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Artikal 4</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <div class="d-flex flex-row justify-content-between">
-                                <p>250 g</p>
-                                <p>500 RSD</p>
+                                <p>{{ a.kolicina }} <span v-if="a.tip =='JELO'">g</span><span v-if="a.tip =='PICE'">ml</span></p>
+                                <p>{{ a.cena }} RSD</p>
                             </div>
                         </div>
                     </div>
@@ -145,6 +98,7 @@ Vue.component("restaurant-info", {
                         axios.get("rest/restaurant/byManager/" + response.data.korisnickoIme)
                             .then(response => {
                                 this.restaurant = response.data;
+                                this.artikli = response.data.artikli;
                                 this.showRestaurant = true;
                                 this.initializeMapAndRestaurantInfo();
                             })

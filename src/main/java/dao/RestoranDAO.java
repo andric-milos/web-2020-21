@@ -13,6 +13,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import beans.Artikal;
 import beans.Restoran;
 
 public class RestoranDAO {
@@ -92,5 +93,16 @@ public class RestoranDAO {
 		}
 		
 		return this.restorani.get(name);
+	}
+	
+	public void dodajArtikal(Artikal artikal) {
+		if (this.restorani.containsKey(artikal.getRestoran())) {
+			Restoran restoran = this.restorani.get(artikal.getRestoran());
+			restoran.getArtikli().add(artikal);
+			
+			this.restorani.replace(artikal.getRestoran(), restoran);
+			
+			sacuvajRestorane(contextPath);
+		}
 	}
 }

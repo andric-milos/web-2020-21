@@ -32,6 +32,7 @@ import beans.Lokacija;
 import beans.Menadzer;
 import beans.Restoran;
 import beans.StatusRestorana;
+import beans.TipArtikla;
 import beans.TipKorisnika;
 import beans.TipRestorana;
 import dao.KorisnikDAO;
@@ -109,11 +110,17 @@ public class RestoranService {
 		}
 		
 		// 3. scenario: nevalidan unos podataka
-		if (nazivRestorana == null || nazivRestorana.equals("") || nazivRestorana.trim().equals("") ||
-			ulica == null || ulica.equals("") || ulica.trim().equals("") ||
-			mesto == null || mesto.equals("") || mesto.trim().equals("") ||
-			tipRestorana == null || tipRestorana.equals("") || tipRestorana.trim().equals("") ||
-			menadzer == null || menadzer.equals("") || menadzer.trim().equals("")) {
+		// resiti se whitespace-ova
+		nazivRestorana = nazivRestorana.trim();
+		ulica = ulica.trim();
+		mesto = mesto.trim();
+		tipRestorana = tipRestorana.trim();
+		menadzer = menadzer.trim();
+		if (nazivRestorana == null || nazivRestorana.equals("") ||
+			ulica == null || ulica.equals("") ||
+			mesto == null || mesto.equals("") ||
+			tipRestorana == null || tipRestorana.equals("") ||
+			menadzer == null || menadzer.equals("")) {
 			return Response.status(Status.BAD_REQUEST).entity("EMPTY FIELDS").build();
 		}
 		
@@ -225,16 +232,20 @@ public class RestoranService {
 		// kreirati objekat klase Restoran
 		Adresa adresa = new Adresa(ulica, broj, mesto, postanskiBroj);
 		Lokacija lokacija = new Lokacija(geoDuzina, geoSirina, adresa);
-		Restoran restoran = new Restoran(nazivRestorana,
-										 TipRestorana.valueOf(tipRestorana),
-										 StatusRestorana.RADI,
-										 lokacija,
-										 newLogoFile,
-										 menadzer);
+		Restoran restoran = new Restoran(
+			nazivRestorana,
+			TipRestorana.valueOf(tipRestorana),
+			StatusRestorana.RADI,
+			lokacija,
+			newLogoFile,
+			menadzer
+		);
 		
+		// dodavanje restorana i serijalizacija
 		RestoranDAO restoranDAO = (RestoranDAO) ctx.getAttribute("restorani");
-		restoranDAO.dodajRestoran(restoran);	// implementirati i serijalizaciju u okviru metode
+		restoranDAO.dodajRestoran(restoran);	// u okviru metode se poziva i metoda sacuvajRestorane
 		
+		// update menadzera kojem je upravo dodeljen restorana
 		menadzerObject.setRestoran(nazivRestorana);
 		korisnikDAO.sacuvajMenadzere(ctx.getRealPath(""));
 		
@@ -291,5 +302,157 @@ public class RestoranService {
 		dto.setMenadzer(restoran.getMenadzer());
 		
 		return Response.status(Status.OK).entity(dto).build();
+	}
+	
+	@POST
+	@Path("/addNewArticle")
+	public Response addNewArticle(@FormDataParam("nazivArtikla") String nazivArtikla,
+								  @FormDataParam("tipArtikla") String tipArtikla,
+								  @FormDataParam("slikaArtikla") File slikaArtikla,
+								  @FormDataParam("opisArtikla") String opisArtikla,
+								  @FormDataParam("kolicina") int kolicina,
+								  @FormDataParam("cena") float cena,
+								  @FormDataParam("nazivRestorana") String nazivRestorana) {
+		Korisnik korisnik = (Korisnik) request.getSession().getAttribute("korisnik");
+		
+		// 1. scenario: korisnik nije ulogovan
+		if (korisnik == null) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT LOGGED IN").build();
+		}
+		
+		// 2. scenario: tipKorisnika mora biti MENADZER
+		if (korisnik.getTipKorisnika() != TipKorisnika.MENADZER) {
+			return Response.status(Status.FORBIDDEN).entity("NOT MANAGER").build();
+		}
+		
+		// 3. scenario: tipKorisnika je MENADZER, ali to nije menadzer odgovarajuceg restorana
+		KorisnikDAO korisnikDAO = (KorisnikDAO) ctx.getAttribute("korisnici");
+		Menadzer menadzer = korisnikDAO.getMenadzeriHashMap().get(korisnik.getKorisnickoIme());
+		
+		if (!menadzer.getRestoran().equals(nazivRestorana)) {
+			return Response.status(Status.FORBIDDEN).entity("WRONG MANAGER").build();
+		}
+		
+		// 4. scenario: nevalidan unos podataka
+		// resiti se whitespace-ova
+		nazivRestorana = nazivRestorana.trim();
+		nazivArtikla = nazivArtikla.trim();
+		tipArtikla = tipArtikla.trim();
+		opisArtikla = opisArtikla.trim();
+		
+		if (nazivRestorana == null || nazivRestorana.equals("") ||
+			nazivArtikla == null || nazivArtikla.equals("") ||
+			tipArtikla == null || tipArtikla.equals("") ||
+			opisArtikla == null	|| opisArtikla.equals("")) {
+			return Response.status(Status.BAD_REQUEST).entity("EMPTY FIELDS").build();
+		}
+		
+		// 5. scenario: nevalidan unos tipa artikla
+		try {
+			TipArtikla.valueOf(tipArtikla);
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+			return Response.status(Status.BAD_REQUEST).entity("INVALID ARTICLE TYPE").build();
+		}
+		
+		// 6. scenario: kolicina mora biti > 0
+		if (kolicina <= 0) {
+			return Response.status(Status.BAD_REQUEST).entity("INVALID QUANTITY NUMBER").build();
+		}
+		
+		// 7. scenario: cena mora biti > 0
+		if (cena <= 0) {
+			return Response.status(Status.BAD_REQUEST).entity("INVALID PRICE NUMBER").build();
+		}
+		
+		// 8. scenario: slikaArtikla == null
+		if (slikaArtikla == null) {
+			return Response.status(Status.BAD_REQUEST).entity("IMAGE IS NULL").build();
+		}
+		
+		// Snimanje slike artikla u "images\article-images\"
+		String imagePath = ctx.getRealPath("") + "images\\article-images\\" + nazivRestorana + "-" + nazivArtikla + ".jpg";
+		// System.out.println(imagePath);
+		
+		FileInputStream reader = null;
+		FileOutputStream writer = null;
+		File newImageFile = null;
+		try {
+			newImageFile = new File(imagePath);
+			reader = new FileInputStream(slikaArtikla);
+			writer = new FileOutputStream(newImageFile);
+			
+			int byteRead;
+			while ((byteRead = reader.read()) != -1) {
+				writer.write(byteRead);
+			}
+		} catch (FileNotFoundException e) {
+			/* exception occurred while initializing FileInputStream or
+			 * while initializing FileOutputStream */
+			e.printStackTrace();
+			
+			try {
+				reader.close();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			
+			try {
+				writer.close();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			
+			return Response.status(Status.INTERNAL_SERVER_ERROR).entity("FILE NOT FOUND").build();
+		} catch (IOException e) {
+			/* exception occurred while reading or writing bytes */
+			e.printStackTrace();
+			
+			File file = new File(imagePath);
+			if (file.exists()) {
+				file.delete();
+			}
+			
+			try {
+				reader.close();
+			} catch (IOException e1) {
+				e.printStackTrace();
+			}
+			try {
+				writer.close();
+			} catch (IOException e1) {
+				e.printStackTrace();
+			}
+			
+			return Response.status(Status.INTERNAL_SERVER_ERROR).entity("FILE CORRUPTED").build();
+		} finally {
+			try {
+				reader.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			try {
+				writer.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		// kreirati objekat klase Artikal
+		Artikal artikal = new Artikal(
+			nazivArtikla,
+			cena,
+			TipArtikla.valueOf(tipArtikla),
+			nazivRestorana,
+			kolicina,
+			opisArtikla,
+			newImageFile
+		);
+		
+		// dodavanje artikla i serijalizacija
+		RestoranDAO restoranDAO = (RestoranDAO) ctx.getAttribute("restorani");
+		restoranDAO.dodajArtikal(artikal);	// u okviru metode se poziva i metoda sacuvajRestorane
+		
+		return Response.status(Status.OK).build();
 	}
 }

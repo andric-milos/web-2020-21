@@ -1,29 +1,33 @@
 package beans;
 
+import java.io.File;
+
 public class Artikal {
 	private String naziv;
-	private int cena;
+	private float cena;
 	private TipArtikla tip;
 	private String restoran; // naziv restorana kojem pripada
 	private int kolicina; // u gramima ili mililitrima
 	private String opis;
-	// slika
+	private transient File slika;
 	
 	public Artikal() {
 	}
 	
 	public Artikal(String naziv, 
-				   int cena, 
+				   float cena, 
 				   TipArtikla tip, 
 				   String restoran, 
 				   int kolicina, 
-				   String opis) {
+				   String opis,
+				   File slika) {
 		this.naziv = naziv;
 		this.cena = cena;
 		this.tip = tip;
 		this.restoran = restoran;
 		this.kolicina = kolicina;
 		this.opis = opis;
+		this.slika = slika;
 	}
 
 	public String getNaziv() {
@@ -34,11 +38,11 @@ public class Artikal {
 		this.naziv = naziv;
 	}
 
-	public int getCena() {
+	public float getCena() {
 		return cena;
 	}
 
-	public void setCena(int cena) {
+	public void setCena(float cena) {
 		this.cena = cena;
 	}
 
@@ -72,5 +76,13 @@ public class Artikal {
 
 	public void setOpis(String opis) {
 		this.opis = opis;
+	}
+
+	public File getSlika() {
+		return slika;
+	}
+
+	public void setSlika(File slika) {
+		this.slika = slika;
 	}
 }

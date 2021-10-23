@@ -4,7 +4,7 @@ import beans.TipArtikla;
 
 public class ArtikalDTO {
 	private String naziv;
-	private int cena;
+	private float cena;
 	private String tip;
 	private String restoran;
 	private int kolicina;
@@ -22,11 +22,11 @@ public class ArtikalDTO {
 		this.naziv = naziv;
 	}
 
-	public int getCena() {
+	public float getCena() {
 		return cena;
 	}
 
-	public void setCena(int cena) {
+	public void setCena(float cena) {
 		this.cena = cena;
 	}
 
