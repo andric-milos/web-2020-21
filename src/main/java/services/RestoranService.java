@@ -347,7 +347,18 @@ public class RestoranService {
 			return Response.status(Status.BAD_REQUEST).entity("EMPTY FIELDS").build();
 		}
 		
-		// 5. scenario: nevalidan unos tipa artikla
+		// 5. scenario: ime artikla je vec zauzeto
+		RestoranDAO restoranDAO = (RestoranDAO) ctx.getAttribute("restorani");
+		Restoran restoran = restoranDAO.getRestaurantByItsName(nazivRestorana);
+		if (restoran == null) {
+			return Response.status(Status.BAD_REQUEST).entity("RESTAURANT DOES NOT EXIST").build();
+		} else {
+			if (restoran.sadrziArtikal(nazivArtikla)) {
+				return Response.status(Status.BAD_REQUEST).entity("ARTICLE NAME TAKEN").build();
+			}
+		}
+		
+		// 6. scenario: nevalidan unos tipa artikla
 		try {
 			TipArtikla.valueOf(tipArtikla);
 		} catch (IllegalArgumentException e) {
@@ -355,17 +366,17 @@ public class RestoranService {
 			return Response.status(Status.BAD_REQUEST).entity("INVALID ARTICLE TYPE").build();
 		}
 		
-		// 6. scenario: kolicina mora biti > 0
+		// 7. scenario: kolicina mora biti > 0
 		if (kolicina <= 0) {
 			return Response.status(Status.BAD_REQUEST).entity("INVALID QUANTITY NUMBER").build();
 		}
 		
-		// 7. scenario: cena mora biti > 0
+		// 8. scenario: cena mora biti > 0
 		if (cena <= 0) {
 			return Response.status(Status.BAD_REQUEST).entity("INVALID PRICE NUMBER").build();
 		}
 		
-		// 8. scenario: slikaArtikla == null
+		// 9. scenario: slikaArtikla == null
 		if (slikaArtikla == null) {
 			return Response.status(Status.BAD_REQUEST).entity("IMAGE IS NULL").build();
 		}
@@ -450,7 +461,6 @@ public class RestoranService {
 		);
 		
 		// dodavanje artikla i serijalizacija
-		RestoranDAO restoranDAO = (RestoranDAO) ctx.getAttribute("restorani");
 		restoranDAO.dodajArtikal(artikal);	// u okviru metode se poziva i metoda sacuvajRestorane
 		
 		return Response.status(Status.OK).build();

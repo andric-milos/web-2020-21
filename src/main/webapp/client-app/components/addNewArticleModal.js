@@ -184,6 +184,10 @@ Vue.component("add-new-article-modal", {
                             alert("Quantity must be a positive number!");
                         } else if (error.response.data == "INVALID PRICE NUMBER") {
                             alert("Price must be a positive number!");
+                        } else if (error.response.data == "RESTAURANT DOES NOT EXIST") {
+                            alert("Restaurant " + this.restaurantName + " doesn't exist!");
+                        } else if (error.response.data == "ARTICLE NAME TAKEN") {
+                            alert("Article with name " + this.articleName + " already exists!");
                         } else {
                             console.log(error);
                         }

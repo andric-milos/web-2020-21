@@ -88,4 +88,14 @@ public class Restoran {
 	public void setMenadzer(String menadzer) {
 		this.menadzer = menadzer;
 	}
+	
+	public boolean sadrziArtikal(String nazivArtikla) {
+		for (Artikal a : this.artikli) {
+			if (a.getNaziv().equals(nazivArtikla)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 }
