@@ -139,7 +139,6 @@ Vue.component("new-user", {
 
             if (!this.username) {
                 document.getElementById("usernameError").innerHTML = "Username input field cannot be empty!";
-
                 ++flag;
             } else {
                 document.getElementById("usernameError").innerHTML = "";
@@ -147,7 +146,6 @@ Vue.component("new-user", {
 
             if (!this.password) {
                 document.getElementById("passwordError").innerHTML = "Password input field cannot be empty!";
-
                 ++flag;
             } else {
                 document.getElementById("passwordError").innerHTML = "";
@@ -155,7 +153,6 @@ Vue.component("new-user", {
 
             if (!this.firstname) {
                 document.getElementById("firstnameError").innerHTML = "Firstname input field cannot be empty!";
-
                 ++flag;
             } else {
                 document.getElementById("firstnameError").innerHTML = "";
@@ -163,7 +160,6 @@ Vue.component("new-user", {
 
             if (!this.lastname) {
                 document.getElementById("lastnameError").innerHTML = "Lastname input field cannot be empty!";
-
                 ++flag;
             } else {
                 document.getElementById("lastnameError").innerHTML = "";
@@ -171,7 +167,6 @@ Vue.component("new-user", {
 
             if (!this.gender) {
                 document.getElementById("genderError").innerHTML = "Gender input field cannot be empty!";
-
                 ++flag;
             } else {
                 document.getElementById("genderError").innerHTML = "";
@@ -179,7 +174,6 @@ Vue.component("new-user", {
 
             if (!this.date) {
                 document.getElementById("dateError").innerHTML = "Date input field cannot be empty!";
-
                 ++flag;
             } else {
                 document.getElementById("dateError").innerHTML = "";
@@ -187,11 +181,9 @@ Vue.component("new-user", {
 
             if (!this.confirm_password) {
                 document.getElementById("confirmPasswordError").innerHTML = "Confirm password input field cannot be empty!";
-
                 ++flag;
             } else if (this.password && (this.password != this.confirm_password)) {
                 document.getElementById("confirmPasswordError").innerHTML = "Passwords do not match!";
-                
                 ++flag;
             } else {
                 document.getElementById("confirmPasswordError").innerHTML = "";

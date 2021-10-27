@@ -142,7 +142,6 @@ Vue.component("user-info", {
 
             if (!this.firstname) {
                 document.getElementById("firstnameError").innerHTML = "Firstname input field cannot be empty!";
-
                 ++flag;
             } else {
                 document.getElementById("firstnameError").innerHTML = "";
@@ -150,7 +149,6 @@ Vue.component("user-info", {
 
             if (!this.lastname) {
                 document.getElementById("lastnameError").innerHTML = "Lastname input field cannot be empty!";
-
                 ++flag;
             } else {
                 document.getElementById("lastnameError").innerHTML = "";
@@ -158,7 +156,6 @@ Vue.component("user-info", {
 
             if (!this.gender) {
                 document.getElementById("genderError").innerHTML = "Gender input field cannot be empty!";
-
                 ++flag;
             } else {
                 document.getElementById("genderError").innerHTML = "";
@@ -166,7 +163,6 @@ Vue.component("user-info", {
 
             if (!this.date) {
                 document.getElementById("dateError").innerHTML = "Date input field cannot be empty!";
-
                 ++flag;
             } else {
                 document.getElementById("dateError").innerHTML = "";

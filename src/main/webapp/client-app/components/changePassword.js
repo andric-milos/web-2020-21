@@ -68,7 +68,6 @@ Vue.component("change-password", {
 
             if (!this.password) {
                 document.getElementById("passwordError").innerHTML = "Password input field cannot be empty!";
-
                 ++flag;
             } else {
                 document.getElementById("passwordError").innerHTML = "";
@@ -76,7 +75,6 @@ Vue.component("change-password", {
 
             if (!this.new_password) {
                 document.getElementById("newPasswordError").innerHTML = "New password input field cannot be empty!";
-
                 ++flag;
             } else {
                 document.getElementById("newPasswordError").innerHTML = "";
@@ -84,11 +82,9 @@ Vue.component("change-password", {
 
             if (!this.confirm_password) {
                 document.getElementById("confirmPasswordError").innerHTML = "Confirm password input field cannot be empty!";
-
                 ++flag;
             } else if (this.new_password && (this.new_password != this.confirm_password)) {
                 document.getElementById("confirmPasswordError").innerHTML = "Passwords do not match!";
-                
                 ++flag;
             } else {
                 document.getElementById("confirmPasswordError").innerHTML = "";
