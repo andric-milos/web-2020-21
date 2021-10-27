@@ -2,6 +2,7 @@ Vue.component("restaurant-info", {
     data: function() {
         return {
             showRestaurant: undefined,
+            showArticles: undefined,
             restaurant: undefined,
             artikli: []
         }
@@ -15,11 +16,11 @@ Vue.component("restaurant-info", {
                 <div class="d-flex flex-row p-2">
                     <div class="container">
                         <img 
-                        id="restaurantLogo" 
-                        class="border rounded" 
-                        height="auto" 
-                        width="100%" 
-                        max-width="300" />
+                            id="restaurantLogo" 
+                            class="border rounded" 
+                            height="auto" 
+                            width="100%" 
+                            max-width="300" />
                     </div>
                     <div class="container" id="map" height="auto" width="100%" max-width="300"></div>
                 </div>
@@ -31,21 +32,23 @@ Vue.component("restaurant-info", {
                 </div>
                 -->
 
-                <div class="d-flex flex-row justify-content-between p-2">
-                    <h3 class="p-2"><b>Articles</b></h3>
-                    <button 
-                        type="button" 
-                        class="btn btn-secondary m-2"
-                        data-bs-toggle="modal"
-                        data-bs-target="#addNewArticleModal" >
-                    Add new article
-                    </button>
+                <div class="d-flex flex-row  p-2">
+                    <h1 class="p-2"><b>Articles</b></h1>
+                    <div class="d-flex flex-column justify-content-center">
+                        <button 
+                            type="button" 
+                            class="btn btn-secondary btn-sm m-2"
+                            style="height:30px;"
+                            data-bs-toggle="modal"
+                            data-bs-target="#addNewArticleModal"
+                        > Add new article </button>
+                    </div>
 
                     <!-- Modal -->
                     <add-new-article-modal v-if="restaurant" modalId="addNewArticleModal" v-bind:restaurantName="restaurant.naziv"></add-new-article-modal>
                 </div>
-                
-                <div class="d-flex flex-row flex-wrap justify-content-between" style="max-width:570px;">
+                    
+                <div v-if="showArticles" class="d-flex flex-row flex-wrap">
                     <div class="card my-1" style="width: 17rem;" v-for="a in artikli">
                         <img class="card-img-top" v-bind:src="'http://localhost:8080/web-2020-21/images/article-images/' + a.restoran + '-' + a.naziv + '.jpg'" alt="Card image cap">
                         <div class="card-body">
@@ -58,6 +61,9 @@ Vue.component("restaurant-info", {
                         </div>
                     </div>
                 </div>
+                <div v-else>
+                    <h5 class="p-2 ml-2">No articles.</h5>
+                </div> 
             </div>
         </div>
         <div v-else>
@@ -66,7 +72,7 @@ Vue.component("restaurant-info", {
     </div> `,
     methods: {
         initializeMapAndRestaurantInfo() {
-            document.getElementById("restaurantName").innerHTML = this.restaurant.naziv;
+            document.getElementById("restaurantName").innerHTML = "<b>" + this.restaurant.naziv + "</b>";
             document.getElementById("restaurantLogo").setAttribute("src", "http://localhost:8080/web-2020-21/images/restaurant-logos/" + this.restaurant.naziv + ".jpg");
 
             // var map = L.map('map').setView([this.restaurant.lokacija.geografskaSirina, this.restaurant.lokacija.geografskaDuzina], 13);
@@ -86,6 +92,10 @@ Vue.component("restaurant-info", {
 
             var marker = L.marker([this.restaurant.lokacija.geografskaSirina, this.restaurant.lokacija.geografskaDuzina], {draggable: false});
             marker.addTo(map);
+
+            setTimeout(() => {
+                map.invalidateSize();           
+            }, 0);
         }
     },
     mounted() {
@@ -98,9 +108,15 @@ Vue.component("restaurant-info", {
                         axios.get("rest/restaurant/byManager/" + response.data.korisnickoIme)
                             .then(response => {
                                 this.restaurant = response.data;
-                                this.artikli = response.data.artikli;
                                 this.showRestaurant = true;
                                 this.initializeMapAndRestaurantInfo();
+
+                                this.artikli = response.data.artikli;
+
+                                if (this.artikli == [])
+                                    this.showArticles = false;
+                                else
+                                    this.showArticles = true;
                             })
                             .catch(error => {
                                 console.log(error);
