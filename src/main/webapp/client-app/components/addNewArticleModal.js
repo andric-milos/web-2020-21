@@ -43,7 +43,11 @@ Vue.component("add-new-article-modal", {
                             ref="imageInput"
                             hidden
                         >
-                        <button class="p-2" v-on:click="$refs.imageInput.click()"><b>Select an image</b></button>
+                        <button 
+                            type="button"
+                            class="p-2 btn btn-secondary" 
+                            v-on:click="$refs.imageInput.click()"
+                        > Select an image </button>
                         <img id="imagePreview" class="border rounded mt-1" style="display:flex" height="250" alt="No image selected."/>
                         <label id="imageError" class="p-2 text-danger"></label>
 

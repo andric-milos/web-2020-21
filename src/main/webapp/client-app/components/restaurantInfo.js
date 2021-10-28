@@ -32,7 +32,7 @@ Vue.component("restaurant-info", {
                 </div>
                 -->
 
-                <div class="d-flex flex-row  p-2">
+                <div class="d-flex flex-row p-2">
                     <h1 class="p-2"><b>Articles</b></h1>
                     <div class="d-flex flex-column justify-content-center">
                         <button 

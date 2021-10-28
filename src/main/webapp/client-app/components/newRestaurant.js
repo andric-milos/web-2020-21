@@ -37,7 +37,7 @@ Vue.component("new-restaurant", {
                 <label id="typeError" class="p-2 text-danger"></label>
 
                 <label class="p-2"><b>Location</b></label>
-                <div id="map" style="height: 200px;"></div> <!-- class="p-2" -->
+                <div id="map" style="height: 300px;"></div> <!-- class="p-2" -->
                 <label id="mapError" class="p-2 text-danger"></label>
 
                 <br>
@@ -68,11 +68,30 @@ Vue.component("new-restaurant", {
                     ref="logoInput"
                     hidden
                 >
-                <button class="p-2" v-on:click="$refs.logoInput.click()"><b>Select an image</b></button>
+                <button 
+                    type="button"
+                    class="p-2 btn btn-secondary" 
+                    v-on:click="$refs.logoInput.click()"
+                > Select an image </button>
                 <img id="logoPreview" class="border rounded mt-1" style="display:flex" height="200" alt="No image selected."/>
                 <label id="logoError" class="p-2 text-danger"></label>
 
-                <label class="p-2"><b>Manager</b></label>
+                <div class="d-flex justify-content-between p-2">
+                    <label><b>Manager</b></label>
+                    <div class="d-flex flex-column justify-content-center">
+                        <button 
+                            type="button" 
+                            class="btn btn-secondary btn-sm"
+                            style="height:30px;"
+                            data-bs-toggle="modal"
+                            data-bs-target="#addNewManagerModal"
+                        > Add new manager </button>
+                    </div>
+
+                    <!-- Modal -->
+                    <add-new-manager-modal modalId="addNewManagerModal"></add-new-manager-modal>
+                </div>
+                
                 <select name="manager" class="p-2" id="manager" v-model="manager">
                     <option v-for="m in managers" v-bind:value="m.korisnickoIme">{{ m | fullName }}</option>
                 </select>

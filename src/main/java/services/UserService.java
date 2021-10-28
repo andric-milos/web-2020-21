@@ -359,10 +359,14 @@ public class UserService {
 		}
 		
 		// 3. scenario: nevalidan unos podataka
-		if (dto.getKorisnickoIme().equals("") ||
+		dto.setKorisnickoIme(dto.getKorisnickoIme().trim());
+		dto.setIme(dto.getIme().trim());
+		dto.setPrezime(dto.getPrezime().trim());
+		
+		if (dto.getKorisnickoIme() == null || dto.getKorisnickoIme().equals("") ||
 			dto.getLozinka().equals("") ||
-			dto.getIme().equals("") ||
-			dto.getPrezime().equals("") ||
+			dto.getIme() == null || dto.getIme().equals("") ||
+			dto.getPrezime() == null || dto.getPrezime().equals("") ||
 			dto.getPotvrda_lozinke().equals("") ||
 			dto.getPol().equals("") ||
 			dto.getDatumRodjenja().equals("")) {
