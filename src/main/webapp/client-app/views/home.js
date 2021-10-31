@@ -30,17 +30,29 @@ Vue.component('home-page', {
                         v-bind:src="'http://localhost:8080/web-2020-21/images/restaurant-logos/' + r.naziv + '.jpg'" 
                         class="border-end border-dark rounded p-2" 
                         style="max-width:300px; max-height:300px; width:300px; height:300px;" />
-                    <div class="d-flex flex-column p-2">
-                        <h1><b>{{ r.naziv }}</b></h1>
-                        <h4><b>Address:</b> {{ r.lokacija.adresa.ulica }} {{ r.lokacija.adresa.broj }}, {{ r.lokacija.adresa.mesto }} {{ r.lokacija.adresa.postanskiBroj }} </h4>
-                        <h4><b>Type:</b> {{ r.tip }} </h4>
+                    <div class="d-flex flex-column p-2 justify-content-between" style="width: 500px;"> <!-- style="width: 100%;" -->
+                        <div class="d-flex flex-column">
+                            <h1><b>{{ r.naziv }}</b></h1>
+                            <h4><b>Address:</b> {{ r.lokacija.adresa.ulica }} {{ r.lokacija.adresa.broj }}, {{ r.lokacija.adresa.mesto }} {{ r.lokacija.adresa.postanskiBroj }} </h4>
+                            <h4><b>Type:</b> {{ r.tip }} </h4>
+                        </div>
+                        <div class="d-flex flex-row justify-content-end">
+                            <button 
+                                type="button" 
+                                class="btn btn-secondary" 
+                                style="width:80px;"
+                                v-on:click="navigateToRestaurant(r.naziv)"
+                            >Order</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div> `,
     methods: {
-
+        navigateToRestaurant(restaurantName) {
+            this.$router.push("/restaurant/" + restaurantName);
+        }
     },
     mounted() {
         axios.get("rest/restaurant")

@@ -465,4 +465,18 @@ public class RestoranService {
 		
 		return Response.status(Status.OK).build();
 	}
+	
+	@GET
+	@Path("/{restaurantName}")
+	public Response getRestaurantByItsName(@PathParam("restaurantName") String restaurantName) {
+		RestoranDAO restoranDAO = (RestoranDAO) ctx.getAttribute("restorani");
+		
+		Restoran restoran = restoranDAO.getRestaurantByItsName(restaurantName);
+		
+		if (restoran == null) {
+			return Response.status(Status.BAD_REQUEST).entity("DOES NOT EXIST").build();
+		}
+		
+		return Response.status(Status.OK).entity(restoran).build();
+	}
 }

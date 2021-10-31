@@ -1,6 +1,7 @@
 const HomePage = { template: '<home-page></home-page>' }
 const LoginPage = { template: '<login-page></login-page>' }
 const RegisterPage = { template: '<registration-page></registration-page>' }
+const RestaurantPage = { template: '<restaurant-page></restaurant-page>' }
 
 const CustomerInfo = { template: '<customer-info></customer-info>' }
 const CustomerChangePasswordPage = { template: '<customer-change-password></customer-change-password>' }
@@ -26,6 +27,10 @@ const router = new VueRouter({
         {
             path: '/',
             component: HomePage
+        },
+        {
+            path: '/restaurant/:restaurantName',
+            component: RestaurantPage
         },
         {
             path: '/login',
