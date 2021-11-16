@@ -105,4 +105,28 @@ public class RestoranDAO {
 			sacuvajRestorane(contextPath);
 		}
 	}
+	
+	public void izmeniArtikal(String stariNazivArtikla, Artikal artikal) {
+		if (this.restorani.containsKey(artikal.getRestoran())) {
+			Restoran restoran = this.restorani.get(artikal.getRestoran());
+			
+			if (restoran.sadrziArtikal(stariNazivArtikla)) {
+				Artikal stariArtikal = getArtikalByItsName(restoran, stariNazivArtikla);
+				restoran.getArtikli().remove(stariArtikal);
+				restoran.getArtikli().add(artikal);
+				
+				sacuvajRestorane(contextPath);
+			}
+		}
+	}
+	
+	public Artikal getArtikalByItsName(Restoran restoran, String nazivArtikla) {
+		for (Artikal a : restoran.getArtikli()) {
+			if (a.getNaziv().equals(nazivArtikla)) {
+				return a;
+			}
+		}
+		
+		return null;
+	}
 }

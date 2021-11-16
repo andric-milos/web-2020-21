@@ -4,7 +4,8 @@ Vue.component("restaurant-info", {
             showRestaurant: undefined,
             showArticles: undefined,
             restaurant: undefined,
-            artikli: []
+            artikli: [],
+            articleToEdit: undefined
         }
     },
     template: `
@@ -58,8 +59,17 @@ Vue.component("restaurant-info", {
                                 <p>{{ a.kolicina }} <span v-if="a.tip =='JELO'">g</span><span v-if="a.tip =='PICE'">ml</span></p>
                                 <p>{{ a.cena }} RSD</p>
                             </div>
+                            <button 
+                                type="button" 
+                                class="btn btn-secondary btn-sm" 
+                                style="width: 100%;"
+                                v-on:click="openEditArticleModal(a)"
+                            >Edit</button>
                         </div>
                     </div>
+
+                    <!-- Modal -->
+                    <edit-article-modal modalId="editArticleModal" v-bind:restaurantName="restaurant.naziv" v-bind:article="articleToEdit"></edit-article-modal>
                 </div>
                 <div v-else>
                     <h5 class="p-2 ml-2">No articles.</h5>
@@ -96,6 +106,11 @@ Vue.component("restaurant-info", {
             setTimeout(() => {
                 map.invalidateSize();           
             }, 0);
+        },
+        openEditArticleModal(article) {
+            this.articleToEdit = article;
+
+            $('#editArticleModal').modal('toggle');
         }
     },
     mounted() {
