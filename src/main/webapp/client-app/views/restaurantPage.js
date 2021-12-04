@@ -3,7 +3,8 @@ Vue.component("restaurant-page", {
         return {
             showRestaurant: undefined,
             restaurant: undefined,
-            showArticles: undefined
+            showArticles: undefined,
+            mapInitialized: undefined
         }
     },
     template: `
@@ -51,25 +52,29 @@ Vue.component("restaurant-page", {
     </div> `,
     methods: {
         initializeMap() {
-            //console.log(document.getElementById('map'));
+            if (!this.mapInitialized) {
+                //console.log(document.getElementById('map'));
 
-            var map = L.map(this.$refs.mapElement).setView([this.restaurant.lokacija.geografskaSirina, this.restaurant.lokacija.geografskaDuzina], 13);
+                var map = L.map(this.$refs.mapElement).setView([this.restaurant.lokacija.geografskaSirina, this.restaurant.lokacija.geografskaDuzina], 13);
 
-            L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-                attribution: '',
-                maxZoom: 18,
-                id: 'mapbox/streets-v11',
-                tileSize: 512,
-                zoomOffset: -1,
-                accessToken: 'pk.eyJ1IjoibWVlbG9zY2giLCJhIjoiY2trcTRkNzl3MGZ6djJvcW4zeHFxeHg0YyJ9.h06Ayx7JxZqxszi6nLpsZw'
-            }).addTo(map);
+                L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+                    attribution: '',
+                    maxZoom: 18,
+                    id: 'mapbox/streets-v11',
+                    tileSize: 512,
+                    zoomOffset: -1,
+                    accessToken: 'pk.eyJ1IjoibWVlbG9zY2giLCJhIjoiY2trcTRkNzl3MGZ6djJvcW4zeHFxeHg0YyJ9.h06Ayx7JxZqxszi6nLpsZw'
+                }).addTo(map);
 
-            var marker = L.marker([this.restaurant.lokacija.geografskaSirina, this.restaurant.lokacija.geografskaDuzina], {draggable: false});
-            marker.addTo(map);
+                var marker = L.marker([this.restaurant.lokacija.geografskaSirina, this.restaurant.lokacija.geografskaDuzina], {draggable: false});
+                marker.addTo(map);
 
-            /*setTimeout(() => {
-                map.invalidateSize();           
-            }, 0);*/
+                /*setTimeout(() => {
+                    map.invalidateSize();           
+                }, 0);*/
+
+                this.mapInitialized = true;
+            }
         },
         loadData() {
             //console.log(this.$route.params.restaurantName);
