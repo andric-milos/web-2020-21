@@ -4,6 +4,7 @@ Vue.component("restaurant-page", {
             showRestaurant: undefined,
             restaurant: undefined,
             showArticles: undefined,
+            articleToAddToCart: undefined,
             mapInitialized: undefined
         }
     },
@@ -27,6 +28,9 @@ Vue.component("restaurant-page", {
 
                 <h1 class="p-2"><b>Articles</b></h1>
 
+                <!-- Modal -->
+                <add-to-cart-modal v-if="showArticles" modalId="addToCartModal" v-bind:restaurantName="restaurant.naziv" v-bind:article="articleToAddToCart"></add-to-cart-modal>
+
                 <div v-if="showArticles" class="d-flex flex-row flex-wrap">
                     <div class="card my-1" style="width: 17rem;" v-for="a in restaurant.artikli">
                         <img class="card-img-top" v-bind:src="'http://localhost:8080/web-2020-21/images/article-images/' + a.restoran + '-' + a.naziv + '.jpg'" alt="Card image cap">
@@ -37,7 +41,11 @@ Vue.component("restaurant-page", {
                                 <p>{{ a.kolicina }} <span v-if="a.tip =='JELO'">g</span><span v-if="a.tip =='PICE'">ml</span></p>
                                 <p>{{ a.cena }} RSD</p>
                             </div>
-                            <button type="button" class="btn btn-secondary">Add to cart</button>
+                            <button 
+                                type="button" 
+                                class="btn btn-secondary"
+                                v-on:click="openAddToCartModal(a)"
+                            >Add to cart</button>
                         </div>
                     </div>
                 </div>
@@ -97,6 +105,11 @@ Vue.component("restaurant-page", {
                     this.showRestaurant = false;
                     this.showArticles = false;
                 });
+        },
+        openAddToCartModal(article) {
+            this.articleToAddToCart = article;
+
+            $('#addToCartModal').modal('toggle');
         }
     },
     mounted() {
