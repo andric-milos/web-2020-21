@@ -1,0 +1,156 @@
+package services;
+
+import javax.annotation.PostConstruct;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+
+import beans.Artikal;
+import beans.ArtikalSaKolicinom;
+import beans.Korisnik;
+import beans.Korpa;
+import beans.Restoran;
+import dao.KorisnikDAO;
+import dao.RestoranDAO;
+import dto.ArtikalSaKolicinomDTO;
+
+@Path("/cart")
+public class KorpaService {
+	
+	@Context
+	HttpServletRequest request;
+	
+	@Context
+	ServletContext ctx;
+	
+	public KorpaService() {
+		
+	}
+	
+	@PostConstruct
+	public void init() {
+		if (ctx.getAttribute("korisnici") == null) {
+			String path = ctx.getRealPath("");
+			ctx.setAttribute("korisnici", new KorisnikDAO(path));
+		}
+		
+		if (ctx.getAttribute("restorani") == null) {
+			String path = ctx.getRealPath("");
+			ctx.setAttribute("restorani", new RestoranDAO(path));
+		}
+	}
+	
+	// dodati anotacije, dodati parametar koji predstavlja artikal sa klijenta
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response addToCart(ArtikalSaKolicinomDTO artikalDTO) {
+		/* podaci o artiklu koji stizu sa klijenta su samo: restoran, naziv artikla i koliko
+		 * puta je artikal dodat u korpu
+		 * klasa: ArtikalSaKolicinomDTO
+		*/
+		
+		// 1) dobaviti korpu iz sesije ili je inicijalizovati
+		Korpa korpa = (Korpa) request.getSession().getAttribute("korpa");
+		
+		if (korpa == null) {
+			Korisnik korisnik = (Korisnik) request.getSession().getAttribute("korisnik");
+			
+			if (korisnik == null) {
+				korpa = new Korpa();
+			} else {
+				// proveriti mozda prvo da li korisnik vec ima korpu u sacuvanim korpama?
+				// ako korisnik ima sacuvanu korpu, znaci da se izlogovao ili je zavrsio sesiju, a imao je nesto u korpi
+				korpa = new Korpa(korisnik.getKorisnickoIme());
+			}
+		}
+		
+		// 2) dodavanje artikla u korpu
+		RestoranDAO restoranDAO = (RestoranDAO) ctx.getAttribute("restorani");
+		Restoran restoran = restoranDAO.getRestaurantByItsName(artikalDTO.getRestoran());
+		
+		if (restoran == null) {
+			return Response.status(Status.BAD_REQUEST).entity("RESTAURANT DOES NOT EXIST").build();
+		}
+		
+		Artikal artikal = restoranDAO.getArtikalByItsName(restoran, artikalDTO.getNaziv());
+		
+		if (artikal == null) {
+			return Response.status(Status.BAD_REQUEST).entity("ARTICLE DOES NOT EXIST").build();
+		}
+		
+		if (artikalDTO.getKoliko() < 1) {
+			return Response.status(Status.BAD_REQUEST).entity("INVALID AMOUNT").build();
+		}
+		
+		// dobavi iz kog restorana su artikli iz korpe
+		String restoranIzKorpe;
+		if (korpa.getArtikli().isEmpty()) {
+			restoranIzKorpe = null;
+		} else {
+			restoranIzKorpe = korpa.getArtikli().get(0).getArtikal().getRestoran();
+		}
+		
+		// svi artikli moraju biti iz istog restorana
+		if (restoranIzKorpe != null && !restoran.getNaziv().equals(restoranIzKorpe)) {
+			return Response.status(Status.BAD_REQUEST).entity("CAN'T MIX RESTAURANTS").build();
+		}
+		
+		// ako je artikal vec dodat u korpu ranije, samo povecati broj puta koliko je dodat
+		// if ()
+		for (ArtikalSaKolicinom a : korpa.getArtikli()) {
+			if (a.getArtikal().getNaziv().equals(artikal.getNaziv())) {
+				korpa.getArtikli().remove(a);
+				a.setKoliko(a.getKoliko() + artikalDTO.getKoliko());
+				korpa.getArtikli().add(a);
+				
+				korpa.setCena(korpa.getCena() + artikal.getCena() * artikalDTO.getKoliko());
+				
+				return Response.status(Status.OK).build();
+			}
+		}
+		
+		ArtikalSaKolicinom noviArtikalSaKolicinom = new ArtikalSaKolicinom(
+			artikal,
+			artikalDTO.getKoliko()
+		);
+		
+		korpa.getArtikli().add(noviArtikalSaKolicinom);
+		korpa.setCena(korpa.getCena() + artikal.getCena() * artikalDTO.getKoliko());
+		request.getSession().setAttribute("korpa", korpa);
+		
+		return Response.status(Status.OK).build();
+	}
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getShoppingCart() {
+		Korpa korpa = (Korpa) request.getSession().getAttribute("korpa");
+		
+		if (korpa == null) {
+			return Response.status(Status.OK).entity(new Korpa()).build();
+		}
+		
+		return Response.status(Status.OK).entity(korpa).build();
+	}
+	
+	@GET
+	@Path("/numberOfArticles")
+	public Response getNumberOfArticlesInShoppingCart() {
+		Korpa korpa = (Korpa) request.getSession().getAttribute("korpa");
+		
+		if (korpa == null) {
+			return Response.status(Status.OK).entity(0).build();
+		}
+		
+		return Response.status(Status.OK).entity(korpa.getArtikli().size()).build();
+	}
+
+}

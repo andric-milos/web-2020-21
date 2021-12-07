@@ -2,14 +2,14 @@ package beans;
 
 public class ArtikalSaKolicinom {
 	private Artikal artikal;
-	private int kolicina;
+	private int koliko;	// koliko je puta artikal dodat u korpu
 	
 	public ArtikalSaKolicinom() {
 	}
 
-	public ArtikalSaKolicinom(Artikal artikal, int kolicina) {
+	public ArtikalSaKolicinom(Artikal artikal, int koliko) {
 		this.artikal = artikal;
-		this.kolicina = kolicina;
+		this.koliko = koliko;
 	}
 
 	public Artikal getArtikal() {
@@ -20,11 +20,11 @@ public class ArtikalSaKolicinom {
 		this.artikal = artikal;
 	}
 
-	public int getKolicina() {
-		return kolicina;
+	public int getKoliko() {
+		return koliko;
 	}
 
-	public void setKolicina(int kolicina) {
-		this.kolicina = kolicina;
+	public void setKoliko(int koliko) {
+		this.koliko = koliko;
 	}
 }

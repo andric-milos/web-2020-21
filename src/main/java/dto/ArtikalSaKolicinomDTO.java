@@ -1,14 +1,15 @@
 package dto;
 
-public class ArtikalDTO {
+public class ArtikalSaKolicinomDTO {
 	private String naziv;
 	private float cena;
 	private String tip;
 	private String restoran;
-	private int kolicina;
+	private int kolicina;	// grami ili mililitri
 	private String opis;
+	private int koliko;		// koliko puta je dodat u korpu
 	
-	public ArtikalDTO() {
+	public ArtikalSaKolicinomDTO() {
 		
 	}
 
@@ -58,5 +59,13 @@ public class ArtikalDTO {
 
 	public void setOpis(String opis) {
 		this.opis = opis;
+	}
+
+	public int getKoliko() {
+		return koliko;
+	}
+
+	public void setKoliko(int koliko) {
+		this.koliko = koliko;
 	}
 }
