@@ -16,11 +16,11 @@ Vue.component("add-to-cart-modal", {
         article: Object
     },
     template: `
-    <div class="modal fade" v-bind:id="modalId" tabindex="-1" role="dialog" aria-labelledby="addToCarteModalLabel" aria-hidden="true">
+    <div class="modal fade" v-bind:id="modalId" tabindex="-1" role="dialog" aria-labelledby="addToCartModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addToCarteModalLabel"><b>Add to cart</b></h5>
+                    <h5 class="modal-title" id="addToCartModalLabel"><b>Add to cart</b></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -34,7 +34,7 @@ Vue.component("add-to-cart-modal", {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Confirm</button>
+                    <button type="button" class="btn btn-primary" v-on:click="addToCart">Confirm</button>
                 </div>
             </div>
         </div>
@@ -52,6 +52,41 @@ Vue.component("add-to-cart-modal", {
 
                 document.getElementById("articleImagePreview").setAttribute("src", "http://localhost:8080/web-2020-21/images/article-images/" + this.article.restoran + "-" + this.article.naziv + ".jpg");
             }
+        }
+    },
+    methods: {
+        addToCart() {
+            //eventBus.$emit('wtf');
+            //console.log("addToCart: wtf");
+
+            let dto = {
+                "restoran" : this.restaurantName,
+                "naziv" : this.articleName,
+                "koliko" : this.amount
+            };
+
+            axios.post("rest/cart", dto)
+                .then(response => {
+                    if (response.status == 200) {
+                        eventBus.$emit('articleAddedToCart');
+                        $('#' + this.modalId).modal('hide');
+                    } else {
+                        console.log(response);
+                    }
+                })
+                .catch(error => {
+                    if (error.response.data == "RESTAURANT DOES NOT EXIST") {
+                        alert("Restaurant " + this.restaurantName +  " doesn't exist!");
+                    } else if (error.response.data == "ARTICLE DOES NOT EXIST") {
+                        alert("Article " + this.articleName + " doesn't exist!");
+                    } else if (error.response.data == "INVALID AMOUNT") {
+                        alert("Invalid amount!");
+                    } else if (error.response.data == "CAN'T MIX RESTAURANTS") {
+                        alert("Can't order from multiple restaurants at the same time!");
+                    } else {
+                        console.log(error.response.data);
+                    }
+                });
         }
     }
 });
