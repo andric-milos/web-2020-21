@@ -68,7 +68,7 @@ Vue.component("add-to-cart-modal", {
             axios.post("rest/cart", dto)
                 .then(response => {
                     if (response.status == 200) {
-                        eventBus.$emit('articleAddedToCart');
+                        eventBus.$emit('cartUpdated');
                         $('#' + this.modalId).modal('hide');
                     } else {
                         console.log(response);

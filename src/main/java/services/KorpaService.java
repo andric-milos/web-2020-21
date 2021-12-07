@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
@@ -151,6 +152,54 @@ public class KorpaService {
 		}
 		
 		return Response.status(Status.OK).entity(korpa.getArtikli().size()).build();
+	}
+	
+	@PUT
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response removeFromCart(ArtikalSaKolicinomDTO artikalDTO) {
+		/* podaci o artiklu koji stizu sa klijenta su samo: restoran, naziv artikla
+		 * klasa: ArtikalSaKolicinomDTO
+		*/
+		
+		Korpa korpa = (Korpa) request.getSession().getAttribute("korpa");
+		
+		if (korpa == null) {
+			return Response.status(Status.BAD_REQUEST).entity("CART IS EMPTY").build();
+		}
+		
+		RestoranDAO restoranDAO = (RestoranDAO) ctx.getAttribute("restorani");
+		Restoran restoran = restoranDAO.getRestaurantByItsName(artikalDTO.getRestoran());
+		
+		if (restoran == null) {
+			return Response.status(Status.BAD_REQUEST).entity("RESTAURANT DOES NOT EXIST").build();
+		}
+		
+		
+		if (korpa.getArtikli().isEmpty()) {
+			return Response.status(Status.BAD_REQUEST).entity("CART IS EMPTY").build();
+		}
+		
+		String restoranIzKorpe = korpa.getArtikli().get(0).getArtikal().getRestoran();
+		if (!artikalDTO.getRestoran().equals(restoranIzKorpe)) {
+			return Response.status(Status.BAD_REQUEST).entity("WRONG RESTAURANT").build();
+		}
+		
+		Artikal artikal = restoranDAO.getArtikalByItsName(restoran, artikalDTO.getNaziv());
+		
+		if (artikal == null) {
+			return Response.status(Status.BAD_REQUEST).entity("ARTICLE DOES NOT EXIST").build();
+		}
+		
+		for (ArtikalSaKolicinom a : korpa.getArtikli()) {
+			if (a.getArtikal().getNaziv().equals(artikalDTO.getNaziv())) {
+				korpa.getArtikli().remove(a);
+				korpa.setCena(korpa.getCena() - a.getKoliko() * artikal.getCena());
+				// request.getSession().setAttribute("korpa", korpa);
+				return Response.status(Status.OK).build();
+			}
+		}
+		
+		return Response.status(Status.BAD_REQUEST).entity("ARTICLE IS NOT IN THE CART").build();
 	}
 
 }

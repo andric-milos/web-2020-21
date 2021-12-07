@@ -125,7 +125,7 @@ Vue.component("navigation-bar", {
             });
     },
     mounted() {
-        eventBus.$on('articleAddedToCart', () => {
+        eventBus.$on('cartUpdated', () => {
             axios.get("rest/cart/numberOfArticles")
                 .then(response => {
                     if (response.status == 200) {
