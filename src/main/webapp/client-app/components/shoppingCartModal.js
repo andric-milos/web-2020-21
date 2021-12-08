@@ -27,7 +27,17 @@ Vue.component("shopping-cart-modal", {
                                 <label>Description: {{ a.artikal.opis }}</label>
                                 <label>Price: {{ a.artikal.cena }} RSD</label>
                                 <label>Quantity: {{ a.artikal.kolicina }} <span v-if="a.artikal.tip == 'JELO'">g</span><span v-if="a.artikal.tip == 'PICE'">ml</span></label>
-                                <label>Amount: {{ a.koliko }}</label>
+                                <div>
+                                    <label>Amount: </label>
+                                    <input 
+                                        type="number" 
+                                        min="1" max="50" 
+                                        style="width: 50px;" 
+                                        v-bind:value="a.koliko" 
+                                        v-on:change="updateArticleAmount($event, a)" 
+                                        v-on:keydown="preventTyping"
+                                    >
+                                </div>
                             </div>
                             <div class="d-flex justify-content-center">
                                 <button type="button" class="btn btn-outline-danger" v-on:click="removeFromCart(a)">
@@ -105,6 +115,30 @@ Vue.component("shopping-cart-modal", {
                 .catch(error => {
                     console.log(error);
                 });
+        },
+        updateArticleAmount(event, article) {
+            // console.log(event.target.value);
+            // console.log(article);
+
+            let dto = {
+                "naziv" : article.artikal.naziv,
+                "koliko" : event.target.value
+            };
+
+            axios.put("rest/cart/updateArticleAmount", dto)
+                .then(response => {
+                    if (response.status == 200) {
+                        eventBus.$emit('cartUpdated');
+                    } else {
+                        console.log(response);
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+        preventTyping(event) {
+            event.preventDefault();
         }
     }
 });

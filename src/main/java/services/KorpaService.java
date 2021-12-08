@@ -201,5 +201,38 @@ public class KorpaService {
 		
 		return Response.status(Status.BAD_REQUEST).entity("ARTICLE IS NOT IN THE CART").build();
 	}
+	
+	@PUT
+	@Path("/updateArticleAmount")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response updateArticleAmount(ArtikalSaKolicinomDTO artikalDTO) {
+		/* podaci o artiklu koji stizu sa klijenta su samo: naziv artikla i koliko
+		 * klasa: ArtikalSaKolicinomDTO
+		*/
+		
+		Korpa korpa = (Korpa) request.getSession().getAttribute("korpa");
+		
+		if (korpa == null) {
+			return Response.status(Status.BAD_REQUEST).entity("CART IS EMPTY").build();
+		}
+		
+		if (korpa.getArtikli().isEmpty()) {
+			return Response.status(Status.BAD_REQUEST).entity("CART IS EMPTY").build();
+		}
+		
+		for (ArtikalSaKolicinom a : korpa.getArtikli()) {
+			if (a.getArtikal().getNaziv().equals(artikalDTO.getNaziv())) {
+				korpa.getArtikli().remove(a);
+				korpa.setCena(korpa.getCena() + a.getArtikal().getCena() * (artikalDTO.getKoliko() - a.getKoliko()));
+				a.setKoliko(artikalDTO.getKoliko());
+				korpa.getArtikli().add(a);
+				
+				// request.getSession().setAttribute("korpa", korpa);
+				return Response.status(Status.OK).build();
+			}
+		}
+		
+		return Response.status(Status.BAD_REQUEST).entity("ARTICLE IS NOT IN THE CART").build();
+	}
 
 }
