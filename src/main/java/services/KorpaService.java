@@ -108,10 +108,7 @@ public class KorpaService {
 		// if ()
 		for (ArtikalSaKolicinom a : korpa.getArtikli()) {
 			if (a.getArtikal().getNaziv().equals(artikal.getNaziv())) {
-				korpa.getArtikli().remove(a);
 				a.setKoliko(a.getKoliko() + artikalDTO.getKoliko());
-				korpa.getArtikli().add(a);
-				
 				korpa.setCena(korpa.getCena() + artikal.getCena() * artikalDTO.getKoliko());
 				
 				return Response.status(Status.OK).build();
@@ -222,10 +219,8 @@ public class KorpaService {
 		
 		for (ArtikalSaKolicinom a : korpa.getArtikli()) {
 			if (a.getArtikal().getNaziv().equals(artikalDTO.getNaziv())) {
-				korpa.getArtikli().remove(a);
 				korpa.setCena(korpa.getCena() + a.getArtikal().getCena() * (artikalDTO.getKoliko() - a.getKoliko()));
 				a.setKoliko(artikalDTO.getKoliko());
-				korpa.getArtikli().add(a);
 				
 				// request.getSession().setAttribute("korpa", korpa);
 				return Response.status(Status.OK).build();
