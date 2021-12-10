@@ -52,7 +52,7 @@ Vue.component("shopping-cart-modal", {
                 </div>
                 <div class="modal-footer" style="justify-content: space-between;">
                     <div><b>Total price: <span v-if="cart"> {{ this.cart.cena }} RSD</span></b></div>
-                    <button type="button" class="btn btn-primary">Check-out</button>
+                    <button type="button" class="btn btn-primary" v-on:click="redirectToCart">Check-out</button>
                 </div>
             </div>
         </div>
@@ -139,6 +139,10 @@ Vue.component("shopping-cart-modal", {
         },
         preventTyping(event) {
             event.preventDefault();
+        },
+        redirectToCart() {
+            $('#' + this.modalId).modal('hide');
+            this.$router.push("/cart");
         }
     }
 });
