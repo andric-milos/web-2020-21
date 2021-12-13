@@ -21,8 +21,9 @@ Vue.component("shopping-cart", {
                     <h1> {{this.restaurant}} </h1>
                     <label class="pt-4">[<a v-bind:href="'http://localhost:8080/web-2020-21/#/restaurant/' + this.restaurant">Click here to order more</a>]</label>
                 </div>
-                <div class="d-flex flex-row border" v-for="a in cart.artikli">
-                    <img class="border" style="width: 50%; height: auto;" v-bind:src="'http://localhost:8080/web-2020-21/images/article-images/' + a.artikal.restoran + '-' + a.artikal.naziv + '.jpg'" alt="No image">
+                <label><b>Total price: {{ this.cart.cena }} RSD</b></label>
+                <div class="d-flex flex-row border border-2 mb-1" v-for="a in cart.artikli">
+                    <img class="border-end border-2" style="width: 50%; height: auto;" v-bind:src="'http://localhost:8080/web-2020-21/images/article-images/' + a.artikal.restoran + '-' + a.artikal.naziv + '.jpg'" alt="No image">
                     <div class="d-flex flex-column p-2">
                         <label><b> {{ a.artikal.naziv }} </b></label>
                         <label>Restaurant: {{ a.artikal.restoran }}</label>

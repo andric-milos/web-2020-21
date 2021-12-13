@@ -30,7 +30,7 @@ Vue.component("add-to-cart-modal", {
                     <label><b>Quantity: {{ this.quantity }} <span v-if="this.type =='JELO'">g</span><span v-if="this.type =='PICE'">ml</span></b></label><br>
                     <label><b>Price: {{ this.price }} RSD</b></label><br>
                     <label><b>Amount:</b></label>
-                    <input type="number" id="amount" min="1" max="50" v-model="amount" style="width: 50px;">
+                    <input type="number" id="amount" min="1" max="50" v-model="amount" style="width: 50px;" v-on:keydown="preventTyping">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -87,6 +87,9 @@ Vue.component("add-to-cart-modal", {
                         console.log(error.response.data);
                     }
                 });
+        },
+        preventTyping(event) {
+            event.preventDefault();
         }
     }
 });
