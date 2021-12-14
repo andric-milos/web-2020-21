@@ -6,10 +6,10 @@ import java.util.List;
 
 public class Porudzbina {
 	private String id; // 10 karaktera
-	private List<Artikal> poruceniArtikli;
+	private List<ArtikalSaKolicinom> poruceniArtikli;
 	private String restoran; // naziv restorana iz kojeg je poruceno
-	private Date vremePorudzbine;
-	private int cena;
+	private Date vremePorudzbine;	// datum i vreme porudzbine
+	private float cena;
 	private String kupac;	// naziv kupca
 	private StatusPorudzbine status;
 	
@@ -17,10 +17,11 @@ public class Porudzbina {
 		this.poruceniArtikli = new ArrayList<>();
 	}
 	
-	public Porudzbina(String id, List<Artikal> poruceniArtikli, 
+	public Porudzbina(String id, 
+					  List<ArtikalSaKolicinom> poruceniArtikli, 
 					  String restoran, 
 					  Date vremePorudzbine, 
-					  int cena,
+					  float cena,
 					  String kupac, 
 					  StatusPorudzbine status) {
 		this.id = id;
@@ -40,11 +41,11 @@ public class Porudzbina {
 		this.id = id;
 	}
 
-	public List<Artikal> getPoruceniArtikli() {
+	public List<ArtikalSaKolicinom> getPoruceniArtikli() {
 		return poruceniArtikli;
 	}
 
-	public void setPoruceniArtikli(List<Artikal> poruceniArtikli) {
+	public void setPoruceniArtikli(List<ArtikalSaKolicinom> poruceniArtikli) {
 		this.poruceniArtikli = poruceniArtikli;
 	}
 
@@ -64,11 +65,11 @@ public class Porudzbina {
 		this.vremePorudzbine = vremePorudzbine;
 	}
 
-	public int getCena() {
+	public float getCena() {
 		return cena;
 	}
 
-	public void setCena(int cena) {
+	public void setCena(float cena) {
 		this.cena = cena;
 	}
 

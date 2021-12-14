@@ -23,11 +23,13 @@ import javax.ws.rs.core.Response.Status;
 
 import beans.Dostavljac;
 import beans.Korisnik;
+import beans.Korpa;
 import beans.Kupac;
 import beans.Menadzer;
 import beans.Pol;
 import beans.TipKorisnika;
 import dao.KorisnikDAO;
+import dao.PorudzbinaDAO;
 import dao.RestoranDAO;
 import dto.KorisnikDTO;
 import dto.MenadzerDTO;
@@ -58,6 +60,11 @@ public class UserService {
 			String path = ctx.getRealPath("");
 			ctx.setAttribute("restorani", new RestoranDAO(path));
 		}
+		
+		if (ctx.getAttribute("porudzbine") == null) {
+			String path = ctx.getRealPath("");
+			ctx.setAttribute("porudzbine", new PorudzbinaDAO(path));
+		}
 	}
 	
 	@POST
@@ -84,10 +91,16 @@ public class UserService {
 		if (!korisnici.containsKey(k.getKorisnickoIme()))
 			return Response.status(Status.BAD_REQUEST).entity("USER DOES NOT EXIST").build();
 		
-		korisnik = korisnici.get(k.getKorisnickoIme());	
+		korisnik = korisnici.get(k.getKorisnickoIme());
 		if (korisnik.getLozinka().equals(k.getLozinka())) {
 			// 4. scenario: kredencijali su dobri
 			request.getSession().setAttribute("korisnik", korisnik);
+			
+			Korpa korpa = (Korpa) request.getSession().getAttribute("korpa");
+			if (korpa != null && !korisnik.getTipKorisnika().equals(TipKorisnika.KUPAC)) {
+				request.getSession().removeAttribute("korpa");
+			}
+			
 			return Response.status(Status.OK).entity(korisnik.getTipKorisnika().toString()).build();
 		} else {
 			// 5. scenario: uneto korisnicko ime postoji, ali sifra je pogresna

@@ -18,7 +18,7 @@ import beans.Restoran;
 
 public class RestoranDAO {
 	private HashMap<String, Restoran> restorani;	// key = ime restorana koje je unikatno, value = restoran
-	String contextPath;
+	private String contextPath;
 	
 	public RestoranDAO(String contextPath) {
 		this.restorani = new HashMap<String, Restoran>();

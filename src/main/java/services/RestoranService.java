@@ -37,6 +37,7 @@ import beans.TipArtikla;
 import beans.TipKorisnika;
 import beans.TipRestorana;
 import dao.KorisnikDAO;
+import dao.PorudzbinaDAO;
 import dao.RestoranDAO;
 import dto.ArtikalDTO;
 import dto.RestoranDTO;
@@ -64,6 +65,11 @@ public class RestoranService {
 		if (ctx.getAttribute("restorani") == null) {
 			String path = ctx.getRealPath("");
 			ctx.setAttribute("restorani", new RestoranDAO(path));
+		}
+		
+		if (ctx.getAttribute("porudzbine") == null) {
+			String path = ctx.getRealPath("");
+			ctx.setAttribute("porudzbine", new PorudzbinaDAO(path));
 		}
 	}
 	

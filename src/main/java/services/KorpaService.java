@@ -19,7 +19,9 @@ import beans.ArtikalSaKolicinom;
 import beans.Korisnik;
 import beans.Korpa;
 import beans.Restoran;
+import beans.TipKorisnika;
 import dao.KorisnikDAO;
+import dao.PorudzbinaDAO;
 import dao.RestoranDAO;
 import dto.ArtikalSaKolicinomDTO;
 
@@ -47,9 +49,13 @@ public class KorpaService {
 			String path = ctx.getRealPath("");
 			ctx.setAttribute("restorani", new RestoranDAO(path));
 		}
+		
+		if (ctx.getAttribute("porudzbine") == null) {
+			String path = ctx.getRealPath("");
+			ctx.setAttribute("porudzbine", new PorudzbinaDAO(path));
+		}
 	}
 	
-	// dodati anotacije, dodati parametar koji predstavlja artikal sa klijenta
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addToCart(ArtikalSaKolicinomDTO artikalDTO) {
@@ -69,6 +75,11 @@ public class KorpaService {
 			} else {
 				// proveriti mozda prvo da li korisnik vec ima korpu u sacuvanim korpama?
 				// ako korisnik ima sacuvanu korpu, znaci da se izlogovao ili je zavrsio sesiju, a imao je nesto u korpi
+				
+				if (!korisnik.getTipKorisnika().equals(TipKorisnika.KUPAC)) {
+					return Response.status(Status.BAD_REQUEST).entity("NOT A CUSTOMER").build();
+				}
+				
 				korpa = new Korpa(korisnik.getKorisnickoIme());
 			}
 		}

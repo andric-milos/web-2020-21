@@ -3,7 +3,8 @@ Vue.component("navigation-bar", {
         return {
             loggedIn: false,
             userTypeHref: undefined,
-            numberOfArticlesInShoppingCart: 0
+            numberOfArticlesInShoppingCart: 0,
+            showCartButton: undefined
         }
     },
     template: `
@@ -29,6 +30,7 @@ Vue.component("navigation-bar", {
                     <shopping-cart-modal modalId="shoppingCartModal"></shopping-cart-modal>
 
                     <button 
+                        v-if="showCartButton"
                         type="button" 
                         class="btn btn-secondary" 
                         style="margin-left: 10px;"
@@ -92,6 +94,7 @@ Vue.component("navigation-bar", {
                 } else if (response.data == "KUPAC") {
                     this.loggedIn = true;
                     this.userTypeHref = "#/customer";
+                    this.showCartButton = true;
                 } else if (response.data == "DOSTAVLJAC") {
                     this.loggedIn = true;
                     this.userTypeHref = "#/deliverer";
@@ -101,6 +104,7 @@ Vue.component("navigation-bar", {
                 } else if (response.data == "NOT LOGGED IN") {
                     this.loggedIn = false;
                     this.userTypeHref = "#/";
+                    this.showCartButton = true;
                 } else {
                     console.log(response);
                     this.loggedIn = true;

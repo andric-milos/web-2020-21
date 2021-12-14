@@ -33,7 +33,7 @@ Vue.component("shopping-cart", {
                         <label>Amount: {{ a.koliko }}</label>
                     </div>
                 </div>
-                <button v-if="loggedIn && !cartEmpty" type="button" class="btn btn-primary mt-2">Send</button>
+                <button v-if="loggedIn && !cartEmpty" type="button" class="btn btn-primary mt-2" v-on:click="sendOrder">Send</button>
                 <div v-if="!loggedIn && !cartEmpty" class="d-flex flex-column">
                     <label><b>Note:</b> you're not logged in! You must be logged in to confirm an order.</label>
                     <label><a href="http://localhost:8080/web-2020-21/#/register">Click here</a> to register if you don't have an account.</label>
@@ -104,5 +104,28 @@ Vue.component("shopping-cart", {
                     console.log(error);
                 });
         });
+    },
+    methods: {
+        sendOrder() {
+            axios.post("rest/order")
+                .then(response => {
+                    if (response.status == 200) {
+                        alert("ok");
+                    } else {
+                        console.log(response);
+                    }
+                })
+                .catch(error => {
+                    if (error.response.data == "NOT LOGGED IN") {
+                        alert("You're not logged in!");
+                    } else if (error.response.data == "NOT A CUSTOMER") {
+                        alert("You must be a customer to make an order!");
+                    } else if (error.response.data == "EMPTY CART") {
+                        alert("Your shopping cart is empty!")
+                    } else {
+                        console.log(error);
+                    }
+                });
+        }
     }
 });

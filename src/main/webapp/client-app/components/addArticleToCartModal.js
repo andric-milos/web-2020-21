@@ -83,6 +83,8 @@ Vue.component("add-to-cart-modal", {
                         alert("Invalid amount!");
                     } else if (error.response.data == "CAN'T MIX RESTAURANTS") {
                         alert("Can't order from multiple restaurants at the same time!");
+                    } else if (error.response.data == "NOT A CUSTOMER") {
+                        alert("You must be a customer to add an article to the cart!");
                     } else {
                         console.log(error.response.data);
                     }
