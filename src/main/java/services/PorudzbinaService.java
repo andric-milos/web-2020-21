@@ -116,6 +116,8 @@ public class PorudzbinaService {
 		
 		porudzbinaDAO.dodajPorudzbinu(porudzbina);	// u okviru ove metode se vrsi i serijalizacija
 		
+		request.getSession().removeAttribute("korpa");	// isprazni korpu
+		
 		return Response.status(Status.OK).build();
 	}
 	

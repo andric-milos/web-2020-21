@@ -110,7 +110,8 @@ Vue.component("shopping-cart", {
             axios.post("rest/order")
                 .then(response => {
                     if (response.status == 200) {
-                        alert("ok");
+                        alert("You successfully placed your order!");
+                        window.location.reload();
                     } else {
                         console.log(response);
                     }
