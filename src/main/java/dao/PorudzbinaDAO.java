@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import beans.Porudzbina;
+import dto.PorudzbinaDTO;
 
 public class PorudzbinaDAO {
 	private HashMap<String, Porudzbina> porudzbine;	// key - jedinstveni identifikator, value - porudzbina
@@ -84,5 +85,18 @@ public class PorudzbinaDAO {
 			
 			sacuvajPorudzbine(contextPath);
 		}
+	}
+	
+	public List<PorudzbinaDTO> findAllPorudzbineByKupac(String kupac) {
+		List<PorudzbinaDTO> porudzbine = new ArrayList<PorudzbinaDTO>();
+		
+		for (Porudzbina p : this.porudzbine.values()) {
+			if (p.getKupac().equals(kupac)) {
+				PorudzbinaDTO dto = new PorudzbinaDTO(p);
+				porudzbine.add(dto);
+			}
+		}
+		
+		return porudzbine;
 	}
 }

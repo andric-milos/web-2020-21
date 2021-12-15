@@ -1,6 +1,7 @@
 package services;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
@@ -16,9 +17,11 @@ import beans.Korisnik;
 import beans.Korpa;
 import beans.Porudzbina;
 import beans.StatusPorudzbine;
+import beans.TipKorisnika;
 import dao.KorisnikDAO;
 import dao.PorudzbinaDAO;
 import dao.RestoranDAO;
+import dto.PorudzbinaDTO;
 
 @Path("/order")
 public class PorudzbinaService {
@@ -118,6 +121,8 @@ public class PorudzbinaService {
 		
 		request.getSession().removeAttribute("korpa");	// isprazni korpu
 		
+		korisnikDAO.dodajPoeneZaKreiranuPorudzbinu(korisnik.getKorisnickoIme(), korpa.getCena());
+		
 		return Response.status(Status.OK).build();
 	}
 	
@@ -126,5 +131,22 @@ public class PorudzbinaService {
 		PorudzbinaDAO porudzbinaDAO = (PorudzbinaDAO) ctx.getAttribute("porudzbine");
 		
 		return Response.status(Status.OK).entity(porudzbinaDAO.getAllPorudzbineList()).build();
+	}
+	
+	@GET
+	@Path("/customer")
+	public Response getAllOfCustomersOrders() {
+		Korisnik korisnik = (Korisnik) request.getSession().getAttribute("korisnik");
+		
+		if (korisnik == null) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT LOGGED IN").build();
+		} else if (!korisnik.getTipKorisnika().equals(TipKorisnika.KUPAC)) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT A CUSTOMER").build();
+		}
+		
+		PorudzbinaDAO porudzbinaDAO = (PorudzbinaDAO) ctx.getAttribute("porudzbine");
+		List<PorudzbinaDTO> porudzbine = porudzbinaDAO.findAllPorudzbineByKupac(korisnik.getKorisnickoIme());
+		
+		return Response.status(Status.OK).entity(porudzbine).build();
 	}
 }

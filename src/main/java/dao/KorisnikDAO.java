@@ -595,4 +595,15 @@ public class KorisnikDAO {
 		
 		return returnList;
 	}
+	
+	public void dodajPoeneZaKreiranuPorudzbinu(String korisnickoImeKupca, float cenaPorudzbine) {
+		Kupac kupac = this.kupci.get(korisnickoImeKupca);
+		
+		if (kupac != null) {
+			int bodovi = kupac.getSakupljeniBodovi() + (int) (cenaPorudzbine / 1000 * 133);
+			kupac.setSakupljeniBodovi(bodovi);
+			
+			sacuvajKupce(contextPath);
+		}
+	}
 }

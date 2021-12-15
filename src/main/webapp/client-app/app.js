@@ -6,6 +6,7 @@ const ShoppingCartPage = { template: '<shopping-cart></shopping-cart>' }
 
 const CustomerInfo = { template: '<customer-info></customer-info>' }
 const CustomerChangePasswordPage = { template: '<customer-change-password></customer-change-password>' }
+const CustomerOrders = { template: '<customer-orders></customer-orders>' }
 
 const AdminInfo = { template: '<admin-info></admin-info>' }
 const ListOfUsers = { template: '<admin-list-of-users></admin-list-of-users>' }
@@ -52,6 +53,10 @@ const router = new VueRouter({
         {
             path: '/customer/changePassword',
             component: CustomerChangePasswordPage
+        },
+        {
+            path: '/customer/orders',
+            component: CustomerOrders
         },
         {
             path: '/admin',
