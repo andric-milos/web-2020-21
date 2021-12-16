@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import beans.Porudzbina;
+import beans.StatusPorudzbine;
 import dto.PorudzbinaDTO;
 
 public class PorudzbinaDAO {
@@ -98,5 +99,20 @@ public class PorudzbinaDAO {
 		}
 		
 		return porudzbine;
+	}
+	
+	public Porudzbina getPorudzbinaByItsId(String id) {
+		return this.porudzbine.get(id);	// it returns null if map contains no mapping for the key
+	}
+	
+	public boolean otkaziPorudzbinu(Porudzbina porudzbina) {
+		if (porudzbina.getStatus().equals(StatusPorudzbine.OBRADA)) {
+			porudzbina.setStatus(StatusPorudzbine.OTKAZANA);
+			sacuvajPorudzbine(contextPath);
+			
+			return true;
+		}
+		
+		return false;
 	}
 }

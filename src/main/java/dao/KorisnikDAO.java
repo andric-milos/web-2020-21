@@ -606,4 +606,15 @@ public class KorisnikDAO {
 			sacuvajKupce(contextPath);
 		}
 	}
+	
+	public void oduzmiPoeneZaOtkazanuPorudzbinu(String korisnickoImeKupca, float cenaPorudzbine) {
+		Kupac kupac = this.kupci.get(korisnickoImeKupca);
+		
+		if (kupac != null) {
+			int bodovi = kupac.getSakupljeniBodovi() - (int) (cenaPorudzbine / 1000 * 133 * 4);
+			kupac.setSakupljeniBodovi(bodovi);
+			
+			sacuvajKupce(contextPath);
+		}
+	}
 }

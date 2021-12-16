@@ -8,7 +8,9 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -148,5 +150,46 @@ public class PorudzbinaService {
 		List<PorudzbinaDTO> porudzbine = porudzbinaDAO.findAllPorudzbineByKupac(korisnik.getKorisnickoIme());
 		
 		return Response.status(Status.OK).entity(porudzbine).build();
+	}
+	
+	@PUT
+	@Path("/cancel/{id}")
+	public Response cancelOrder(@PathParam("id") String id) {
+		// porudzbina moze biti oktazana samo ako je porudzbina u statusu OBRADA
+		
+		Korisnik korisnik = (Korisnik) request.getSession().getAttribute("korisnik");
+		
+		if (korisnik == null) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT LOGGED IN").build();
+		} else if (!korisnik.getTipKorisnika().equals(TipKorisnika.KUPAC)) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT A CUSTOMER").build();
+		}
+		
+		PorudzbinaDAO porudzbinaDAO = (PorudzbinaDAO) ctx.getAttribute("porudzbine");
+		Porudzbina porudzbina = porudzbinaDAO.getPorudzbinaByItsId(id);
+		
+		if (porudzbina == null) {
+			return Response.status(Status.BAD_REQUEST).entity("NON EXISTING ID").build();
+		}
+		
+		if (!porudzbina.getKupac().equals(korisnik.getKorisnickoIme())) {
+			return Response.status(Status.BAD_REQUEST).entity("WRONG CUSTOMER").build();
+		}
+		
+		/* Porudzbina moze biti otkazana samo ako je njen status "U OBRADI" */
+		if (!porudzbina.getStatus().equals(StatusPorudzbine.OBRADA)) {
+			return Response.status(Status.BAD_REQUEST).entity("WRONG STATUS").build();
+		}
+		
+		boolean porudzbinaOtkazana = porudzbinaDAO.otkaziPorudzbinu(porudzbina);
+		
+		if (!porudzbinaOtkazana) {
+			return Response.status(Status.BAD_REQUEST).entity("ERROR DURING THE PROCESS OF CANCELING").build();
+		}
+		
+		KorisnikDAO korisnikDAO = (KorisnikDAO) ctx.getAttribute("korisnici");
+		korisnikDAO.oduzmiPoeneZaOtkazanuPorudzbinu(korisnik.getKorisnickoIme(), porudzbina.getCena());
+		
+		return Response.status(Status.OK).build();
 	}
 }

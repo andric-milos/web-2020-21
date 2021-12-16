@@ -16,6 +16,7 @@ Vue.component("orders", {
                             <th scope="col">Status</th>
                             <th scope="col">Restaurant</th>
                             <th scope="col">Price</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -25,6 +26,7 @@ Vue.component("orders", {
                             <td> {{ order.status }} </td>
                             <td> {{ order.restoran }} </td>
                             <td> {{ order.cena }} RSD</td>
+                            <td><button v-if="order.status == 'OBRADA'" type="button" class="btn btn-primary py-0" v-on:click="cancelOrder(order.id)">Cancel</button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -53,6 +55,22 @@ Vue.component("orders", {
             date = new Date(value);
 
             return date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+        }
+    },
+    methods: {
+        cancelOrder(id) {
+            axios.put("rest/order/cancel/" + id)
+                .then(response => {
+                    if (response.status == 200) {
+                        alert ("You successfully canceled order with the id: " + id);
+                        window.location.reload();
+                    } else {
+                        console.log(response);
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         }
     }
 });
