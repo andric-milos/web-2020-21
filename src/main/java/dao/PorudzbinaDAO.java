@@ -128,4 +128,26 @@ public class PorudzbinaDAO {
 		
 		return porudzbine;
 	}
+	
+	public boolean pripremanjePorudzbine(Porudzbina porudzbina) {
+		if (porudzbina.getStatus().equals(StatusPorudzbine.OBRADA)) {
+			porudzbina.setStatus(StatusPorudzbine.U_PRIPREMI);
+			sacuvajPorudzbine(contextPath);
+			
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean porudzbinaPripremljena(Porudzbina porudzbina) {
+		if (porudzbina.getStatus().equals(StatusPorudzbine.U_PRIPREMI)) {
+			porudzbina.setStatus(StatusPorudzbine.CEKA_DOSTAVLJACA);
+			sacuvajPorudzbine(contextPath);
+			
+			return true;
+		}
+		
+		return false;
+	}
 }

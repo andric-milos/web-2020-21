@@ -6,5 +6,8 @@ public enum TipRestorana {
 	ROSTILJ,
 	MEKSICKI,
 	PICERIJA,
-	KOBASICE
+	KOBASICE,
+	BURGERI,
+	BRZA_HRANA,
+	PASTA
 }

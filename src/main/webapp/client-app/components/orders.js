@@ -22,7 +22,6 @@ Vue.component("orders", {
                             <th scope="col">Restaurant</th>
                             <th scope="col">Price</th>
                             <th scope="col"></th>
-                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -33,8 +32,11 @@ Vue.component("orders", {
                             <td> {{ order.status }} </td>
                             <td> {{ order.restoran }} </td>
                             <td> {{ order.cena }} RSD</td>
-                            <td><button v-if="order.status == 'OBRADA' && typeOfUser == 'customer'" type="button" class="btn btn-primary py-0" v-on:click="cancelOrder(order.id)">Cancel</button></td>
-                            <td><button v-if="order.status == 'OBRADA' && typeOfUser == 'manager'" type="button" class="btn btn-primary py-0">Change to "In process"</button></td>
+                            <td>
+                                <button v-if="order.status == 'OBRADA' && typeOfUser == 'customer'" type="button" class="btn btn-primary py-0" v-on:click="cancelOrder(order.id)">Cancel</button>
+                                <button v-if="order.status == 'OBRADA' && typeOfUser == 'manager'" type="button" class="btn btn-primary py-0" v-on:click="prepareOrder(order.id)">Prepare</button>
+                                <button v-if="order.status == 'U_PRIPREMI' && typeOfUser == 'manager'" type="button" class="btn btn-primary py-0" v-on:click="orderIsDone(order.id)">Done</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -101,6 +103,34 @@ Vue.component("orders", {
                 .then(response => {
                     if (response.status == 200) {
                         alert ("You successfully canceled order with the id: " + id);
+                        window.location.reload();
+                    } else {
+                        console.log(response);
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+        prepareOrder(id) {
+            axios.put("rest/order/prepare/" + id)
+                .then(response => {
+                    if (response.status == 200) {
+                        alert ("Success! The restaurant will now prepare the order [id: " + id + "].");
+                        window.location.reload();
+                    } else {
+                        console.log(response);
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+        orderIsDone(id) {
+            axios.put("rest/order/done/" + id)
+                .then(response => {
+                    if (response.status == 200) {
+                        alert ("The order [id: " + id + "] is now ready to be delivered.");
                         window.location.reload();
                     } else {
                         console.log(response);

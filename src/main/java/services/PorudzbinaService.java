@@ -203,7 +203,7 @@ public class PorudzbinaService {
 		if (korisnik == null) {
 			return Response.status(Status.BAD_REQUEST).entity("NOT LOGGED IN").build();
 		} else if (!korisnik.getTipKorisnika().equals(TipKorisnika.MENADZER)) {
-			return Response.status(Status.BAD_REQUEST).entity("NOT A CUSTOMER").build();
+			return Response.status(Status.BAD_REQUEST).entity("NOT A MANAGER").build();
 		}
 		
 		KorisnikDAO korisnikDAO = (KorisnikDAO) ctx.getAttribute("korisnici");
@@ -217,5 +217,99 @@ public class PorudzbinaService {
 		List<PorudzbinaDTO> porudzbine = porudzbinaDAO.findAllPorudzbineByRestoran(menadzer.getRestoran());
 		
 		return Response.status(Status.OK).entity(porudzbine).build();
+	}
+	
+	@PUT
+	@Path("/prepare/{id}")
+	public Response processOrder(@PathParam("id") String id) {
+		// Menjanje statusa porudzbine iz "OBRADA" u "U_PRIPREMI"
+		// Dakle, ova akcija moze da se izvrsi, samo ako je porudzbina sa statusom "OBRADA"
+		// Ovu akciju moze da izvrsi samo menadzer restorana iz kojeg je porudzbina
+		
+		Korisnik korisnik = (Korisnik) request.getSession().getAttribute("korisnik");
+		
+		if (korisnik == null) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT LOGGED IN").build();
+		} else if (!korisnik.getTipKorisnika().equals(TipKorisnika.MENADZER)) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT A MANAGER").build();
+		}
+		
+		PorudzbinaDAO porudzbinaDAO = (PorudzbinaDAO) ctx.getAttribute("porudzbine");
+		Porudzbina porudzbina = porudzbinaDAO.getPorudzbinaByItsId(id);
+		
+		if (porudzbina == null) {
+			return Response.status(Status.BAD_REQUEST).entity("NON EXISTING ID").build();
+		}
+		
+		KorisnikDAO korisnikDAO = (KorisnikDAO) ctx.getAttribute("korisnici");
+		Menadzer menadzer = korisnikDAO.getMenadzeriHashMap().get(korisnik.getKorisnickoIme());
+		
+		if (menadzer.getRestoran() == null) {
+			return Response.status(Status.BAD_REQUEST).entity("RESTAURANT NULL").build();
+		}
+		
+		if (!porudzbina.getRestoran().equals(menadzer.getRestoran())) {
+			return Response.status(Status.BAD_REQUEST).entity("WRONG MANAGER").build();
+		}
+		
+		/* Status porudzbine mora biti "OBRADA" */
+		if (!porudzbina.getStatus().equals(StatusPorudzbine.OBRADA)) {
+			return Response.status(Status.BAD_REQUEST).entity("WRONG STATUS").build();
+		}
+		
+		boolean statusPromenjen = porudzbinaDAO.pripremanjePorudzbine(porudzbina);
+		
+		if (!statusPromenjen) {
+			return Response.status(Status.BAD_REQUEST).entity("STATUS OF THE ORDER HAS NOT CHANGED").build();
+		}
+		
+		return Response.status(Status.OK).build();
+	}
+	
+	@PUT
+	@Path("/done/{id}")
+	public Response orderDone(@PathParam("id") String id) {
+		// Menjanje statusa porudzbine iz "U_PRIPREMI" U "CEKA_DOSTAVLJACA"
+		// Dakle, ova akcija moze da se izvrsi, samo ako je porudzbina sa statusom "U_PRIPREMI"
+		// Ovu akciju moze da izvrsi samo menadzer restorana iz kojeg je porudzbina
+		
+		Korisnik korisnik = (Korisnik) request.getSession().getAttribute("korisnik");
+		
+		if (korisnik == null) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT LOGGED IN").build();
+		} else if (!korisnik.getTipKorisnika().equals(TipKorisnika.MENADZER)) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT A MANAGER").build();
+		}
+		
+		PorudzbinaDAO porudzbinaDAO = (PorudzbinaDAO) ctx.getAttribute("porudzbine");
+		Porudzbina porudzbina = porudzbinaDAO.getPorudzbinaByItsId(id);
+		
+		if (porudzbina == null) {
+			return Response.status(Status.BAD_REQUEST).entity("NON EXISTING ID").build();
+		}
+		
+		KorisnikDAO korisnikDAO = (KorisnikDAO) ctx.getAttribute("korisnici");
+		Menadzer menadzer = korisnikDAO.getMenadzeriHashMap().get(korisnik.getKorisnickoIme());
+		
+		if (menadzer.getRestoran() == null) {
+			return Response.status(Status.BAD_REQUEST).entity("RESTAURANT NULL").build();
+		}
+		
+		if (!porudzbina.getRestoran().equals(menadzer.getRestoran())) {
+			return Response.status(Status.BAD_REQUEST).entity("WRONG MANAGER").build();
+		}
+		
+		/* Status porudzbine mora biti "U_PRIPREMI" */
+		if (!porudzbina.getStatus().equals(StatusPorudzbine.U_PRIPREMI)) {
+			return Response.status(Status.BAD_REQUEST).entity("WRONG STATUS").build();
+		}
+		
+		boolean statusPromenjen = porudzbinaDAO.porudzbinaPripremljena(porudzbina);
+		
+		if (!statusPromenjen) {
+			return Response.status(Status.BAD_REQUEST).entity("STATUS OF THE ORDER HAS NOT CHANGED").build();
+		}
+		
+		return Response.status(Status.OK).build();
 	}
 }
