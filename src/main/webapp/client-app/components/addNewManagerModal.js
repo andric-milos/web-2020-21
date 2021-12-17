@@ -79,7 +79,9 @@ Vue.component("add-new-manager-modal", {
                     .then(response => {
                         if (response.status == 200) {
                             alert("You successfully added " + this.username + " as new manager!");
-                            window.location.reload();
+
+                            eventBus.$emit('newManagerAdded');
+                            $('#' + this.modalId).modal('hide');
                         }
                     })
                     .catch(error => {

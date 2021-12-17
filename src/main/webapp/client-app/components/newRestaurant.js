@@ -310,6 +310,20 @@ Vue.component("new-restaurant", {
                 // console.log("Marker created at " + e.latlng);
             }
         });
+
+        eventBus.$on('newManagerAdded', () => {
+            axios.get("rest/user/allAvailableManagers")
+                .then(response => {
+                    if (response.status == 200) {
+                        this.managers = response.data;
+                    } else {
+                        console.log(response);
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        });
     },
     filters: {
         fullName(value) {
