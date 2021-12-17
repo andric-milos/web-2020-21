@@ -17,6 +17,7 @@ import javax.ws.rs.core.Response.Status;
 
 import beans.Korisnik;
 import beans.Korpa;
+import beans.Menadzer;
 import beans.Porudzbina;
 import beans.StatusPorudzbine;
 import beans.TipKorisnika;
@@ -156,6 +157,7 @@ public class PorudzbinaService {
 	@Path("/cancel/{id}")
 	public Response cancelOrder(@PathParam("id") String id) {
 		// porudzbina moze biti oktazana samo ako je porudzbina u statusu OBRADA
+		// porudzbinu moze da otkaze samo korisnik koji je i kreirao
 		
 		Korisnik korisnik = (Korisnik) request.getSession().getAttribute("korisnik");
 		
@@ -191,5 +193,29 @@ public class PorudzbinaService {
 		korisnikDAO.oduzmiPoeneZaOtkazanuPorudzbinu(korisnik.getKorisnickoIme(), porudzbina.getCena());
 		
 		return Response.status(Status.OK).build();
+	}
+	
+	@GET
+	@Path("/manager")
+	public Response getAllOfManagersOrders() {
+		Korisnik korisnik = (Korisnik) request.getSession().getAttribute("korisnik");
+		
+		if (korisnik == null) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT LOGGED IN").build();
+		} else if (!korisnik.getTipKorisnika().equals(TipKorisnika.MENADZER)) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT A CUSTOMER").build();
+		}
+		
+		KorisnikDAO korisnikDAO = (KorisnikDAO) ctx.getAttribute("korisnici");
+		Menadzer menadzer = korisnikDAO.getMenadzeriHashMap().get(korisnik.getKorisnickoIme());
+		
+		if (menadzer.getRestoran() == null) {
+			return Response.status(Status.BAD_REQUEST).entity("RESTAURANT NULL").build();
+		}
+		
+		PorudzbinaDAO porudzbinaDAO = (PorudzbinaDAO) ctx.getAttribute("porudzbine");
+		List<PorudzbinaDTO> porudzbine = porudzbinaDAO.findAllPorudzbineByRestoran(menadzer.getRestoran());
+		
+		return Response.status(Status.OK).entity(porudzbine).build();
 	}
 }

@@ -1,4 +1,4 @@
-Vue.component("customer-orders", {
+Vue.component("manager-orders", {
     data: function() {
         return {
 
@@ -9,8 +9,8 @@ Vue.component("customer-orders", {
         <navigation-bar></navigation-bar>
 
         <div class="d-flex" id="wrapper">
-            <customer-sidebar></customer-sidebar>
-            <orders typeOfUser="customer"></orders>
+            <manager-sidebar></manager-sidebar>
+            <orders typeOfUser="manager"></orders>
         </div>
     </div> `
 });

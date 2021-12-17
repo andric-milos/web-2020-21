@@ -115,4 +115,17 @@ public class PorudzbinaDAO {
 		
 		return false;
 	}
+	
+	public List<PorudzbinaDTO> findAllPorudzbineByRestoran(String restoran) {
+		List<PorudzbinaDTO> porudzbine = new ArrayList<PorudzbinaDTO>();
+		
+		for (Porudzbina p : this.porudzbine.values()) {
+			if (p.getRestoran().equals(restoran)) {
+				PorudzbinaDTO dto = new PorudzbinaDTO(p);
+				porudzbine.add(dto);
+			}
+		}
+		
+		return porudzbine;
+	}
 }

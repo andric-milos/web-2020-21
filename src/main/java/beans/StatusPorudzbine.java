@@ -3,7 +3,7 @@ package beans;
 public enum StatusPorudzbine {
 	OBRADA,
 	U_PRIPREMI,
-	CEKA_DOSTACLJACA,
+	CEKA_DOSTAVLJACA,
 	U_TRANSPORTU,
 	DOSTAVLJENA,
 	OTKAZANA
