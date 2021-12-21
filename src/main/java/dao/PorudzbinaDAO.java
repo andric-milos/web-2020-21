@@ -13,6 +13,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import beans.Dostavljac;
 import beans.Porudzbina;
 import beans.StatusPorudzbine;
 import dto.PorudzbinaDTO;
@@ -149,5 +150,22 @@ public class PorudzbinaDAO {
 		}
 		
 		return false;
+	}
+	
+	public List<PorudzbinaDTO> findAllPorudzbineToShowToDostavljac(Dostavljac dostavljac) {
+		List<PorudzbinaDTO> porudzbine = new ArrayList<PorudzbinaDTO>();
+		
+		for (Porudzbina p : dostavljac.getPorudzbine()) {
+			porudzbine.add(new PorudzbinaDTO(p));
+		}
+		
+		for (Porudzbina p : this.porudzbine.values()) {
+			if (p.getStatus().equals(StatusPorudzbine.CEKA_DOSTAVLJACA)) {
+				PorudzbinaDTO dto = new PorudzbinaDTO(p);
+				porudzbine.add(dto);
+			}
+		}
+		
+		return porudzbine;
 	}
 }

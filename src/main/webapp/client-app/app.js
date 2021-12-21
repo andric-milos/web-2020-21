@@ -22,6 +22,7 @@ const ManagerOrders = { template: '<manager-orders></manager-orders>' }
 
 const DelivererInfo = { template: '<deliverer-info></deliverer-info>' }
 const DelivererChangePasswordPage = { template: '<deliverer-change-password></deliverer-change-password>' }
+const DelivererOrders = { template: '<deliverer-orders></deliverer-orders>' }
 
 
 const router = new VueRouter({
@@ -106,6 +107,10 @@ const router = new VueRouter({
         {
             path: '/deliverer/changePassword',
             component: DelivererChangePasswordPage
+        },
+        {
+            path: '/deliverer/orders',
+            component: DelivererOrders
         }
     ]
 });

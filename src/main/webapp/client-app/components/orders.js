@@ -57,7 +57,7 @@ Vue.component("orders", {
                             this.showTable = true;
                         } else {
                             this.showTable = false;
-                        } 
+                        }
                     } else {
                         console.log(response);
                     }
@@ -75,7 +75,25 @@ Vue.component("orders", {
                             this.showTable = true;
                         } else {
                             this.showTable = false;
-                        } 
+                        }
+                    } else {
+                        console.log(response);
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        } else if (this.typeOfUser == "deliverer") {
+            axios.get("rest/order/deliverer")
+                .then(response => {
+                    if (response.status == 200) {
+                        this.orders = response.data;
+
+                        if (this.orders.length > 0) {
+                            this.showTable = true;
+                        } else {
+                            this.showTable = false;
+                        }
                     } else {
                         console.log(response);
                     }

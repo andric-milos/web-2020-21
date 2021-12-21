@@ -15,6 +15,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import beans.Dostavljac;
 import beans.Korisnik;
 import beans.Korpa;
 import beans.Menadzer;
@@ -311,5 +312,25 @@ public class PorudzbinaService {
 		}
 		
 		return Response.status(Status.OK).build();
+	}
+	
+	@GET
+	@Path("/deliverer")
+	public Response getAllOfDeliverersOrders() {
+		Korisnik korisnik = (Korisnik) request.getSession().getAttribute("korisnik");
+		
+		if (korisnik == null) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT LOGGED IN").build();
+		} else if (!korisnik.getTipKorisnika().equals(TipKorisnika.DOSTAVLJAC)) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT A DELIVERER").build();
+		}
+		
+		KorisnikDAO korisnikDAO = (KorisnikDAO) ctx.getAttribute("korisnici");
+		Dostavljac dostavljac = korisnikDAO.getDostavljaciHashMap().get(korisnik.getKorisnickoIme());
+		
+		PorudzbinaDAO porudzbinaDAO = (PorudzbinaDAO) ctx.getAttribute("porudzbine");
+		List<PorudzbinaDTO> porudzbine = porudzbinaDAO.findAllPorudzbineToShowToDostavljac(dostavljac);
+		
+		return Response.status(Status.OK).entity(porudzbine).build();
 	}
 }
