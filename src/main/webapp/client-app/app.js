@@ -19,6 +19,7 @@ const ManagerInfo = { template: '<manager-info></manager-info>' }
 const ManagerChangePasswordPage = { template: '<manager-change-password></manager-change-password>' }
 const ManagersRestaurant = { template: '<managers-restaurant></managers-restaurant>' }
 const ManagerOrders = { template: '<manager-orders></manager-orders>' }
+const ManagerDeliveryRequests = { template: '<manager-delivery-requests></manager-delivery-requests>' }
 
 const DelivererInfo = { template: '<deliverer-info></deliverer-info>' }
 const DelivererChangePasswordPage = { template: '<deliverer-change-password></deliverer-change-password>' }
@@ -99,6 +100,10 @@ const router = new VueRouter({
         {
             path: '/manager/orders',
             component: ManagerOrders
+        },
+        {
+            path: '/manager/requests',
+            component: ManagerDeliveryRequests
         },
         {
             path: '/deliverer',

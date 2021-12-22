@@ -1,6 +1,8 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -30,6 +32,7 @@ import dao.PorudzbinaDAO;
 import dao.RestoranDAO;
 import dao.ZahtevZaDostavuDAO;
 import dto.PorudzbinaDTO;
+import dto.ZahtevZaDostavuDTO;
 
 @Path("/order")
 public class PorudzbinaService {
@@ -393,4 +396,51 @@ public class PorudzbinaService {
 		
 		return Response.status(Status.OK).entity(zahtevi).build();
 	}
+	
+	@GET
+	@Path("/managersRequests")
+	public Response getAllDeliveryRequestsForManagersRestaurant() {
+		Korisnik korisnik = (Korisnik) request.getSession().getAttribute("korisnik");
+		
+		if (korisnik == null) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT LOGGED IN").build();
+		} else if (!korisnik.getTipKorisnika().equals(TipKorisnika.MENADZER)) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT A MANAGER").build();
+		}
+		
+		KorisnikDAO korisnikDAO = (KorisnikDAO) ctx.getAttribute("korisnici");
+		Menadzer menadzer = korisnikDAO.getMenadzeriHashMap().get(korisnik.getKorisnickoIme());
+		String restoran = menadzer.getRestoran();
+		
+		HashMap<String, Porudzbina> porudzbineIzMenadzerovogRestorana = new HashMap<String, Porudzbina>();
+		PorudzbinaDAO porudzbinaDAO = (PorudzbinaDAO) ctx.getAttribute("porudzbine");
+		for (Porudzbina p : porudzbinaDAO.getAllPorudzbineCollection()) {
+			if (p.getRestoran().equals(restoran)) {
+				porudzbineIzMenadzerovogRestorana.put(p.getId(), p);
+			}
+		}
+		
+		ZahtevZaDostavuDAO zahtevDAO = (ZahtevZaDostavuDAO) ctx.getAttribute("zahtevi");
+		List<ZahtevZaDostavuDTO> zahtevi = new ArrayList<ZahtevZaDostavuDTO>();
+		for (ZahtevZaDostavu z : zahtevDAO.getAllZahteviCollection()) {
+			if (porudzbineIzMenadzerovogRestorana.containsKey(z.getId_porudzbine())) {
+				Porudzbina p = porudzbineIzMenadzerovogRestorana.get(z.getId_porudzbine());
+				
+				ZahtevZaDostavuDTO dto = new ZahtevZaDostavuDTO();
+				dto.setId_porudzbine(z.getId_porudzbine());
+				dto.setRestoran(restoran);
+				dto.setDatumZahteva(z.getDatum().getTime());
+				dto.setDatumPorudzbine(p.getVremePorudzbine().getTime());
+				dto.setDostavljac(z.getDostavljac());
+				dto.setCena(p.getCena());
+				dto.setKupac(p.getKupac());
+				dto.setStatus(p.getStatus());
+				
+				zahtevi.add(dto);
+			}
+		}
+		
+		return Response.status(Status.OK).entity(zahtevi).build();
+	}
+	
 }
