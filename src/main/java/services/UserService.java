@@ -31,6 +31,7 @@ import beans.TipKorisnika;
 import dao.KorisnikDAO;
 import dao.PorudzbinaDAO;
 import dao.RestoranDAO;
+import dao.ZahtevZaDostavuDAO;
 import dto.KorisnikDTO;
 import dto.MenadzerDTO;
 import dto.PromenaLozinkeDTO;
@@ -64,6 +65,11 @@ public class UserService {
 		if (ctx.getAttribute("porudzbine") == null) {
 			String path = ctx.getRealPath("");
 			ctx.setAttribute("porudzbine", new PorudzbinaDAO(path));
+		}
+		
+		if (ctx.getAttribute("zahtevi") == null) {
+			String path = ctx.getRealPath("");
+			ctx.setAttribute("zahtevi", new ZahtevZaDostavuDAO(path));
 		}
 	}
 	

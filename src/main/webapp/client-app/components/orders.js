@@ -36,6 +36,7 @@ Vue.component("orders", {
                                 <button v-if="order.status == 'OBRADA' && typeOfUser == 'customer'" type="button" class="btn btn-primary py-0" v-on:click="cancelOrder(order.id)">Cancel</button>
                                 <button v-if="order.status == 'OBRADA' && typeOfUser == 'manager'" type="button" class="btn btn-primary py-0" v-on:click="prepareOrder(order.id)">Prepare</button>
                                 <button v-if="order.status == 'U_PRIPREMI' && typeOfUser == 'manager'" type="button" class="btn btn-primary py-0" v-on:click="orderIsDone(order.id)">Done</button>
+                                <button v-if="order.status == 'CEKA_DOSTAVLJACA' && typeOfUser == 'deliverer'" type="button" class="btn btn-primary py-0" v-on:click="deliverOrder(order.id)">Request to deliver</button>
                             </td>
                         </tr>
                     </tbody>
@@ -134,7 +135,7 @@ Vue.component("orders", {
             axios.put("rest/order/prepare/" + id)
                 .then(response => {
                     if (response.status == 200) {
-                        alert ("Success! The restaurant will now prepare the order [id: " + id + "].");
+                        alert("Success! The restaurant will now prepare the order [id: " + id + "].");
                         window.location.reload();
                     } else {
                         console.log(response);
@@ -148,7 +149,7 @@ Vue.component("orders", {
             axios.put("rest/order/done/" + id)
                 .then(response => {
                     if (response.status == 200) {
-                        alert ("The order [id: " + id + "] is now ready to be delivered.");
+                        alert("The order [id: " + id + "] is now ready to be delivered.");
                         window.location.reload();
                     } else {
                         console.log(response);
@@ -156,6 +157,28 @@ Vue.component("orders", {
                 })
                 .catch(error => {
                     console.log(error);
+                });
+        },
+        deliverOrder(id) {
+            let dto = {
+                "id_porudzbine" : id
+            };
+
+            axios.post("rest/order/deliveryRequest", dto)
+                .then(response => {
+                    if (response.status == 200) {
+                        alert("You successfully created delivery request for order " + id);
+                        window.location.reload();
+                    } else {
+                        console.log(response);
+                    }
+                })
+                .catch(error => {
+                    if (error.response.data == "REQUEST ALREADY MADE") {
+                        alert("You already created delivery request for order " + id);
+                    } else {
+                        console.log(error);
+                    }
                 });
         }
     }

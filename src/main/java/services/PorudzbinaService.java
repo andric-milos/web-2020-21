@@ -6,12 +6,14 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
@@ -22,9 +24,11 @@ import beans.Menadzer;
 import beans.Porudzbina;
 import beans.StatusPorudzbine;
 import beans.TipKorisnika;
+import beans.ZahtevZaDostavu;
 import dao.KorisnikDAO;
 import dao.PorudzbinaDAO;
 import dao.RestoranDAO;
+import dao.ZahtevZaDostavuDAO;
 import dto.PorudzbinaDTO;
 
 @Path("/order")
@@ -55,6 +59,11 @@ public class PorudzbinaService {
 		if (ctx.getAttribute("porudzbine") == null) {
 			String path = ctx.getRealPath("");
 			ctx.setAttribute("porudzbine", new PorudzbinaDAO(path));
+		}
+		
+		if (ctx.getAttribute("zahtevi") == null) {
+			String path = ctx.getRealPath("");
+			ctx.setAttribute("zahtevi", new ZahtevZaDostavuDAO(path));
 		}
 	}
 	
@@ -332,5 +341,56 @@ public class PorudzbinaService {
 		List<PorudzbinaDTO> porudzbine = porudzbinaDAO.findAllPorudzbineToShowToDostavljac(dostavljac);
 		
 		return Response.status(Status.OK).entity(porudzbine).build();
+	}
+	
+	@POST
+	@Path("/deliveryRequest")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response createDeliveryRequest(ZahtevZaDostavu zahtev) {
+		// Korisnik mora biti dostavljac
+		// Zahtev za dostavu se cuva
+		// Menadzer restorana mora da odobri zahtev i onda se status porudzbine menja u "U_TRANSPORTU"
+		// Salje se samo id porudzbine kroz parametar "zahtev"
+		
+		Korisnik korisnik = (Korisnik) request.getSession().getAttribute("korisnik");
+		
+		if (korisnik == null) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT LOGGED IN").build();
+		} else if (!korisnik.getTipKorisnika().equals(TipKorisnika.DOSTAVLJAC)) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT A DELIVERER").build();
+		}
+		
+		// Validacija - prosledjeni id ne sme biti prazan
+		zahtev.setId_porudzbine(zahtev.getId_porudzbine().trim());
+		if (zahtev.getId_porudzbine() == null || zahtev.getId_porudzbine().equals("")) {
+			return Response.status(Status.BAD_REQUEST).entity("ID IS NULL").build();
+		}
+		
+		// Validacija - porudzbina sa prosledjenim id-em ne postoji
+		PorudzbinaDAO porudzbinaDAO = (PorudzbinaDAO) ctx.getAttribute("porudzbine");
+		if (!porudzbinaDAO.getAllPorudzbineHashMap().containsKey(zahtev.getId_porudzbine())) {
+			return Response.status(Status.BAD_REQUEST).entity("NON EXISTING ORDER").build();
+		}
+		
+		ZahtevZaDostavuDAO zahtevDAO = (ZahtevZaDostavuDAO) ctx.getAttribute("zahtevi");
+		String key = zahtev.getId_porudzbine() + "_" + korisnik.getKorisnickoIme();	// key - idPorudzbine_dostavljac
+		if (zahtevDAO.getAllZahteviHashMap().containsKey(key)) {
+			return Response.status(Status.BAD_REQUEST).entity("REQUEST ALREADY MADE").build();
+		}
+		
+		zahtev.setDostavljac(korisnik.getKorisnickoIme());
+		zahtev.setDatum(new Date());
+		zahtevDAO.dodajZahtev(zahtev);	// u okviru ove metode se vrsi i serijalizacija
+		
+		return Response.status(Status.OK).build();
+	}
+	
+	@GET
+	@Path("/requests")
+	public Response getAllDeliveryRequests() {
+		ZahtevZaDostavuDAO zahtevDAO = (ZahtevZaDostavuDAO) ctx.getAttribute("zahtevi");
+		List<ZahtevZaDostavu> zahtevi = zahtevDAO.getAllZahteviList();
+		
+		return Response.status(Status.OK).entity(zahtevi).build();
 	}
 }
