@@ -443,4 +443,109 @@ public class PorudzbinaService {
 		return Response.status(Status.OK).entity(zahtevi).build();
 	}
 	
+	@PUT
+	@Path("/rejectDeliveryRequest")
+	public Response rejectDeliveryRequest(ZahtevZaDostavu zahtev) {
+		// Zahtev za dostavu moze samo da odbije menadzer restorana
+		// RequestBody - kroz ZahtevZaDostavu se prosledjuju id_porudzbine i dostavljac
+		
+		Korisnik korisnik = (Korisnik) request.getSession().getAttribute("korisnik");
+		if (korisnik == null) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT LOGGED IN").build();
+		} else if (!korisnik.getTipKorisnika().equals(TipKorisnika.MENADZER)) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT A MANAGER").build();
+		}
+		
+		zahtev.setId_porudzbine(zahtev.getId_porudzbine().trim());
+		zahtev.setDostavljac(zahtev.getDostavljac().trim());
+		if (zahtev.getId_porudzbine() == null || zahtev.getId_porudzbine().equals("") ||
+			zahtev.getDostavljac() == null || zahtev.getDostavljac().equals("")) {
+			return Response.status(Status.BAD_REQUEST).entity("INVALID DATA").build();
+		}
+		
+		PorudzbinaDAO porudzbinaDAO = (PorudzbinaDAO) ctx.getAttribute("porudzbine");
+		if (!porudzbinaDAO.getAllPorudzbineHashMap().containsKey(zahtev.getId_porudzbine())) {
+			return Response.status(Status.BAD_REQUEST).entity("NON EXISTING ORDER").build();
+		}
+		
+		KorisnikDAO korisnikDAO = (KorisnikDAO) ctx.getAttribute("korisnici");
+		if (!korisnikDAO.getDostavljaciHashMap().containsKey(zahtev.getDostavljac())) {
+			return Response.status(Status.BAD_REQUEST).entity("NON EXISTING DELIVERER").build();
+		}
+		
+		Porudzbina porudzbina = porudzbinaDAO.getAllPorudzbineHashMap().get(zahtev.getId_porudzbine());
+		Menadzer menadzer = korisnikDAO.getMenadzeriHashMap().get(korisnik.getKorisnickoIme());
+		if (!porudzbina.getRestoran().equals(menadzer.getRestoran())) {
+			return Response.status(Status.BAD_REQUEST).entity("WRONG MANAGER").build();
+		}
+		
+		ZahtevZaDostavuDAO zahtevDAO = (ZahtevZaDostavuDAO) ctx.getAttribute("zahtevi");
+		String key = zahtev.getId_porudzbine() + "_" + zahtev.getDostavljac();
+		if (!zahtevDAO.getAllZahteviHashMap().containsKey(key)) {
+			return Response.status(Status.BAD_REQUEST).entity("NON EXISTING DELIVERY REQUEST").build();
+		}
+		
+		zahtevDAO.obrisiZahtev(zahtev.getId_porudzbine(), zahtev.getDostavljac());
+		
+		return Response.status(Status.OK).build();
+	}
+	
+	@PUT
+	@Path("/acceptDeliveryRequest")
+	public Response acceptDeliveryRequest(ZahtevZaDostavu zahtev) {
+		// Zahtev za dostavu moze samo da odobri menadzer restorana
+		// RequestBody - kroz ZahtevZaDostavu se prosledjuju id_porudzbine i dostavljac
+		
+		Korisnik korisnik = (Korisnik) request.getSession().getAttribute("korisnik");
+		if (korisnik == null) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT LOGGED IN").build();
+		} else if (!korisnik.getTipKorisnika().equals(TipKorisnika.MENADZER)) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT A MANAGER").build();
+		}
+		
+		zahtev.setId_porudzbine(zahtev.getId_porudzbine().trim());
+		zahtev.setDostavljac(zahtev.getDostavljac().trim());
+		if (zahtev.getId_porudzbine() == null || zahtev.getId_porudzbine().equals("") ||
+			zahtev.getDostavljac() == null || zahtev.getDostavljac().equals("")) {
+			return Response.status(Status.BAD_REQUEST).entity("INVALID DATA").build();
+		}
+		
+		PorudzbinaDAO porudzbinaDAO = (PorudzbinaDAO) ctx.getAttribute("porudzbine");
+		if (!porudzbinaDAO.getAllPorudzbineHashMap().containsKey(zahtev.getId_porudzbine())) {
+			return Response.status(Status.BAD_REQUEST).entity("NON EXISTING ORDER").build();
+		}
+		
+		KorisnikDAO korisnikDAO = (KorisnikDAO) ctx.getAttribute("korisnici");
+		if (!korisnikDAO.getDostavljaciHashMap().containsKey(zahtev.getDostavljac())) {
+			return Response.status(Status.BAD_REQUEST).entity("NON EXISTING DELIVERER").build();
+		}
+		
+		Porudzbina porudzbina = porudzbinaDAO.getAllPorudzbineHashMap().get(zahtev.getId_porudzbine());
+		Menadzer menadzer = korisnikDAO.getMenadzeriHashMap().get(korisnik.getKorisnickoIme());
+		if (!porudzbina.getRestoran().equals(menadzer.getRestoran())) {
+			return Response.status(Status.BAD_REQUEST).entity("WRONG MANAGER").build();
+		}
+		
+		ZahtevZaDostavuDAO zahtevDAO = (ZahtevZaDostavuDAO) ctx.getAttribute("zahtevi");
+		String key = zahtev.getId_porudzbine() + "_" + zahtev.getDostavljac();
+		if (!zahtevDAO.getAllZahteviHashMap().containsKey(key)) {
+			return Response.status(Status.BAD_REQUEST).entity("NON EXISTING DELIVERY REQUEST").build();
+		}
+		
+		// Promeni status porudzbine iz "CEKA_DOSTAVLJACA" u "U_TRANSPORTU"
+		boolean statusPromenjen = porudzbinaDAO.transportovanjePorudzbine(porudzbina);
+		if (!statusPromenjen) {
+			return Response.status(Status.BAD_REQUEST).entity("STATUS HAS NOT CHANGED").build();
+		}
+		
+		// Dodaj porudzbinu dostavljacu u listu porudzbina koje treba da dostavi
+		Dostavljac dostavljac = korisnikDAO.getDostavljaciHashMap().get(zahtev.getDostavljac());
+		korisnikDAO.dodajPorudzbinuDostavljacu(dostavljac, porudzbina);
+		
+		// Obrisi sve zahteve za dostavu koji su vezanu za tu porudzbinu
+		zahtevDAO.obrisiSveZahteveSaProsledjenimIdPorudzbine(zahtev.getId_porudzbine());
+		
+		return Response.status(Status.OK).build();
+	}
+	
 }

@@ -30,7 +30,8 @@ Vue.component("requests", {
                             <td> {{ r.datumPorudzbine | transformMillisecondsToDate }} </td>
                             <td> {{ r.cena }} RSD</td>
                             <td>
-                                
+                                <button type="button" class="btn btn-primary py-0" v-on:click="acceptDeliveryRequest(r.id_porudzbine, r.dostavljac)">Accept</button>
+                                <button type="button" class="btn btn-primary py-0" v-on:click="rejectDeliveryRequest(r.id_porudzbine, r.dostavljac)">Reject</button>
                             </td>
                         </tr>
                     </tbody>
@@ -66,6 +67,46 @@ Vue.component("requests", {
             date = new Date(value);
 
             return date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+        }
+    },
+    methods: {
+        rejectDeliveryRequest(deliveryRequestId, deliverer) {
+            let dto = {
+                "id_porudzbine" : deliveryRequestId,
+                "dostavljac" : deliverer
+            };
+
+            axios.put("rest/order/rejectDeliveryRequest", dto)
+                .then(response => {
+                    if (response.status == 200) {
+                        // alert("");
+                        window.location.reload();
+                    } else {
+                        console.log(response);
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+        acceptDeliveryRequest(deliveryRequestId, deliverer) {
+            let dto = {
+                "id_porudzbine" : deliveryRequestId,
+                "dostavljac" : deliverer
+            };
+
+            axios.put("rest/order/acceptDeliveryRequest", dto)
+                .then(response => {
+                    if (response.status == 200) {
+                        // alert("");
+                        window.location.reload();
+                    } else {
+                        console.log(response);
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         }
     }
 });

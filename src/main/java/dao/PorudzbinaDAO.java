@@ -168,4 +168,15 @@ public class PorudzbinaDAO {
 		
 		return porudzbine;
 	}
+	
+	public boolean transportovanjePorudzbine(Porudzbina porudzbina) {
+		if (porudzbina.getStatus().equals(StatusPorudzbine.CEKA_DOSTAVLJACA)) {
+			porudzbina.setStatus(StatusPorudzbine.U_TRANSPORTU);
+			sacuvajPorudzbine(contextPath);
+			
+			return true;
+		}
+		
+		return false;
+	}
 }

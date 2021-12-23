@@ -22,6 +22,7 @@ import beans.Korisnik;
 import beans.Kupac;
 import beans.Menadzer;
 import beans.Pol;
+import beans.Porudzbina;
 import beans.TipKorisnika;
 import dto.KorisnikDTO;
 import dto.MenadzerDTO;
@@ -616,5 +617,10 @@ public class KorisnikDAO {
 			
 			sacuvajKupce(contextPath);
 		}
+	}
+	
+	public void dodajPorudzbinuDostavljacu(Dostavljac dostavljac, Porudzbina porudzbina) {
+		dostavljac.getPorudzbine().add(porudzbina);
+		sacuvajDostavljace(contextPath);
 	}
 }

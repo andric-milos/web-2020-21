@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
@@ -86,5 +87,28 @@ public class ZahtevZaDostavuDAO {
 			e.printStackTrace();
 			System.out.println("ZahtevZaDostavuDAO[method ucitajZahteve]: File " + path + " couldn't be open. It probably doesn't exist.");
 		}
+	}
+	
+	public void obrisiZahtev(String id_porudzbine, String dostavljac) {
+		String key = id_porudzbine + "_" + dostavljac;
+		
+		if (this.zahtevi.containsKey(key)) {
+			this.zahtevi.remove(key);
+			sacuvajZahteve(contextPath);
+		}
+	}
+	
+	public void obrisiSveZahteveSaProsledjenimIdPorudzbine(String id_porudzbine) {
+		Iterator<ZahtevZaDostavu> i = this.zahtevi.values().iterator();
+		
+		while (i.hasNext()) {
+			ZahtevZaDostavu z = i.next();
+			
+			if (z.getId_porudzbine().equals(id_porudzbine)) {
+				i.remove();
+			}
+		}
+		
+		sacuvajZahteve(contextPath);
 	}
 }
