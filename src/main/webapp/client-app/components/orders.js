@@ -37,6 +37,7 @@ Vue.component("orders", {
                                 <button v-if="order.status == 'OBRADA' && typeOfUser == 'manager'" type="button" class="btn btn-primary py-0" v-on:click="prepareOrder(order.id)">Prepare</button>
                                 <button v-if="order.status == 'U_PRIPREMI' && typeOfUser == 'manager'" type="button" class="btn btn-primary py-0" v-on:click="orderIsDone(order.id)">Done</button>
                                 <button v-if="order.status == 'CEKA_DOSTAVLJACA' && typeOfUser == 'deliverer'" type="button" class="btn btn-primary py-0" v-on:click="deliverOrder(order.id)">Request to deliver</button>
+                                <button v-if="order.status == 'U_TRANSPORTU' && typeOfUser == 'deliverer'" type="button" class="btn btn-primary py-0" v-on:click="orderDelivered(order.id)">Delivered</button>
                             </td>
                         </tr>
                     </tbody>
@@ -179,6 +180,20 @@ Vue.component("orders", {
                     } else {
                         console.log(error);
                     }
+                });
+        },
+        orderDelivered(id) {
+            axios.put("rest/order/delivered/" + id)
+                .then(response => {
+                    if (response.status == 200) {
+                        // alert("");
+                        window.location.reload();
+                    } else {
+                        console.log(response);
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
                 });
         }
     }

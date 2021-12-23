@@ -179,4 +179,15 @@ public class PorudzbinaDAO {
 		
 		return false;
 	}
+	
+	public boolean porudzbinaDostavljena(Porudzbina porudzbina) {
+		if (porudzbina.getStatus().equals(StatusPorudzbine.U_TRANSPORTU)) {
+			porudzbina.setStatus(StatusPorudzbine.DOSTAVLJENA);
+			sacuvajPorudzbine(contextPath);
+			
+			return true;
+		}
+		
+		return false;
+	}
 }

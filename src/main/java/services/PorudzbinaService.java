@@ -548,4 +548,43 @@ public class PorudzbinaService {
 		return Response.status(Status.OK).build();
 	}
 	
+	@PUT
+	@Path("/delivered/{id}")
+	public Response orderDelivered(@PathParam("id") String id) {
+		// Menjanje statusa porudzbine iz "U_TRANSPOTU" U "DOSTAVLJENA"
+		// Dakle, ova akcija moze da se izvrsi, samo ako je porudzbina sa statusom "U_TRANSPOTU"
+		// Ovu akciju moze da izvrsi samo dostavljac koji je zaduzen za ovu porudzbinu
+		
+		Korisnik korisnik = (Korisnik) request.getSession().getAttribute("korisnik");
+		
+		if (korisnik == null) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT LOGGED IN").build();
+		} else if (!korisnik.getTipKorisnika().equals(TipKorisnika.DOSTAVLJAC)) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT A DELIVERER").build();
+		}
+		
+		PorudzbinaDAO porudzbinaDAO = (PorudzbinaDAO) ctx.getAttribute("porudzbine");
+		Porudzbina porudzbina = porudzbinaDAO.getPorudzbinaByItsId(id);
+		
+		if (porudzbina == null) {
+			return Response.status(Status.BAD_REQUEST).entity("NON EXISTING ID").build();
+		}
+		
+		KorisnikDAO korisnikDAO = (KorisnikDAO) ctx.getAttribute("korisnici");
+		Dostavljac dostavljac = korisnikDAO.getDostavljaciHashMap().get(korisnik.getKorisnickoIme());
+		
+		if (!korisnikDAO.doesDostavljacHasPorudzbina(dostavljac, porudzbina)) {
+			return Response.status(Status.BAD_REQUEST).entity("WRONG DELIVERER").build();
+		}
+		
+		if (!porudzbina.getStatus().equals(StatusPorudzbine.U_TRANSPORTU)) {
+			return Response.status(Status.BAD_REQUEST).entity("WRONG STATUS").build();
+		}
+		
+		porudzbinaDAO.porudzbinaDostavljena(porudzbina);	// promeni status porudzbine
+		korisnikDAO.porudzbinaDostavljena(dostavljac, id);	// promeni status porudzbine kod dostavljaca
+		
+		return Response.status(Status.OK).build();
+	}
+	
 }

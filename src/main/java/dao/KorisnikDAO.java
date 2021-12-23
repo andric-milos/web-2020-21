@@ -23,6 +23,7 @@ import beans.Kupac;
 import beans.Menadzer;
 import beans.Pol;
 import beans.Porudzbina;
+import beans.StatusPorudzbine;
 import beans.TipKorisnika;
 import dto.KorisnikDTO;
 import dto.MenadzerDTO;
@@ -622,5 +623,26 @@ public class KorisnikDAO {
 	public void dodajPorudzbinuDostavljacu(Dostavljac dostavljac, Porudzbina porudzbina) {
 		dostavljac.getPorudzbine().add(porudzbina);
 		sacuvajDostavljace(contextPath);
+	}
+	
+	public boolean doesDostavljacHasPorudzbina(Dostavljac dostavljac, Porudzbina porudzbina) {
+		for (Porudzbina p : dostavljac.getPorudzbine()) {
+			if (p.getId().equals(porudzbina.getId())) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public void porudzbinaDostavljena(Dostavljac dostavljac, String id) {
+		for (Porudzbina p : dostavljac.getPorudzbine()) {
+			if (p.getId().equals(id)) {
+				if (p.getStatus().equals(StatusPorudzbine.U_TRANSPORTU)) {
+					p.setStatus(StatusPorudzbine.DOSTAVLJENA);
+					sacuvajDostavljace(contextPath);
+				}
+			}
+		}
 	}
 }
