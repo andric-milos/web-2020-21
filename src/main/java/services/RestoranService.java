@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -36,6 +35,7 @@ import beans.Korisnik;
 import beans.Lokacija;
 import beans.Menadzer;
 import beans.Restoran;
+import beans.StaticMethods;
 import beans.StatusRestorana;
 import beans.TipArtikla;
 import beans.TipKorisnika;
@@ -750,7 +750,7 @@ public class RestoranService {
 			while (i.hasNext()) {
 				Restoran r = i.next();
 				
-				String transformedName = RestoranService.transformToNonDiacritical(r.getNaziv());
+				String transformedName = StaticMethods.transformToNonDiacritical(r.getNaziv());
 				if (!transformedName.toLowerCase().startsWith(name.toLowerCase())) {
 					i.remove();
 				}
@@ -764,7 +764,7 @@ public class RestoranService {
 				Restoran r = i.next();
 				
 				String fullAddress = r.getLokacija().getAdresa().getUlica() + " " + r.getLokacija().getAdresa().getBroj();
-				String transformedAddress = RestoranService.transformToNonDiacritical(fullAddress);
+				String transformedAddress = StaticMethods.transformToNonDiacritical(fullAddress);
 				if (!transformedAddress.toLowerCase().startsWith(address.toLowerCase())) {
 					i.remove();
 				}
@@ -784,24 +784,6 @@ public class RestoranService {
 		}
 		
 		return Response.status(Status.OK).entity(restorani).build();
-	}
-	
-	public static String transformToNonDiacritical(String diacritical) {
-		String nonDiacritical = diacritical;
-		
-		nonDiacritical = nonDiacritical.replace('š', 's');
-		nonDiacritical = nonDiacritical.replace('ž', 'z');
-		nonDiacritical = nonDiacritical.replace("ð", "dj");
-		nonDiacritical = nonDiacritical.replace('è', 'c');
-		nonDiacritical = nonDiacritical.replace('æ', 'c');
-		
-		nonDiacritical = nonDiacritical.replace('Š', 's');
-		nonDiacritical = nonDiacritical.replace('Ž', 'z');
-		nonDiacritical = nonDiacritical.replace("Ð", "dj");
-		nonDiacritical = nonDiacritical.replace('È', 'c');
-		nonDiacritical = nonDiacritical.replace('Æ', 'c');
-		
-		return nonDiacritical;
 	}
 
 }
