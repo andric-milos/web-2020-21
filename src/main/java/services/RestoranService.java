@@ -5,20 +5,24 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -710,4 +714,94 @@ public class RestoranService {
 		
 		return Response.status(Status.OK).build();
 	}
+	
+	@GET
+	@Path("/search")
+	public Response searchRestaurants(@DefaultValue("") @QueryParam("name") String name,
+									  @DefaultValue("") @QueryParam("address") String address,
+									  @DefaultValue("") @QueryParam("type") String type) {
+		// Search by: name, address, type
+		
+		/*
+		System.out.println("Name: " + name);
+		System.out.println("Address: " + address);
+		System.out.println("Type: " + type);
+		*/
+		
+		name = name.trim();
+		address = address.trim();
+		type = type.trim();
+		
+		if (!type.equals("")) {
+			try {
+				TipRestorana.valueOf(type);
+			} catch (IllegalArgumentException e) {
+				// e.printStackTrace();
+				return Response.status(Status.BAD_REQUEST).entity("INVALID RESTAURANT TYPE").build();
+			}
+		}
+		
+		RestoranDAO restoranDAO = (RestoranDAO) ctx.getAttribute("restorani");
+		List<Restoran> restorani = restoranDAO.getAllRestoraniList();
+		
+		if (!name.equals("")) {
+			Iterator<Restoran> i = restorani.iterator();
+			
+			while (i.hasNext()) {
+				Restoran r = i.next();
+				
+				String transformedName = RestoranService.transformToNonDiacritical(r.getNaziv());
+				if (!transformedName.toLowerCase().startsWith(name.toLowerCase())) {
+					i.remove();
+				}
+			}
+		}
+		
+		if (!address.equals("")) {
+			Iterator<Restoran> i = restorani.iterator();
+			
+			while (i.hasNext()) {
+				Restoran r = i.next();
+				
+				String fullAddress = r.getLokacija().getAdresa().getUlica() + " " + r.getLokacija().getAdresa().getBroj();
+				String transformedAddress = RestoranService.transformToNonDiacritical(fullAddress);
+				if (!transformedAddress.toLowerCase().startsWith(address.toLowerCase())) {
+					i.remove();
+				}
+			}
+		}
+		
+		if (!type.equals("")) {
+			Iterator<Restoran> i = restorani.iterator();
+			
+			while (i.hasNext()) {
+				Restoran r = i.next();
+				
+				if (!r.getTip().equals(TipRestorana.valueOf(type))) {
+					i.remove();
+				}
+			}
+		}
+		
+		return Response.status(Status.OK).entity(restorani).build();
+	}
+	
+	public static String transformToNonDiacritical(String diacritical) {
+		String nonDiacritical = diacritical;
+		
+		nonDiacritical = nonDiacritical.replace('š', 's');
+		nonDiacritical = nonDiacritical.replace('ž', 'z');
+		nonDiacritical = nonDiacritical.replace("ð", "dj");
+		nonDiacritical = nonDiacritical.replace('è', 'c');
+		nonDiacritical = nonDiacritical.replace('æ', 'c');
+		
+		nonDiacritical = nonDiacritical.replace('Š', 's');
+		nonDiacritical = nonDiacritical.replace('Ž', 'z');
+		nonDiacritical = nonDiacritical.replace("Ð", "dj");
+		nonDiacritical = nonDiacritical.replace('È', 'c');
+		nonDiacritical = nonDiacritical.replace('Æ', 'c');
+		
+		return nonDiacritical;
+	}
+
 }
