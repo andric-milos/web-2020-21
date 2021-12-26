@@ -26,32 +26,39 @@ Vue.component("restaurant-page", {
                     <div class="container" id="map" ref="mapElement" style="height: auto; width: auto; min-width: 400px; min-height: 400px; max-width: 400px; max-height: 400px; margin-left: 0px; margin-right: 0px;"></div>
                 </div>
 
-                <h1 class="p-2"><b>Articles</b></h1>
-
                 <!-- Modal -->
                 <add-to-cart-modal v-if="showArticles" modalId="addToCartModal" v-bind:restaurantName="restaurant.naziv" v-bind:article="articleToAddToCart"></add-to-cart-modal>
 
-                <div v-if="showArticles" class="d-flex flex-row flex-wrap">
-                    <div class="card my-1" style="width: 17rem;" v-for="a in restaurant.artikli">
-                        <img class="card-img-top" v-bind:src="'http://localhost:8080/web-2020-21/images/article-images/' + a.restoran + '-' + a.naziv + '.jpg'" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ a.naziv }}</h5>
-                            <p class="card-text">{{ a.opis }}</p>
-                            <div class="d-flex flex-row justify-content-between">
-                                <p>{{ a.kolicina }} <span v-if="a.tip =='JELO'">g</span><span v-if="a.tip =='PICE'">ml</span></p>
-                                <p>{{ a.cena }} RSD</p>
+                <div class="d-flex flex-row justify-content-center">
+                    <div class="d-flex flex-column" style="width: 90%;">
+                        <h3 class="p-2"><b>Articles</b></h3>
+                        <div v-if="showArticles" class="d-flex flex-row flex-wrap" style="width: 100%;">
+                            <div class="card my-1" style="width: 25%;" v-for="a in restaurant.artikli">
+                                <img class="card-img-top" v-bind:src="'http://localhost:8080/web-2020-21/images/article-images/' + a.restoran + '-' + a.naziv + '.jpg'" alt="Card image cap">
+                                <div class="card-body d-flex flex-column justify-content-between">
+                                    <div class="d-flex flex-column">
+                                        <h5 class="card-title">{{ a.naziv }}</h5>
+                                        <p class="card-text">{{ a.opis }}</p>
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <div class="d-flex flex-row justify-content-between">
+                                            <p>{{ a.kolicina }} <span v-if="a.tip =='JELO'">g</span><span v-if="a.tip =='PICE'">ml</span></p>
+                                            <p>{{ a.cena }} RSD</p>
+                                        </div>
+                                        <button 
+                                            type="button" 
+                                            class="btn btn-secondary"
+                                            v-on:click="openAddToCartModal(a)"
+                                        >Add to cart</button>
+                                    </div>
+                                </div>
                             </div>
-                            <button 
-                                type="button" 
-                                class="btn btn-secondary"
-                                v-on:click="openAddToCartModal(a)"
-                            >Add to cart</button>
+                        </div>
+                        <div v-else>
+                            <h5 class="p-2 ml-2">No articles.</h5>
                         </div>
                     </div>
                 </div>
-                <div v-else>
-                    <h5 class="p-2 ml-2">No articles.</h5>
-                </div> 
             </div>
         </div> 
         <div v-else class="d-flex flex-row justify-content-center">
