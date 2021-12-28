@@ -2,7 +2,8 @@ Vue.component("orders", {
     data: function() {
         return {
             orders: [],
-            showTable: undefined
+            showTable: undefined,
+            commentModalRestaurant: undefined
         }
     },
     props: {
@@ -12,6 +13,9 @@ Vue.component("orders", {
     <div id="page-content-wrapper">
         <div class="d-flex p-2 justify-content-center">
             <div v-if="showTable" class="d-flex flex-column" style="width: 100%;">
+                <!-- Modal -->
+                <comment-modal modalId="commentModal" v-bind:restaurant="commentModalRestaurant"></comment-modal>
+
                 <table class="table p-2 mt-2 ml-2 mr-4 table-dark table-striped table-hover">
                     <thead>
                         <tr>
@@ -38,6 +42,7 @@ Vue.component("orders", {
                                 <button v-if="order.status == 'U_PRIPREMI' && typeOfUser == 'manager'" type="button" class="btn btn-primary py-0" v-on:click="orderIsDone(order.id)">Done</button>
                                 <button v-if="order.status == 'CEKA_DOSTAVLJACA' && typeOfUser == 'deliverer'" type="button" class="btn btn-primary py-0" v-on:click="deliverOrder(order.id)">Request to deliver</button>
                                 <button v-if="order.status == 'U_TRANSPORTU' && typeOfUser == 'deliverer'" type="button" class="btn btn-primary py-0" v-on:click="orderDelivered(order.id)">Delivered</button>
+                                <button v-if="order.status == 'DOSTAVLJENA' && typeOfUser == 'customer'" type="button" class="btn btn-primary py-0" v-on:click="leaveAComment(order.restoran)">Comment</button>
                             </td>
                         </tr>
                     </tbody>
@@ -195,6 +200,12 @@ Vue.component("orders", {
                 .catch(error => {
                     console.log(error);
                 });
+        },
+        leaveAComment(restaurantName) {
+            // this.$router.push("/restaurant/" + restaurantName);
+
+            this.commentModalRestaurant = restaurantName;
+            $('#commentModal').modal('toggle');
         }
     }
 });

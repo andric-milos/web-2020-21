@@ -31,20 +31,25 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
 
 import beans.Adresa;
 import beans.Artikal;
+import beans.Komentar;
 import beans.Korisnik;
 import beans.Lokacija;
 import beans.Menadzer;
 import beans.Restoran;
 import beans.StaticMethods;
+import beans.StatusKomentara;
+import beans.StatusPorudzbine;
 import beans.StatusRestorana;
 import beans.TipArtikla;
 import beans.TipKorisnika;
 import beans.TipRestorana;
+import dao.KomentarDAO;
 import dao.KorisnikDAO;
 import dao.PorudzbinaDAO;
 import dao.RestoranDAO;
 import dao.ZahtevZaDostavuDAO;
 import dto.ArtikalDTO;
+import dto.PorudzbinaDTO;
 import dto.RestoranDTO;
 
 @Path("/restaurant")
@@ -80,6 +85,11 @@ public class RestoranService {
 		if (ctx.getAttribute("zahtevi") == null) {
 			String path = ctx.getRealPath("");
 			ctx.setAttribute("zahtevi", new ZahtevZaDostavuDAO(path));
+		}
+		
+		if (ctx.getAttribute("komentari") == null) {
+			String path = ctx.getRealPath("");
+			ctx.setAttribute("komentari", new KomentarDAO(path));
 		}
 	}
 	
@@ -255,7 +265,8 @@ public class RestoranService {
 			StatusRestorana.RADI,
 			lokacija,
 			newLogoFile,
-			menadzer
+			menadzer,
+			0.0
 		);
 		
 		// dodavanje restorana i serijalizacija
@@ -784,6 +795,108 @@ public class RestoranService {
 		}
 		
 		return Response.status(Status.OK).entity(restorani).build();
+	}
+	
+	@POST
+	@Path("/comment")
+	public Response createComment(Komentar dto) {
+		// Komentar moze da ostavi samo kupac, i to kupac kojem je DOSTAVLJENA porudzbina iz restorana
+		// Menadzer restorana mora da odobri komentar posle, a moze i da ga odbije
+		/* RequestBody - klasa Komentar koja ima polja: kupac, restoran, tekst, ocena.
+		 * 				 Polje kupac se zanemaruje, jer se kupac dobija iz sesije.
+		 */
+		
+		Korisnik korisnik = (Korisnik) request.getSession().getAttribute("korisnik");
+		
+		if (korisnik == null) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT LOGGED IN").build();
+		} else if (!korisnik.getTipKorisnika().equals(TipKorisnika.KUPAC)) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT A CUSTOMER").build();
+		}
+		
+		// Validacija
+		dto.setRestoran(dto.getRestoran());
+		dto.setTekst(dto.getTekst());
+		
+		if (dto.getRestoran() == null || dto.getRestoran().equals("") ||
+			dto.getTekst() == null || dto.getTekst().equals("")) {
+			return Response.status(Status.BAD_REQUEST).entity("EMPTY FIELDS").build();
+		}
+		
+		if (dto.getOcena() < 1 && dto.getOcena() > 5) {
+			return Response.status(Status.BAD_REQUEST).entity("INVALID GRADE").build();
+		}
+		
+		RestoranDAO restoranDAO = (RestoranDAO) ctx.getAttribute("restorani");
+		if (!restoranDAO.getRestoraniHashMap().containsKey(dto.getRestoran())) {
+			return Response.status(Status.BAD_REQUEST).entity("NON EXISTING RESTAURANT").build();
+		}
+		
+		PorudzbinaDAO porudbinaDAO = (PorudzbinaDAO) ctx.getAttribute("porudzbine");
+		List<PorudzbinaDTO> porudzbine = porudbinaDAO.findAllPorudzbineByKupac(korisnik.getKorisnickoIme());
+		
+		/* Kupac ima pravo da ostavi komentar i oceni restoran, samo ako ima porudzbinu iz tog
+		 * restorana koja mu je dostavljena. */
+		boolean hasRightToComment = false;
+		for (PorudzbinaDTO p : porudzbine) {
+			if (p.getRestoran().equals(dto.getRestoran()) && p.getStatus().equals(StatusPorudzbine.DOSTAVLJENA)) {
+				hasRightToComment = true;
+				break;
+			}
+		}
+		
+		if (!hasRightToComment) {
+			return Response.status(Status.BAD_REQUEST).entity("CANNOT COMMENT").build();
+		}
+		
+		// Kreiranje komentara
+		Komentar komentar = new Komentar(
+			korisnik.getKorisnickoIme(),
+			dto.getRestoran(),
+			dto.getTekst(),
+			dto.getOcena(),
+			StatusKomentara.NA_CEKANJU
+		);
+		
+		KomentarDAO komentarDAO = (KomentarDAO) ctx.getAttribute("komentari");
+		komentarDAO.dodajKomentar(komentar);
+		
+		// Promeni ocenu restorana
+		List<Komentar> komentari = komentarDAO.getAllKomentariByRestoran(dto.getRestoran());
+		if (!komentari.isEmpty()) {
+			int suma = 0;
+			
+			for (Komentar k : komentari) {
+				suma += k.getOcena();
+			}
+			
+			double ocena = (double) suma / komentari.size();
+			restoranDAO.promeniOcenu(dto.getRestoran(), ocena);
+		}
+		
+		return Response.status(Status.OK).build();
+	}
+	
+	@GET
+	@Path("/didILeaveACommentAlready/{restaurant}")
+	public Response didILeaveACommentAlready(@PathParam("restaurant") String restaurant) {
+		Korisnik korisnik = (Korisnik) request.getSession().getAttribute("korisnik");
+		
+		if (korisnik == null) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT LOGGED IN").build();
+		} else if (!korisnik.getTipKorisnika().equals(TipKorisnika.KUPAC)) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT A CUSTOMER").build();
+		}
+		
+		String key = korisnik.getKorisnickoIme() + "_" + restaurant;
+		
+		KomentarDAO komentarDAO = (KomentarDAO) ctx.getAttribute("komentari");
+		if (komentarDAO.getAllKomentariHashMap().containsKey(key)) {
+			Komentar komentar = komentarDAO.getAllKomentariHashMap().get(key);
+			return Response.status(Status.OK).entity(komentar).build();
+		}
+		
+		return Response.status(Status.OK).entity("NO").build();
 	}
 
 }

@@ -12,6 +12,7 @@ public class Restoran {
 	private Lokacija lokacija;
 	private transient File logo;
 	private String menadzer;
+	private double ocena;
 	
 	public Restoran() {
 		this.artikli = new ArrayList<Artikal>();
@@ -22,13 +23,15 @@ public class Restoran {
 					StatusRestorana status, 
 					Lokacija lokacija,
 					File logo,
-					String menadzer) {
+					String menadzer,
+					double ocena) {
 		this.naziv = naziv;
 		this.tip = tip;
 		this.status = status;
 		this.lokacija = lokacija;
 		this.logo = logo;
 		this.menadzer = menadzer;
+		this.ocena = ocena;
 		
 		this.artikli = new ArrayList<Artikal>();
 	}
@@ -97,5 +100,13 @@ public class Restoran {
 		}
 		
 		return false;
+	}
+
+	public double getOcena() {
+		return ocena;
+	}
+
+	public void setOcena(double ocena) {
+		this.ocena = ocena;
 	}
 }

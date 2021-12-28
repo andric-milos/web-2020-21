@@ -28,6 +28,7 @@ import beans.StaticMethods;
 import beans.StatusPorudzbine;
 import beans.TipKorisnika;
 import beans.ZahtevZaDostavu;
+import dao.KomentarDAO;
 import dao.KorisnikDAO;
 import dao.PorudzbinaDAO;
 import dao.RestoranDAO;
@@ -68,6 +69,11 @@ public class PorudzbinaService {
 		if (ctx.getAttribute("zahtevi") == null) {
 			String path = ctx.getRealPath("");
 			ctx.setAttribute("zahtevi", new ZahtevZaDostavuDAO(path));
+		}
+		
+		if (ctx.getAttribute("komentari") == null) {
+			String path = ctx.getRealPath("");
+			ctx.setAttribute("komentari", new KomentarDAO(path));
 		}
 	}
 

@@ -57,6 +57,14 @@ Vue.component("restaurant-page", {
                         <div v-else>
                             <h5 class="p-2 ml-2">No articles.</h5>
                         </div>
+
+                        <h3 class="p-2 mt-5"><b>Comments</b></h3>
+                        <div v-if="'4' === '5'" class="d-flex flex-row flex-wrap" style="width: 100%;">
+                            <!-- v-if showComments -->
+                        </div>
+                        <div v-else>
+                            <h5 class="p-2 ml-2">No comments.</h5>
+                        </div>
                     </div>
                 </div>
             </div>

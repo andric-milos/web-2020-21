@@ -129,4 +129,13 @@ public class RestoranDAO {
 		
 		return null;
 	}
+	
+	public void promeniOcenu(String nazivRestorana, double ocena) {
+		Restoran restoran = this.restorani.get(nazivRestorana);
+		
+		if (restoran != null) {
+			restoran.setOcena(ocena);
+			sacuvajRestorane(contextPath);
+		}
+	}
 }

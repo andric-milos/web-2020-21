@@ -28,6 +28,7 @@ import beans.Kupac;
 import beans.Menadzer;
 import beans.Pol;
 import beans.TipKorisnika;
+import dao.KomentarDAO;
 import dao.KorisnikDAO;
 import dao.PorudzbinaDAO;
 import dao.RestoranDAO;
@@ -70,6 +71,11 @@ public class UserService {
 		if (ctx.getAttribute("zahtevi") == null) {
 			String path = ctx.getRealPath("");
 			ctx.setAttribute("zahtevi", new ZahtevZaDostavuDAO(path));
+		}
+		
+		if (ctx.getAttribute("komentari") == null) {
+			String path = ctx.getRealPath("");
+			ctx.setAttribute("komentari", new KomentarDAO(path));
 		}
 	}
 	
