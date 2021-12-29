@@ -118,4 +118,28 @@ public class KomentarDAO {
 		
 		return naCekanju;
 	}
+	
+	public List<Komentar> getKomentariWithStatusOdobren(String restoran) {
+		List<Komentar> odobreni = new ArrayList<Komentar>();
+		
+		for (Komentar k : this.komentari.values()) {
+			if (k.getRestoran().equals(restoran) && k.getStatus().equals(StatusKomentara.ODOBREN)) {
+				odobreni.add(k);
+			}
+		}
+		
+		return odobreni;
+	}
+	
+	public List<Komentar> getKomentariWithStatusOdobrenOrOdbijen(String restoran) {
+		List<Komentar> returnList = new ArrayList<Komentar>();
+		
+		for (Komentar k : this.komentari.values()) {
+			if (k.getRestoran().equals(restoran) && (k.getStatus().equals(StatusKomentara.ODOBREN) || k.getStatus().equals(StatusKomentara.ODBIJEN))) {
+				returnList.add(k);
+			}
+		}
+		
+		return returnList;
+	}
 }

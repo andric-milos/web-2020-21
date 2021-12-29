@@ -5,7 +5,8 @@ Vue.component("restaurant-page", {
             restaurant: undefined,
             showArticles: undefined,
             articleToAddToCart: undefined,
-            mapInitialized: undefined
+            mapInitialized: undefined,
+            comments: []
         }
     },
     template: `
@@ -59,8 +60,13 @@ Vue.component("restaurant-page", {
                         </div>
 
                         <h3 class="p-2 mt-5"><b>Comments</b></h3>
-                        <div v-if="'4' === '5'" class="d-flex flex-row flex-wrap" style="width: 100%;">
+                        <div v-if="comments" class="d-flex flex-column" style="width: 100%;">
                             <!-- v-if showComments -->
+                            <div class="d-flex flex-column border border-dark rounded m-2 bg-light" v-for="c in comments" style="width: 50%;">
+                                <label class="p-2 h3" style=""><b>{{ c.kupac }}</b></label>
+                                <label class="p-2"><b>Text:</b> {{ c.tekst }}</label>
+                                <label class="p-2"><b>Rating:</b> {{ c.ocena }}</label>
+                            </div>
                         </div>
                         <div v-else>
                             <h5 class="p-2 ml-2">No comments.</h5>
@@ -119,6 +125,18 @@ Vue.component("restaurant-page", {
                     console.log(error);
                     this.showRestaurant = false;
                     this.showArticles = false;
+                });
+
+            axios.get("rest/restaurant/comments/" + this.$route.params.restaurantName)
+                .then(response => {
+                    if (response.status == 200) {
+                        this.comments = response.data;
+                    } else {
+                        console.log(response);
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
                 });
         },
         openAddToCartModal(article) {

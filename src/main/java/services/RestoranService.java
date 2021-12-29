@@ -1005,5 +1005,36 @@ public class RestoranService {
 		
 		return Response.status(Status.OK).entity(komentari).build();
 	}
+	
+	@GET
+	@Path("/comments/{restaurant}")
+	public Response getRestaurantsComments(@PathParam("restaurant") String restaurant) {
+		// Ako je korisnik iz sesije kupac, onda vratiti samo komentare sa statusom "ODOBREN".
+		// Ako je korisnik iz sesije administrator ili menadzer.
+		// Sta je sa dostavljacima i neulogovanim korisnicima? Tretiracu ih kao i kupce.
+		
+		RestoranDAO restoranDAO = (RestoranDAO) ctx.getAttribute("restorani");
+		if (!restoranDAO.getRestoraniHashMap().containsKey(restaurant)) {
+			return Response.status(Status.BAD_REQUEST).entity("NON EXISTING RESTAURANT").build();
+		}
+		
+		Korisnik korisnik = (Korisnik) request.getSession().getAttribute("korisnik");
+		
+		if (korisnik != null) {
+			if (korisnik.getTipKorisnika().equals(TipKorisnika.ADMINISTRATOR) ||
+				korisnik.getTipKorisnika().equals(TipKorisnika.MENADZER)) {
+				KomentarDAO komentarDAO = (KomentarDAO) ctx.getAttribute("komentari");
+				List<Komentar> komentari = komentarDAO.getKomentariWithStatusOdobrenOrOdbijen(restaurant);
+				
+				return Response.status(Status.OK).entity(komentari).build();
+			}
+		}
+	
+		// Kupci, dostavljaci, neulogovani korisnici
+		KomentarDAO komentarDAO = (KomentarDAO) ctx.getAttribute("komentari");
+		List<Komentar> komentari = komentarDAO.getKomentariWithStatusOdobren(restaurant);
+			
+		return Response.status(Status.OK).entity(komentari).build();
+	}
 
 }
