@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import beans.Komentar;
+import beans.StatusKomentara;
 
 public class KomentarDAO {
 	private HashMap<String, Komentar> komentari; // key - komentar.kupac + "_" + komentar.restoran
@@ -82,5 +83,39 @@ public class KomentarDAO {
 		}
 		
 		return komentari;
+	}
+	
+	public void odobriKomentar(String key) {
+		if (this.komentari.containsKey(key)) {
+			Komentar komentar = this.komentari.get(key);
+			
+			if (komentar.getStatus().equals(StatusKomentara.NA_CEKANJU)) {
+				komentar.setStatus(StatusKomentara.ODOBREN);
+				sacuvajKomentare(contextPath);
+			}
+		}
+	}
+	
+	public void odbijKomentar(String key) {
+		if (this.komentari.containsKey(key)) {
+			Komentar komentar = this.komentari.get(key);
+			
+			if (komentar.getStatus().equals(StatusKomentara.NA_CEKANJU)) {
+				komentar.setStatus(StatusKomentara.ODBIJEN);
+				sacuvajKomentare(contextPath);
+			}
+		}
+	}
+	
+	public List<Komentar> getKomentariNaCekanjuFromSpecificRestaurant(String restoran) {
+		List<Komentar> naCekanju = new ArrayList<Komentar>();
+		
+		for (Komentar k : this.komentari.values()) {
+			if (k.getRestoran().equals(restoran) && k.getStatus().equals(StatusKomentara.NA_CEKANJU)) {
+				naCekanju.add(k);
+			}
+		}
+		
+		return naCekanju;
 	}
 }

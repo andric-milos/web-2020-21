@@ -802,7 +802,7 @@ public class RestoranService {
 	public Response createComment(Komentar dto) {
 		// Komentar moze da ostavi samo kupac, i to kupac kojem je DOSTAVLJENA porudzbina iz restorana
 		// Menadzer restorana mora da odobri komentar posle, a moze i da ga odbije
-		/* RequestBody - klasa Komentar koja ima polja: kupac, restoran, tekst, ocena.
+		/* RequestBody - klasa Komentar koja ima polja: kupac, restoran, tekst, ocena, status.
 		 * 				 Polje kupac se zanemaruje, jer se kupac dobija iz sesije.
 		 */
 		
@@ -888,6 +888,11 @@ public class RestoranService {
 			return Response.status(Status.BAD_REQUEST).entity("NOT A CUSTOMER").build();
 		}
 		
+		RestoranDAO restoranDAO = (RestoranDAO) ctx.getAttribute("restorani");
+		if (!restoranDAO.getRestoraniHashMap().containsKey(restaurant)) {
+			return Response.status(Status.BAD_REQUEST).entity("NON EXISTING RESTAURANT").build();
+		}
+		
 		String key = korisnik.getKorisnickoIme() + "_" + restaurant;
 		
 		KomentarDAO komentarDAO = (KomentarDAO) ctx.getAttribute("komentari");
@@ -897,6 +902,108 @@ public class RestoranService {
 		}
 		
 		return Response.status(Status.OK).entity("NO").build();
+	}
+	
+	@PUT
+	@Path("/comment/approve")
+	public Response approveComment(Komentar dto) {
+		// RequestBody - polja od interesa su: kupac, restoran
+		// Samo menadzer restorana moze da odobri komentar
+		
+		Korisnik korisnik = (Korisnik) request.getSession().getAttribute("korisnik");
+		
+		if (korisnik == null) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT LOGGED IN").build();
+		} else if (!korisnik.getTipKorisnika().equals(TipKorisnika.MENADZER)) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT A MANAGER").build();
+		}
+		
+		dto.setRestoran(dto.getRestoran());
+		dto.setKupac(dto.getKupac());
+		
+		KorisnikDAO korisnikDAO = (KorisnikDAO) ctx.getAttribute("korisnici");
+		Menadzer menadzer = korisnikDAO.getMenadzeriHashMap().get(korisnik.getKorisnickoIme());
+		if (!menadzer.getRestoran().equals(dto.getRestoran())) {
+			return Response.status(Status.BAD_REQUEST).entity("WRONG MANAGER").build();
+		}
+		
+		String key = dto.getKupac() + "_" + dto.getRestoran();
+		KomentarDAO komentarDAO = (KomentarDAO) ctx.getAttribute("komentari");
+		if (!komentarDAO.getAllKomentariHashMap().containsKey(key)) {
+			return Response.status(Status.BAD_REQUEST).entity("NON EXISTING COMMENT").build();
+		}
+		
+		Komentar komentar = komentarDAO.getAllKomentariHashMap().get(key);
+		if (!komentar.getStatus().equals(StatusKomentara.NA_CEKANJU)) {
+			return Response.status(Status.BAD_REQUEST).entity("COMMENT ALREADY APPROVED/REJECTED").build();
+		}
+		
+		komentarDAO.odobriKomentar(key);
+		
+		return Response.status(Status.OK).build();
+	}
+	
+	@PUT
+	@Path("/comment/reject")
+	public Response rejectComment(Komentar dto) {
+		// RequestBody - polja od interesa su: kupac, restoran
+		// Samo menadzer restorana moze da odbije komentar
+
+		Korisnik korisnik = (Korisnik) request.getSession().getAttribute("korisnik");
+
+		if (korisnik == null) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT LOGGED IN").build();
+		} else if (!korisnik.getTipKorisnika().equals(TipKorisnika.MENADZER)) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT A MANAGER").build();
+		}
+
+		dto.setRestoran(dto.getRestoran());
+		dto.setKupac(dto.getKupac());
+
+		KorisnikDAO korisnikDAO = (KorisnikDAO) ctx.getAttribute("korisnici");
+		Menadzer menadzer = korisnikDAO.getMenadzeriHashMap().get(korisnik.getKorisnickoIme());
+		if (!menadzer.getRestoran().equals(dto.getRestoran())) {
+			return Response.status(Status.BAD_REQUEST).entity("WRONG MANAGER").build();
+		}
+
+		String key = dto.getKupac() + "_" + dto.getRestoran();
+		KomentarDAO komentarDAO = (KomentarDAO) ctx.getAttribute("komentari");
+		if (!komentarDAO.getAllKomentariHashMap().containsKey(key)) {
+			return Response.status(Status.BAD_REQUEST).entity("NON EXISTING COMMENT").build();
+		}
+		
+		Komentar komentar = komentarDAO.getAllKomentariHashMap().get(key);
+		if (!komentar.getStatus().equals(StatusKomentara.NA_CEKANJU)) {
+			return Response.status(Status.BAD_REQUEST).entity("COMMENT ALREADY APPROVED/REJECTED").build();
+		}
+
+		komentarDAO.odbijKomentar(key);
+
+		return Response.status(Status.OK).build();
+	}
+	
+	@GET
+	@Path("/comments/pending")
+	public Response getPendingComments() {
+		/* Dobijanje komentara sa statusom "NA_CEKANJU" iz menadzerovog restorana.
+		 * Menadzer se dobija iz sesije.
+		*/
+		
+		Korisnik korisnik = (Korisnik) request.getSession().getAttribute("korisnik");
+
+		if (korisnik == null) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT LOGGED IN").build();
+		} else if (!korisnik.getTipKorisnika().equals(TipKorisnika.MENADZER)) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT A MANAGER").build();
+		}
+		
+		KorisnikDAO korisnikDAO = (KorisnikDAO) ctx.getAttribute("korisnici");
+		Menadzer menadzer = korisnikDAO.getMenadzeriHashMap().get(korisnik.getKorisnickoIme());
+		
+		KomentarDAO komentarDAO = (KomentarDAO) ctx.getAttribute("komentari");
+		List<Komentar> komentari = komentarDAO.getKomentariNaCekanjuFromSpecificRestaurant(menadzer.getRestoran());
+		
+		return Response.status(Status.OK).entity(komentari).build();
 	}
 
 }

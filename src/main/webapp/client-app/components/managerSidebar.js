@@ -5,7 +5,8 @@ Vue.component("manager-sidebar", {
             changePasswordActive: undefined,
             myRestaurantActive: undefined,
             ordersActive: undefined,
-            requestsActive: undefined
+            requestsActive: undefined,
+            commentsActive: undefined
         }
     },
     template: `
@@ -17,6 +18,7 @@ Vue.component("manager-sidebar", {
             <a href="#/manager/myReastaurant" class="list-group-item list-group-item-action bg-secondary" v-bind:class="{ active: myRestaurantActive }">My restaurant</a>
             <a href="#/manager/orders" class="list-group-item list-group-item-action bg-secondary" v-bind:class="{ active: ordersActive }">Orders</a>
             <a href="#/manager/requests" class="list-group-item list-group-item-action bg-secondary" v-bind:class="{ active: requestsActive }">Delivery requests</a>
+            <a href="#/manager/comments" class="list-group-item list-group-item-action bg-secondary" v-bind:class="{ active: commentsActive }">Pending comments</a>
         </div>
     </div> `,
     created() {
@@ -26,30 +28,42 @@ Vue.component("manager-sidebar", {
             this.myRestaurantActive = false;
             this.ordersActive = false;
             this.requestsActive = false;
+            this.commentsActive = false;
         } else if (window.location == "http://localhost:8080/web-2020-21/#/manager/myReastaurant") {
             this.profileActive = false;
             this.changePasswordActive = false;
             this.myRestaurantActive = true;
             this.ordersActive = false;
             this.requestsActive = false;
+            this.commentsActive = false;
         } else if (window.location == "http://localhost:8080/web-2020-21/#/manager/orders") {
             this.profileActive = false;
             this.changePasswordActive = false;
             this.myRestaurantActive = false;
             this.ordersActive = true;
             this.requestsActive = false;
+            this.commentsActive = false;
         } else if (window.location == "http://localhost:8080/web-2020-21/#/manager/requests") {
             this.profileActive = false;
             this.changePasswordActive = false;
             this.myRestaurantActive = false;
             this.ordersActive = false;
             this.requestsActive = true;
+            this.commentsActive = false;
+        } else if (window.location == "http://localhost:8080/web-2020-21/#/manager/comments") {
+            this.profileActive = false;
+            this.changePasswordActive = false;
+            this.myRestaurantActive = false;
+            this.ordersActive = false;
+            this.requestsActive = false;
+            this.commentsActive = true;
         } else { // location == "http://localhost:8080/web-2020-21/#/manager"
             this.profileActive = true;
             this.changePasswordActive = false;
             this.myRestaurantActive = false;
             this.ordersActive = false;
             this.requestsActive = false;
+            this.commentsActive = false;
         }
     }
 });
