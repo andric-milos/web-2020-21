@@ -641,6 +641,7 @@ public class KorisnikDAO {
 				if (p.getStatus().equals(StatusPorudzbine.U_TRANSPORTU)) {
 					p.setStatus(StatusPorudzbine.DOSTAVLJENA);
 					sacuvajDostavljace(contextPath);
+					break;
 				}
 			}
 		}

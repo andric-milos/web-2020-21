@@ -6,7 +6,8 @@ Vue.component("restaurant-page", {
             showArticles: undefined,
             articleToAddToCart: undefined,
             mapInitialized: undefined,
-            comments: []
+            comments: [],
+            showComments: undefined
         }
     },
     template: `
@@ -60,8 +61,7 @@ Vue.component("restaurant-page", {
                         </div>
 
                         <h3 class="p-2 mt-5"><b>Comments</b></h3>
-                        <div v-if="comments" class="d-flex flex-column" style="width: 100%;">
-                            <!-- v-if showComments -->
+                        <div v-if="showComments" class="d-flex flex-column" style="width: 100%;">
                             <div class="d-flex flex-column border border-dark rounded m-2 bg-light" v-for="c in comments" style="width: 50%;">
                                 <label class="p-2 h3" style=""><b>{{ c.kupac }}</b></label>
                                 <label class="p-2"><b>Text:</b> {{ c.tekst }}</label>
@@ -114,10 +114,10 @@ Vue.component("restaurant-page", {
                         this.restaurant = response.data;
                         this.showRestaurant = true;
 
-                        if (this.restaurant.artikli == []) {
-                            this.showArticles = false;
-                        } else {
+                        if (this.restaurant.artikli.length > 0) {
                             this.showArticles = true;
+                        } else {
+                            this.showArticles = false;
                         }
                     }
                 })
@@ -131,6 +131,12 @@ Vue.component("restaurant-page", {
                 .then(response => {
                     if (response.status == 200) {
                         this.comments = response.data;
+                        
+                        if (this.comments.length > 0) {
+                            this.showComments = true;
+                        } else {
+                            this.showComments = false;
+                        }
                     } else {
                         console.log(response);
                     }
