@@ -220,6 +220,14 @@ public class UserService {
 	@Path("/all")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllUsers() {
+		Korisnik korisnik = (Korisnik) request.getSession().getAttribute("korisnik");
+		
+		if (korisnik == null) {
+			return Response.status(Status.OK).entity("NOT ADMIN").build();
+		} else if (!korisnik.getTipKorisnika().equals(TipKorisnika.ADMINISTRATOR)) {
+			return Response.status(Status.OK).entity("NOT ADMIN").build();
+		}
+		
 		KorisnikDAO korisnikDAO = (KorisnikDAO) ctx.getAttribute("korisnici");
 		
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
