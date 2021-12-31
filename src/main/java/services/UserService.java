@@ -3,19 +3,24 @@ package services;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -27,7 +32,14 @@ import beans.Korpa;
 import beans.Kupac;
 import beans.Menadzer;
 import beans.Pol;
+import beans.StaticMethods;
 import beans.TipKorisnika;
+import beans.sort.SortKorisnikDTOByFirstnameAscending;
+import beans.sort.SortKorisnikDTOByFirstnameDescending;
+import beans.sort.SortKorisnikDTOByLastnameAscending;
+import beans.sort.SortKorisnikDTOByLastnameDescending;
+import beans.sort.SortKorisnikDTOByUsernameAscending;
+import beans.sort.SortKorisnikDTOByUsernameDescending;
 import dao.KomentarDAO;
 import dao.KorisnikDAO;
 import dao.PorudzbinaDAO;
@@ -535,5 +547,128 @@ public class UserService {
 		List<MenadzerDTO> available = korisnikDAO.slobodniMenadzeri();
 		
 		return Response.status(Status.OK).entity(available).build();
+	}
+	
+	@GET
+	@Path("/search")
+	public Response search(@DefaultValue("") @QueryParam("firstname") String firstname,
+						   @DefaultValue("") @QueryParam("lastname") String lastname,
+						   @DefaultValue("") @QueryParam("username") String username,
+						   @DefaultValue("username") @QueryParam("sortBy") String sortBy,
+						   @DefaultValue("asc") @QueryParam("sortOrder") String sortOrder,
+						   @DefaultValue("") @QueryParam("typeOfUser") String typeOfUser) {
+		Korisnik korisnik = (Korisnik) request.getSession().getAttribute("korisnik");
+		
+		if (korisnik == null) {
+			return Response.status(Status.BAD_REQUEST).entity("NOT LOGGED IN").build();
+		} else if (!korisnik.getTipKorisnika().equals(TipKorisnika.ADMINISTRATOR)) {
+			return Response.status(Status.FORBIDDEN).entity("NOT ADMINISTRATOR").build();
+		}
+		
+		/*
+		System.out.println("firstname: " + firstname);
+		System.out.println("lastname: " + lastname);
+		System.out.println("username: " + username);
+		System.out.println("sortBy: " + sortBy);
+		System.out.println("sortOrder: " + sortOrder);
+		System.out.println("typeOfUser: " + typeOfUser);
+		*/
+		
+		if (!(sortOrder.equals("asc") || sortOrder.equals("desc"))) {
+			return Response.status(Status.BAD_REQUEST).entity("INVALID SORT ORDER").build();
+		}
+		
+		if (!(sortBy.equals("username") || sortBy.equals("firstname") || sortBy.equals("lastname"))) {
+			return Response.status(Status.BAD_REQUEST).entity("INVALID SORT BY").build();
+		}
+		
+		List<String> existingTypes = Arrays.asList("customer", "administrator", "deliverer", "manager");
+		List<String> types = Arrays.asList(typeOfUser.split(","));
+		
+		if (!typeOfUser.equals("")) {
+			for (String t : types) {
+				if (!existingTypes.contains(t)) {
+					// System.out.println("Non existing type of user: " + t);
+					return Response.status(Status.BAD_REQUEST).entity("NON EXISTING TYPE OF USER").build();
+				}
+			}
+		} else {
+			return Response.status(Status.OK).entity(new ArrayList<KorisnikDTO>()).build();
+		}
+		
+		List<KorisnikDTO> korisnici = new ArrayList<KorisnikDTO>();
+		
+		KorisnikDAO korisnikDAO = (KorisnikDAO) ctx.getAttribute("korisnici");
+		
+		if (types.contains("customer")) {
+			korisnici.addAll(korisnikDAO.getAllKupciAsKorisnici());
+		} 
+		
+		if (types.contains("administrator")) {
+			korisnici.addAll(korisnikDAO.getAllAdministratoriAsKorisnici());
+		}
+		
+		if (types.contains("deliverer")) {
+			korisnici.addAll(korisnikDAO.getAllDostavljaciAsKorisnici());
+		}
+		
+		if (types.contains("manager")) {
+			korisnici.addAll(korisnikDAO.getAllMenadzeriAsKorisnici());
+		}
+		
+		if (!username.equals("")) {
+			Iterator<KorisnikDTO> i = korisnici.iterator();
+			
+			while (i.hasNext()) {
+				KorisnikDTO k = i.next();
+				
+				String transformedUsername = StaticMethods.transformToNonDiacritical(username);
+				if (!k.getKorisnickoIme().toLowerCase().startsWith(transformedUsername.toLowerCase())) {
+					i.remove();
+				}
+			}
+		}
+		
+		if (!firstname.equals("")) {
+			Iterator<KorisnikDTO> i = korisnici.iterator();
+			
+			while (i.hasNext()) {
+				KorisnikDTO k = i.next();
+				
+				String transformedFirstname = StaticMethods.transformToNonDiacritical(firstname);
+				if (!k.getIme().toLowerCase().startsWith(transformedFirstname.toLowerCase())) {
+					i.remove();
+				}
+			}
+		}
+		
+		if (!lastname.equals("")) {
+			Iterator<KorisnikDTO> i = korisnici.iterator();
+			
+			while (i.hasNext()) {
+				KorisnikDTO k = i.next();
+				
+				String transformedLastname = StaticMethods.transformToNonDiacritical(lastname);
+				if (!k.getPrezime().toLowerCase().startsWith(transformedLastname.toLowerCase())) {
+					i.remove();
+				}
+			}
+		}
+		
+		if (sortBy.equals("username") && sortOrder.equals("asc")) {
+			Collections.sort(korisnici, new SortKorisnikDTOByUsernameAscending());
+		} else if (sortBy.equals("username") && sortOrder.equals("desc")) {
+			Collections.sort(korisnici, new SortKorisnikDTOByUsernameDescending());
+		} else if (sortBy.equals("firstname") && sortOrder.equals("asc")) {
+			Collections.sort(korisnici, new SortKorisnikDTOByFirstnameAscending());
+		} else if (sortBy.equals("firstname") && sortOrder.equals("desc")) {
+			Collections.sort(korisnici, new SortKorisnikDTOByFirstnameDescending());
+		} else if (sortBy.equals("lastname") && sortOrder.equals("asc")) {
+			Collections.sort(korisnici, new SortKorisnikDTOByLastnameAscending());
+		} else if (sortBy.equals("lastname") && sortOrder.equals("desc")) {
+			Collections.sort(korisnici, new SortKorisnikDTOByLastnameDescending());
+		}
+		
+		return Response.status(Status.OK).entity(korisnici).build();
 	}
 }

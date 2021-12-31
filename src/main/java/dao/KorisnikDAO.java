@@ -646,4 +646,88 @@ public class KorisnikDAO {
 			}
 		}
 	}
+	
+	public List<KorisnikDTO> getAllKupciAsKorisnici() {
+		List<KorisnikDTO> korisnici = new ArrayList<KorisnikDTO>();
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		
+		for (Kupac k : this.kupci.values()) {
+			KorisnikDTO korisnikDTO = new KorisnikDTO();
+			korisnikDTO.setKorisnickoIme(k.getKorisnickoIme());
+			korisnikDTO.setIme(k.getIme());
+			korisnikDTO.setPrezime(k.getPrezime());
+			korisnikDTO.setTipKorisnika(k.getTipKorisnika().toString());
+			korisnikDTO.setPol(k.getPol().toString());
+			korisnikDTO.setDatumRodjenja(dateFormat.format(k.getDatumRodjenja()));
+			korisnikDTO.setObrisan(k.getObrisan());
+			
+			korisnici.add(korisnikDTO);
+		}
+		
+		return korisnici;
+	}
+	
+	public List<KorisnikDTO> getAllMenadzeriAsKorisnici() {
+		List<KorisnikDTO> korisnici = new ArrayList<KorisnikDTO>();
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		
+		for (Menadzer k : this.menadzeri.values()) {
+			KorisnikDTO korisnikDTO = new KorisnikDTO();
+			korisnikDTO.setKorisnickoIme(k.getKorisnickoIme());
+			korisnikDTO.setIme(k.getIme());
+			korisnikDTO.setPrezime(k.getPrezime());
+			korisnikDTO.setTipKorisnika(k.getTipKorisnika().toString());
+			korisnikDTO.setPol(k.getPol().toString());
+			korisnikDTO.setDatumRodjenja(dateFormat.format(k.getDatumRodjenja()));
+			korisnikDTO.setObrisan(k.getObrisan());
+			
+			korisnici.add(korisnikDTO);
+		}
+		
+		return korisnici;
+	}
+	
+	public List<KorisnikDTO> getAllDostavljaciAsKorisnici() {
+		List<KorisnikDTO> korisnici = new ArrayList<KorisnikDTO>();
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		
+		for (Dostavljac k : this.dostavljaci.values()) {
+			KorisnikDTO korisnikDTO = new KorisnikDTO();
+			korisnikDTO.setKorisnickoIme(k.getKorisnickoIme());
+			korisnikDTO.setIme(k.getIme());
+			korisnikDTO.setPrezime(k.getPrezime());
+			korisnikDTO.setTipKorisnika(k.getTipKorisnika().toString());
+			korisnikDTO.setPol(k.getPol().toString());
+			korisnikDTO.setDatumRodjenja(dateFormat.format(k.getDatumRodjenja()));
+			korisnikDTO.setObrisan(k.getObrisan());
+			
+			korisnici.add(korisnikDTO);
+		}
+		
+		return korisnici;
+	}
+	
+	public List<KorisnikDTO> getAllAdministratoriAsKorisnici() {
+		List<KorisnikDTO> korisnici = new ArrayList<KorisnikDTO>();
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		
+		for (Administrator k : this.administratori.values()) {
+			KorisnikDTO korisnikDTO = new KorisnikDTO();
+			korisnikDTO.setKorisnickoIme(k.getKorisnickoIme());
+			korisnikDTO.setIme(k.getIme());
+			korisnikDTO.setPrezime(k.getPrezime());
+			korisnikDTO.setTipKorisnika(k.getTipKorisnika().toString());
+			korisnikDTO.setPol(k.getPol().toString());
+			korisnikDTO.setDatumRodjenja(dateFormat.format(k.getDatumRodjenja()));
+			korisnikDTO.setObrisan(k.getObrisan());
+			
+			korisnici.add(korisnikDTO);
+		}
+		
+		return korisnici;
+	}
 }
