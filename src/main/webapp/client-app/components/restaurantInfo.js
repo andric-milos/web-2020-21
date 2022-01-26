@@ -52,19 +52,23 @@ Vue.component("restaurant-info", {
                 <div v-if="showArticles" class="d-flex flex-row flex-wrap">
                     <div class="card my-1" style="width: 17rem;" v-for="a in artikli">
                         <img class="card-img-top" v-bind:src="'http://localhost:8080/web-2020-21/images/article-images/' + a.restoran + '-' + a.naziv + '.jpg'" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ a.naziv }}</h5>
-                            <p class="card-text">{{ a.opis }}</p>
-                            <div class="d-flex flex-row justify-content-between">
-                                <p>{{ a.kolicina }} <span v-if="a.tip =='JELO'">g</span><span v-if="a.tip =='PICE'">ml</span></p>
-                                <p>{{ a.cena }} RSD</p>
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <div class="d-flex flex-column">
+                                <h5 class="card-title">{{ a.naziv }}</h5>
+                                <p class="card-text">{{ a.opis }}</p>
                             </div>
-                            <button 
-                                type="button" 
-                                class="btn btn-secondary btn-sm" 
-                                style="width: 100%;"
-                                v-on:click="openEditArticleModal(a)"
-                            >Edit</button>
+                            <div class="d-flex flex-column">
+                                <div class="d-flex flex-row justify-content-between">
+                                    <p>{{ a.kolicina }} <span v-if="a.tip =='JELO'">g</span><span v-if="a.tip =='PICE'">ml</span></p>
+                                    <p>{{ a.cena }} RSD</p>
+                                </div>
+                                <button 
+                                    type="button" 
+                                    class="btn btn-secondary btn-sm" 
+                                    style="width: 100%;"
+                                    v-on:click="openEditArticleModal(a)"
+                                >Edit</button>
+                            </div>
                         </div>
                     </div>
 
