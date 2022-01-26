@@ -5,7 +5,8 @@ Vue.component("restaurant-info", {
             showArticles: undefined,
             restaurant: undefined,
             artikli: [],
-            articleToEdit: undefined
+            articleToEdit: undefined,
+            mapInitialized: undefined
         }
     },
     template: `
@@ -85,71 +86,84 @@ Vue.component("restaurant-info", {
         </div>
     </div> `,
     methods: {
-        initializeMapAndRestaurantInfo() {
-            document.getElementById("restaurantName").innerHTML = "<b>" + this.restaurant.naziv + "</b>";
-            document.getElementById("restaurantLogo").setAttribute("src", "http://localhost:8080/web-2020-21/images/restaurant-logos/" + this.restaurant.naziv + ".jpg");
+        initializeMap() {
+            if (!this.mapInitialized) {
+                document.getElementById("restaurantName").innerHTML = "<b>" + this.restaurant.naziv + "</b>";
+                document.getElementById("restaurantLogo").setAttribute("src", "http://localhost:8080/web-2020-21/images/restaurant-logos/" + this.restaurant.naziv + ".jpg");
 
-            // var map = L.map('map').setView([this.restaurant.lokacija.geografskaSirina, this.restaurant.lokacija.geografskaDuzina], 13);
-            var map = L.map('map', {
-                center: [this.restaurant.lokacija.geografskaSirina, this.restaurant.lokacija.geografskaDuzina],
-                zoom: 13
-            });
+                // var map = L.map('map').setView([this.restaurant.lokacija.geografskaSirina, this.restaurant.lokacija.geografskaDuzina], 13);
+                var map = L.map('map', {
+                    center: [this.restaurant.lokacija.geografskaSirina, this.restaurant.lokacija.geografskaDuzina],
+                    zoom: 13
+                });
 
-            L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-                attribution: '',
-                maxZoom: 18,
-                id: 'mapbox/streets-v11',
-                tileSize: 512,
-                zoomOffset: -1,
-                accessToken: 'pk.eyJ1IjoibWVlbG9zY2giLCJhIjoiY2trcTRkNzl3MGZ6djJvcW4zeHFxeHg0YyJ9.h06Ayx7JxZqxszi6nLpsZw'
-            }).addTo(map);
+                L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+                    attribution: '',
+                    maxZoom: 18,
+                    id: 'mapbox/streets-v11',
+                    tileSize: 512,
+                    zoomOffset: -1,
+                    accessToken: 'pk.eyJ1IjoibWVlbG9zY2giLCJhIjoiY2trcTRkNzl3MGZ6djJvcW4zeHFxeHg0YyJ9.h06Ayx7JxZqxszi6nLpsZw'
+                }).addTo(map);
 
-            var marker = L.marker([this.restaurant.lokacija.geografskaSirina, this.restaurant.lokacija.geografskaDuzina], {draggable: false});
-            marker.addTo(map);
+                var marker = L.marker([this.restaurant.lokacija.geografskaSirina, this.restaurant.lokacija.geografskaDuzina], {draggable: false});
+                marker.addTo(map);
 
-            setTimeout(() => {
-                map.invalidateSize();           
-            }, 0);
+                /*setTimeout(() => {
+                    map.invalidateSize();           
+                }, 0);*/
+
+                this.mapInitialized = true;
+            }
         },
         openEditArticleModal(article) {
             this.articleToEdit = article;
 
             $('#editArticleModal').modal('toggle');
+        },
+        loadData() {
+            axios.get("rest/user/getLoggedInUserData")
+                .then(response => {
+                    if (response.data == "NOT LOGGED IN") {
+                        this.showRestaurant = false;
+                    } else {
+                        if (response.data.tipKorisnika == "MENADZER") {
+                            axios.get("rest/restaurant/byManager/" + response.data.korisnickoIme)
+                                .then(response => {
+                                    if (response.status == 200) {
+                                        this.restaurant = response.data;
+                                        this.showRestaurant = true;
+
+                                        this.artikli = response.data.artikli;
+
+                                        if (this.restaurant.artikli.length > 0)
+                                            this.showArticles = true;
+                                        else
+                                            this.showArticles = false;
+                                    }
+                                })
+                                .catch(error => {
+                                    console.log(error);
+                                    this.showRestaurant = false;
+                                    this.showArticles = false;
+                                });
+                        } else {
+                            this.showRestaurant = false;
+                            this.showArticles = false;
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         }
     },
     mounted() {
-        axios.get("rest/user/getLoggedInUserData")
-            .then(response => {
-                if (response.data == "NOT LOGGED IN") {
-                    this.showRestaurant = false;
-                } else {
-                    if (response.data.tipKorisnika == "MENADZER") {
-                        axios.get("rest/restaurant/byManager/" + response.data.korisnickoIme)
-                            .then(response => {
-                                this.restaurant = response.data;
-                                this.showRestaurant = true;
-                                this.initializeMapAndRestaurantInfo();
-
-                                this.artikli = response.data.artikli;
-
-                                if (this.artikli == [])
-                                    this.showArticles = false;
-                                else
-                                    this.showArticles = true;
-                            })
-                            .catch(error => {
-                                console.log(error);
-                                this.showRestaurant = false;
-                            });
-
-                        this.showRestaurant = true;
-                    } else {
-                        this.showRestaurant = false;
-                    }
-                }
-            })
-            .catch(error => {
-                console.log(error);
-            });
+        this.loadData();
+    },
+    updated() {
+        this.$nextTick(() => {
+            this.initializeMap();
+        });
     }
 });
