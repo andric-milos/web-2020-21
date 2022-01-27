@@ -9,5 +9,7 @@ public enum TipRestorana {
 	KOBASICE,
 	BURGERI,
 	BRZA_HRANA,
-	PASTA
+	PASTA,
+	PALACINKE,
+	SENDVICI
 }
