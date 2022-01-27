@@ -37,6 +37,7 @@ Vue.component('home-page', {
                             <h1><b>{{ r.naziv }}</b></h1>
                             <h4><b>Address:</b> {{ r.lokacija.adresa.ulica }} {{ r.lokacija.adresa.broj }}, {{ r.lokacija.adresa.mesto }} {{ r.lokacija.adresa.postanskiBroj }} </h4>
                             <h4><b>Type:</b> {{ r.tip }} </h4>
+                            <h4><b>Rating:</b> <span v-if="r.ocena != 0"> {{ r.ocena | roundTo2Decimals }} </span> <span v-if="r.ocena == 0"">Not rated</span> </h4>
                         </div>
                         <div class="d-flex flex-row justify-content-end">
                             <button 
@@ -149,6 +150,14 @@ Vue.component('home-page', {
                 .catch(error => {
                     console.log(error);
                 });
+        }
+    },
+    filters: {
+        roundTo2Decimals(value) {
+            if (!value) 
+                return "";
+
+            return Math.round((value + Number.EPSILON) * 100) / 100;
         }
     }
 });
