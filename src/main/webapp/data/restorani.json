@@ -1,0 +1,592 @@
+{
+  "Walter" : {
+    "naziv" : "Walter",
+    "tip" : "ROSTILJ",
+    "artikli" : [ {
+      "naziv" : "Walter desetka",
+      "cena" : 520.0,
+      "tip" : "JELO",
+      "restoran" : "Walter",
+      "kolicina" : 250,
+      "opis" : "Walter ćevapi 10 komada. Juneće meso.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Walter-Walter desetka.jpg"
+    }, {
+      "naziv" : "Walter petica",
+      "cena" : 260.0,
+      "tip" : "JELO",
+      "restoran" : "Walter",
+      "kolicina" : 125,
+      "opis" : "Walter ćevapi 5 komada. Juneće meso.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Walter-Walter petica.jpg"
+    }, {
+      "naziv" : "Pileće krpice",
+      "cena" : 380.0,
+      "tip" : "JELO",
+      "restoran" : "Walter",
+      "kolicina" : 250,
+      "opis" : "Trakice pilećeg mesa.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Walter-Pileće krpice.jpg"
+    }, {
+      "naziv" : "Sudžuka velika porcija",
+      "cena" : 520.0,
+      "tip" : "JELO",
+      "restoran" : "Walter",
+      "kolicina" : 250,
+      "opis" : "Juneća kobasica.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Walter-Sudžuka velika porcija.jpg"
+    } ],
+    "status" : "RADI",
+    "lokacija" : {
+      "geografskaDuzina" : 19.843748,
+      "geografskaSirina" : 45.24524,
+      "adresa" : {
+        "ulica" : "Bulevar Oslobođenja",
+        "broj" : 119,
+        "mesto" : "Novi Sad",
+        "postanskiBroj" : 21000
+      }
+    },
+    "logo" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\restaurant-logos\\Walter.jpg",
+    "menadzer" : "shakira",
+    "ocena" : 5.0
+  },
+  "Dva štapića" : {
+    "naziv" : "Dva štapića",
+    "tip" : "KINESKI",
+    "artikli" : [ ],
+    "status" : "RADI",
+    "lokacija" : {
+      "geografskaDuzina" : 19.843885,
+      "geografskaSirina" : 45.250786,
+      "adresa" : {
+        "ulica" : "Vase Stajića",
+        "broj" : 27,
+        "mesto" : "Novi Sad",
+        "postanskiBroj" : 21000
+      }
+    },
+    "logo" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\restaurant-logos\\Dva štapića.jpg",
+    "menadzer" : "sharapova",
+    "ocena" : 0.0
+  },
+  "Ognjište" : {
+    "naziv" : "Ognjište",
+    "tip" : "ROSTILJ",
+    "artikli" : [ {
+      "naziv" : "Pljeskavica 150g",
+      "cena" : 200.0,
+      "tip" : "JELO",
+      "restoran" : "Ognjište",
+      "kolicina" : 150,
+      "opis" : "Pljeskavica 150 grama.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Ognjište-Pljeskavica 150g.jpg"
+    }, {
+      "naziv" : "Pljeskavica 200g",
+      "cena" : 250.0,
+      "tip" : "JELO",
+      "restoran" : "Ognjište",
+      "kolicina" : 200,
+      "opis" : "Pljeskavica 200 grama.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Ognjište-Pljeskavica 200g.jpg"
+    }, {
+      "naziv" : "Pljeskavica 250g",
+      "cena" : 350.0,
+      "tip" : "JELO",
+      "restoran" : "Ognjište",
+      "kolicina" : 250,
+      "opis" : "Pljeskavica 250 grama.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Ognjište-Pljeskavica 250g.jpg"
+    }, {
+      "naziv" : "Pomfrit",
+      "cena" : 120.0,
+      "tip" : "JELO",
+      "restoran" : "Ognjište",
+      "kolicina" : 100,
+      "opis" : "Porcija pomrita.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Ognjište-Pomfrit.jpg"
+    }, {
+      "naziv" : "Ćevap",
+      "cena" : 50.0,
+      "tip" : "JELO",
+      "restoran" : "Ognjište",
+      "kolicina" : 30,
+      "opis" : "1 ćevap - 30 grama.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Ognjište-Ćevap.jpg"
+    }, {
+      "naziv" : "Gurmanska mala",
+      "cena" : 270.0,
+      "tip" : "JELO",
+      "restoran" : "Ognjište",
+      "kolicina" : 200,
+      "opis" : "Mala gurmanska pljeskavica - 200 grama.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Ognjište-Gurmanska mala.jpg"
+    } ],
+    "status" : "RADI",
+    "lokacija" : {
+      "geografskaDuzina" : 19.8334,
+      "geografskaSirina" : 45.250202,
+      "adresa" : {
+        "ulica" : "Futoška",
+        "broj" : 42,
+        "mesto" : "Novi Sad",
+        "postanskiBroj" : 21000
+      }
+    },
+    "logo" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\restaurant-logos\\Ognjište.jpg",
+    "menadzer" : "menadzerka",
+    "ocena" : 0.0
+  },
+  "Kuća kobasice" : {
+    "naziv" : "Kuća kobasice",
+    "tip" : "KOBASICE",
+    "artikli" : [ {
+      "naziv" : "Kačkavaljka",
+      "cena" : 330.0,
+      "tip" : "JELO",
+      "restoran" : "Kuća kobasice",
+      "kolicina" : 150,
+      "opis" : "Svinjski but, kačkavalj.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Kuća kobasice-Kačkavaljka.jpg"
+    }, {
+      "naziv" : "Sremska Kobasica",
+      "cena" : 290.0,
+      "tip" : "JELO",
+      "restoran" : "Kuća kobasice",
+      "kolicina" : 150,
+      "opis" : "Svinjski but, beli luk, biber.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Kuća kobasice-Sremska Kobasica.jpg"
+    }, {
+      "naziv" : "Ljuta Kobasica",
+      "cena" : 290.0,
+      "tip" : "JELO",
+      "restoran" : "Kuća kobasice",
+      "kolicina" : 150,
+      "opis" : "Svinjski but, ljuti začini.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Kuća kobasice-Ljuta Kobasica.jpg"
+    }, {
+      "naziv" : "Pileća Kobasica",
+      "cena" : 290.0,
+      "tip" : "JELO",
+      "restoran" : "Kuća kobasice",
+      "kolicina" : 150,
+      "opis" : "Pileći file, začin.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Kuća kobasice-Pileća Kobasica.jpg"
+    }, {
+      "naziv" : "Ćureća Kobasica",
+      "cena" : 310.0,
+      "tip" : "JELO",
+      "restoran" : "Kuća kobasice",
+      "kolicina" : 150,
+      "opis" : "Ćureći file, začini.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Kuća kobasice-Ćureća Kobasica.jpg"
+    }, {
+      "naziv" : "Bavarska Kobasica",
+      "cena" : 300.0,
+      "tip" : "JELO",
+      "restoran" : "Kuća kobasice",
+      "kolicina" : 150,
+      "opis" : "Svinjski but, svinjska plećka, biljni začini.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Kuća kobasice-Bavarska Kobasica.jpg"
+    }, {
+      "naziv" : "Coca Cola Zero",
+      "cena" : 80.0,
+      "tip" : "PICE",
+      "restoran" : "Kuća kobasice",
+      "kolicina" : 330,
+      "opis" : "Limenka 330ml.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Kuća kobasice-Coca Cola Zero.jpg"
+    }, {
+      "naziv" : "Coca Cola",
+      "cena" : 80.0,
+      "tip" : "PICE",
+      "restoran" : "Kuća kobasice",
+      "kolicina" : 330,
+      "opis" : "Limenka 330ml.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Kuća kobasice-Coca Cola.jpg"
+    } ],
+    "status" : "RADI",
+    "lokacija" : {
+      "geografskaDuzina" : 19.849222,
+      "geografskaSirina" : 45.257465,
+      "adresa" : {
+        "ulica" : "Trg republike",
+        "broj" : 6,
+        "mesto" : "Novi Sad",
+        "postanskiBroj" : 21000
+      }
+    },
+    "logo" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\restaurant-logos\\Kuća kobasice.jpg",
+    "menadzer" : "ruud",
+    "ocena" : 0.0
+  },
+  "Caribic" : {
+    "naziv" : "Caribic",
+    "tip" : "PICERIJA",
+    "artikli" : [ {
+      "naziv" : "Pepsi",
+      "cena" : 100.0,
+      "tip" : "PICE",
+      "restoran" : "Caribic",
+      "kolicina" : 330,
+      "opis" : "Limenka 0.33l.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Caribic-Pepsi.jpg"
+    }, {
+      "naziv" : "7up limenka",
+      "cena" : 100.0,
+      "tip" : "PICE",
+      "restoran" : "Caribic",
+      "kolicina" : 330,
+      "opis" : "7up u limenci - 0.33l.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Caribic-7up limenka.jpg"
+    }, {
+      "naziv" : "Kulen XL",
+      "cena" : 1070.0,
+      "tip" : "JELO",
+      "restoran" : "Caribic",
+      "kolicina" : 1000,
+      "opis" : "Testo, pelat, šunka, sir, šampinjoni, kulen. Ekstra velika - XL (42cm).",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Caribic-Kulen XL.jpg"
+    }, {
+      "naziv" : "Kulen M",
+      "cena" : 480.0,
+      "tip" : "JELO",
+      "restoran" : "Caribic",
+      "kolicina" : 500,
+      "opis" : "Testo, pelat, šunka, sir, šampinjoni, kulen. Srednja - M (27cm).",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Caribic-Kulen MM.jpg"
+    }, {
+      "naziv" : "Margarita XL",
+      "cena" : 1050.0,
+      "tip" : "JELO",
+      "restoran" : "Caribic",
+      "kolicina" : 1000,
+      "opis" : "Testo, pelat, sir. Ekstra velika - XL 42cm.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Caribic-Margaritaa.jpg"
+    }, {
+      "naziv" : "Pepperoni Piccante XL",
+      "cena" : 1070.0,
+      "tip" : "JELO",
+      "restoran" : "Caribic",
+      "kolicina" : 1000,
+      "opis" : "Testo, pelat, sir, kulen. Ekstra velika - XL 42cm.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Caribic-Pepperoni Piccante.jpg"
+    } ],
+    "status" : "RADI",
+    "lokacija" : {
+      "geografskaDuzina" : 19.839504,
+      "geografskaSirina" : 45.24915,
+      "adresa" : {
+        "ulica" : "Jevrejska",
+        "broj" : 35,
+        "mesto" : "Novi Sad",
+        "postanskiBroj" : 21000
+      }
+    },
+    "logo" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\restaurant-logos\\Caribic.jpg",
+    "menadzer" : "anica",
+    "ocena" : 4.0
+  },
+  "Tortilla Casa" : {
+    "naziv" : "Tortilla Casa",
+    "tip" : "MEKSICKI",
+    "artikli" : [ {
+      "naziv" : "Burito u tortilji",
+      "cena" : 410.0,
+      "tip" : "JELO",
+      "restoran" : "Tortilla Casa",
+      "kolicina" : 200,
+      "opis" : "Napravi svoju kombinaciju.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Tortilla Casa-Burito u tortilji.jpg"
+    }, {
+      "naziv" : "Taquitos",
+      "cena" : 330.0,
+      "tip" : "JELO",
+      "restoran" : "Tortilla Casa",
+      "kolicina" : 150,
+      "opis" : "Uz dodatak pomfrit, sva sosa po izboru.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Tortilla Casa-Taquitos.jpg"
+    }, {
+      "naziv" : "Crunchwrap",
+      "cena" : 410.0,
+      "tip" : "JELO",
+      "restoran" : "Tortilla Casa",
+      "kolicina" : 200,
+      "opis" : "Tortilja, naćo sir, meso/vege, pavlaka, paradajz, zelena salata, sir.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Tortilla Casa-Crunchwrap.jpg"
+    }, {
+      "naziv" : "Burito u činiji",
+      "cena" : 410.0,
+      "tip" : "JELO",
+      "restoran" : "Tortilla Casa",
+      "kolicina" : 200,
+      "opis" : "Napravi svoju kombinaciju.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Tortilla Casa-Burito u činiji.jpg"
+    }, {
+      "naziv" : "Hard tacos",
+      "cena" : 360.0,
+      "tip" : "JELO",
+      "restoran" : "Tortilla Casa",
+      "kolicina" : 150,
+      "opis" : "Tri komada u porciji, tvrda kukuruzna tortilja.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Tortilla Casa-Hard tacos.jpg"
+    }, {
+      "naziv" : "Soft tacos",
+      "cena" : 360.0,
+      "tip" : "JELO",
+      "restoran" : "Tortilla Casa",
+      "kolicina" : 150,
+      "opis" : "Dva komada u porciji, meka kukuruzna tortilja.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Tortilla Casa-Soft tacos.jpg"
+    } ],
+    "status" : "RADI",
+    "lokacija" : {
+      "geografskaDuzina" : 19.837883,
+      "geografskaSirina" : 45.25134,
+      "adresa" : {
+        "ulica" : "Bulevar Oslobođenja",
+        "broj" : 89,
+        "mesto" : "Novi Sad",
+        "postanskiBroj" : 21100
+      }
+    },
+    "logo" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\restaurant-logos\\Tortilla Casa.jpg",
+    "menadzer" : "tombrady",
+    "ocena" : 2.6666666666666665
+  },
+  "Domaće palačinke" : {
+    "naziv" : "Domaće palačinke",
+    "tip" : "PALACINKE",
+    "artikli" : [ {
+      "naziv" : "Palačinke sa kajsijom",
+      "cena" : 420.0,
+      "tip" : "JELO",
+      "restoran" : "Domaće palačinke",
+      "kolicina" : 150,
+      "opis" : "6 komada.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Domaće palačinke-Palačinke sa kajsijom.jpg"
+    }, {
+      "naziv" : "Palačinke sa Nutellom",
+      "cena" : 540.0,
+      "tip" : "JELO",
+      "restoran" : "Domaće palačinke",
+      "kolicina" : 150,
+      "opis" : "6 komada.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Domaće palačinke-Palačinke sa Nutellom.jpg"
+    }, {
+      "naziv" : "Prazne palačinke",
+      "cena" : 440.0,
+      "tip" : "JELO",
+      "restoran" : "Domaće palačinke",
+      "kolicina" : 300,
+      "opis" : "10 komada.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Domaće palačinke-Prazne palačinke.jpg"
+    }, {
+      "naziv" : "Palačinke sa šljivom",
+      "cena" : 420.0,
+      "tip" : "JELO",
+      "restoran" : "Domaće palačinke",
+      "kolicina" : 150,
+      "opis" : "6 komada.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Domaće palačinke-Palačinke sa šljivom.jpg"
+    } ],
+    "status" : "RADI",
+    "lokacija" : {
+      "geografskaDuzina" : 19.790548,
+      "geografskaSirina" : 45.23362,
+      "adresa" : {
+        "ulica" : "Branka Ćopića",
+        "broj" : 100,
+        "mesto" : "Novi Sad",
+        "postanskiBroj" : 21000
+      }
+    },
+    "logo" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\restaurant-logos\\Domaće palačinke.jpg",
+    "menadzer" : "rihanna",
+    "ocena" : 0.0
+  },
+  "Gastro Novi" : {
+    "naziv" : "Gastro Novi",
+    "tip" : "BURGERI",
+    "artikli" : [ {
+      "naziv" : "Burger klasik",
+      "cena" : 410.0,
+      "tip" : "JELO",
+      "restoran" : "Gastro Novi",
+      "kolicina" : 150,
+      "opis" : "100% juneće meso, slanina, sir, prilozi po izboru.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Gastro Novi-Burger klasik.jpg"
+    }, {
+      "naziv" : "Burger premijum",
+      "cena" : 490.0,
+      "tip" : "JELO",
+      "restoran" : "Gastro Novi",
+      "kolicina" : 150,
+      "opis" : "100% govedina, belo meso,mozzarela ,sušeni paradajz, sir, prilozi po izboru.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Gastro Novi-Burger premijum.jpg"
+    }, {
+      "naziv" : "Kroketi od krompira",
+      "cena" : 170.0,
+      "tip" : "JELO",
+      "restoran" : "Gastro Novi",
+      "kolicina" : 200,
+      "opis" : "Porcija kroketa od krompira.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Gastro Novi-Kroketi od krompira.jpg"
+    }, {
+      "naziv" : "Coca cola zero",
+      "cena" : 120.0,
+      "tip" : "PICE",
+      "restoran" : "Gastro Novi",
+      "kolicina" : 500,
+      "opis" : "Coca cola zero 0.5l.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Gastro Novi-Coca cola zero.jpg"
+    } ],
+    "status" : "RADI",
+    "lokacija" : {
+      "geografskaDuzina" : 19.808197,
+      "geografskaSirina" : 45.25428,
+      "adresa" : {
+        "ulica" : "Radomira Raše Radujkova",
+        "broj" : 20,
+        "mesto" : "Novi Sad",
+        "postanskiBroj" : 21000
+      }
+    },
+    "logo" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\restaurant-logos\\Gastro Novi.jpg",
+    "menadzer" : "henry",
+    "ocena" : 0.0
+  },
+  "Chicken Chill" : {
+    "naziv" : "Chicken Chill",
+    "tip" : "PASTA",
+    "artikli" : [ {
+      "naziv" : "Pene Chicken (mala porcija)",
+      "cena" : 270.0,
+      "tip" : "JELO",
+      "restoran" : "Chicken Chill",
+      "kolicina" : 250,
+      "opis" : "Pileće belo meso sa roštilja sečeno na kockice 100 grama, pene testenina 150 grama, sos od 4 vrste sira.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Chicken Chill-Pene Chicken (mala porcija).jpg"
+    }, {
+      "naziv" : "Pene Chicken (velika porcija)",
+      "cena" : 360.0,
+      "tip" : "JELO",
+      "restoran" : "Chicken Chill",
+      "kolicina" : 400,
+      "opis" : "Pileće belo meso sa roštilja sečeno na kockice 150 grama, pene testenina 250 grama, sos od 4 vrste sira.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Chicken Chill-Pene Chicken (velika porcija).jpg"
+    }, {
+      "naziv" : "Carbo Chicken",
+      "cena" : 360.0,
+      "tip" : "JELO",
+      "restoran" : "Chicken Chill",
+      "kolicina" : 350,
+      "opis" : "Dimljena piletina sa roštilja sečena na kockice 120 grama, fosi testenina 230g, karbonara sos.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Chicken Chill-Carbo Chicken.jpg"
+    }, {
+      "naziv" : "Kiki Chicken",
+      "cena" : 360.0,
+      "tip" : "JELO",
+      "restoran" : "Chicken Chill",
+      "kolicina" : 350,
+      "opis" : "Pileće belo meso sa roštilja sečeno na kockice 150 grama, pomfrit 200 grama, sos od kikirikija.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Chicken Chill-Kiki Chicken.jpg"
+    }, {
+      "naziv" : "Coca Cola Zero",
+      "cena" : 100.0,
+      "tip" : "PICE",
+      "restoran" : "Chicken Chill",
+      "kolicina" : 330,
+      "opis" : "Konzerva 330ml.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Chicken Chill-Coca Cola Zero.jpg"
+    }, {
+      "naziv" : "Coca Cola",
+      "cena" : 100.0,
+      "tip" : "PICE",
+      "restoran" : "Chicken Chill",
+      "kolicina" : 330,
+      "opis" : "Konzerva 330ml.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Chicken Chill-Coca Cola.jpg"
+    } ],
+    "status" : "RADI",
+    "lokacija" : {
+      "geografskaDuzina" : 19.83651,
+      "geografskaSirina" : 45.251877,
+      "adresa" : {
+        "ulica" : "Futoška",
+        "broj" : 4,
+        "mesto" : "Novi Sad",
+        "postanskiBroj" : 21000
+      }
+    },
+    "logo" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\restaurant-logos\\Chicken Chill.jpg",
+    "menadzer" : "camdiaz",
+    "ocena" : 5.0
+  },
+  "Big Pizza" : {
+    "naziv" : "Big Pizza",
+    "tip" : "PICERIJA",
+    "artikli" : [ {
+      "naziv" : "Capricciosa pizza",
+      "cena" : 590.0,
+      "tip" : "JELO",
+      "restoran" : "Big Pizza",
+      "kolicina" : 750,
+      "opis" : "Pelat, sir, šunka, pečurke.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Big Pizza-Capricciosa pizza.jpg"
+    }, {
+      "naziv" : "Pepperoni pizza",
+      "cena" : 590.0,
+      "tip" : "JELO",
+      "restoran" : "Big Pizza",
+      "kolicina" : 750,
+      "opis" : "Pelat, sir, kulen.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Big Pizza-Pepperoni pizza.jpg"
+    }, {
+      "naziv" : "Meksikana pizza",
+      "cena" : 700.0,
+      "tip" : "JELO",
+      "restoran" : "Big Pizza",
+      "kolicina" : 750,
+      "opis" : "Pelat, sir, crveni luk, margarin, susam, kulen, meksička ljuta paprika.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Big Pizza-Meksikana pizza.jpg"
+    }, {
+      "naziv" : "Vegetarijana pizza",
+      "cena" : 560.0,
+      "tip" : "JELO",
+      "restoran" : "Big Pizza",
+      "kolicina" : 750,
+      "opis" : "Pelat, mocarela, bebi spanać, feta, paprika miks, paradajz, pečurke, ljubičasti luk.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Big Pizza-Vegetarijana pizza.jpg"
+    }, {
+      "naziv" : "Coca Cola Zero",
+      "cena" : 110.0,
+      "tip" : "PICE",
+      "restoran" : "Big Pizza",
+      "kolicina" : 330,
+      "opis" : "Limenka 330ml.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Big Pizza-Coca Cola Zero.jpg"
+    }, {
+      "naziv" : "Coca Cola",
+      "cena" : 110.0,
+      "tip" : "PICE",
+      "restoran" : "Big Pizza",
+      "kolicina" : 330,
+      "opis" : "Limenka 330ml.",
+      "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Big Pizza-Coca Cola.jpg"
+    } ],
+    "status" : "RADI",
+    "lokacija" : {
+      "geografskaDuzina" : 19.842793,
+      "geografskaSirina" : 45.259594,
+      "adresa" : {
+        "ulica" : "Jovana Subotića",
+        "broj" : 18,
+        "mesto" : "Novi Sad",
+        "postanskiBroj" : 21000
+      }
+    },
+    "logo" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\restaurant-logos\\Big Pizza.jpg",
+    "menadzer" : "petra",
+    "ocena" : 1.0
+  }
+}

@@ -1,0 +1,487 @@
+{
+  "BcBUixf1Tc" : {
+    "id" : "BcBUixf1Tc",
+    "poruceniArtikli" : [ {
+      "artikal" : {
+        "naziv" : "Ćevap",
+        "cena" : 50.0,
+        "tip" : "JELO",
+        "restoran" : "Ognjište",
+        "kolicina" : 30,
+        "opis" : "1 ćevap - 30 grama.",
+        "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Ognjište-Ćevap.jpg"
+      },
+      "koliko" : 10
+    }, {
+      "artikal" : {
+        "naziv" : "Pomfrit",
+        "cena" : 120.0,
+        "tip" : "JELO",
+        "restoran" : "Ognjište",
+        "kolicina" : 100,
+        "opis" : "Porcija pomrita.",
+        "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Ognjište-Pomfrit.jpg"
+      },
+      "koliko" : 1
+    } ],
+    "restoran" : "Ognjište",
+    "vremePorudzbine" : 1639603346085,
+    "cena" : 620.0,
+    "kupac" : "milos",
+    "status" : "OBRADA"
+  },
+  "7mpJ8qSuZO" : {
+    "id" : "7mpJ8qSuZO",
+    "poruceniArtikli" : [ {
+      "artikal" : {
+        "naziv" : "Burito u tortilji",
+        "cena" : 410.0,
+        "tip" : "JELO",
+        "restoran" : "Tortilla Casa",
+        "kolicina" : 200,
+        "opis" : "Napravi svoju kombinaciju.",
+        "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Tortilla Casa-Burito u tortilji.jpg"
+      },
+      "koliko" : 1
+    } ],
+    "restoran" : "Tortilla Casa",
+    "vremePorudzbine" : 1643247174117,
+    "cena" : 410.0,
+    "kupac" : "milos",
+    "status" : "DOSTAVLJENA"
+  },
+  "mowm9HRmH3" : {
+    "id" : "mowm9HRmH3",
+    "poruceniArtikli" : [ {
+      "artikal" : {
+        "naziv" : "Kačkavaljka",
+        "cena" : 330.0,
+        "tip" : "JELO",
+        "restoran" : "Kuća kobasice",
+        "kolicina" : 150,
+        "opis" : "Svinjski but, kačkavalj.",
+        "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Kuća kobasice-Kačkavaljka.jpg"
+      },
+      "koliko" : 1
+    }, {
+      "artikal" : {
+        "naziv" : "Coca Cola Zero",
+        "cena" : 80.0,
+        "tip" : "PICE",
+        "restoran" : "Kuća kobasice",
+        "kolicina" : 330,
+        "opis" : "Limenka 330ml.",
+        "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Kuća kobasice-Coca Cola Zero.jpg"
+      },
+      "koliko" : 1
+    } ],
+    "restoran" : "Kuća kobasice",
+    "vremePorudzbine" : 1640453486499,
+    "cena" : 410.0,
+    "kupac" : "jecapereca",
+    "status" : "DOSTAVLJENA"
+  },
+  "KVSqVBLqxe" : {
+    "id" : "KVSqVBLqxe",
+    "poruceniArtikli" : [ {
+      "artikal" : {
+        "naziv" : "Capricciosa pizza",
+        "cena" : 590.0,
+        "tip" : "JELO",
+        "restoran" : "Big Pizza",
+        "kolicina" : 750,
+        "opis" : "Pelat, sir, šunka, pečurke.",
+        "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Big Pizza-Capricciosa pizza.jpg"
+      },
+      "koliko" : 1
+    } ],
+    "restoran" : "Big Pizza",
+    "vremePorudzbine" : 1640807275695,
+    "cena" : 590.0,
+    "kupac" : "jecapereca",
+    "status" : "DOSTAVLJENA"
+  },
+  "Z8m2fEOCsl" : {
+    "id" : "Z8m2fEOCsl",
+    "poruceniArtikli" : [ {
+      "artikal" : {
+        "naziv" : "7up limenka",
+        "cena" : 100.0,
+        "tip" : "PICE",
+        "restoran" : "Caribic",
+        "kolicina" : 330,
+        "opis" : "7up u limenci - 0.33l.",
+        "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Caribic-7up limenka.jpg"
+      },
+      "koliko" : 1
+    }, {
+      "artikal" : {
+        "naziv" : "Kulen M",
+        "cena" : 480.0,
+        "tip" : "JELO",
+        "restoran" : "Caribic",
+        "kolicina" : 500,
+        "opis" : "Testo, pelat, šunka, sir, šampinjoni, kulen. Srednja - M (27cm).",
+        "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Caribic-Kulen MM.jpg"
+      },
+      "koliko" : 1
+    } ],
+    "restoran" : "Caribic",
+    "vremePorudzbine" : 1639764016168,
+    "cena" : 580.0,
+    "kupac" : "milos",
+    "status" : "DOSTAVLJENA"
+  },
+  "1BGrfyHdYE" : {
+    "id" : "1BGrfyHdYE",
+    "poruceniArtikli" : [ {
+      "artikal" : {
+        "naziv" : "Crunchwrap",
+        "cena" : 410.0,
+        "tip" : "JELO",
+        "restoran" : "Tortilla Casa",
+        "kolicina" : 200,
+        "opis" : "Tortilja, naćo sir, meso/vege, pavlaka, paradajz, zelena salata, sir.",
+        "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Tortilla Casa-Crunchwrap.jpg"
+      },
+      "koliko" : 1
+    }, {
+      "artikal" : {
+        "naziv" : "Burito u tortilji",
+        "cena" : 410.0,
+        "tip" : "JELO",
+        "restoran" : "Tortilla Casa",
+        "kolicina" : 200,
+        "opis" : "Napravi svoju kombinaciju.",
+        "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Tortilla Casa-Burito u tortilji.jpg"
+      },
+      "koliko" : 3
+    }, {
+      "artikal" : {
+        "naziv" : "Hard tacos",
+        "cena" : 360.0,
+        "tip" : "JELO",
+        "restoran" : "Tortilla Casa",
+        "kolicina" : 150,
+        "opis" : "Tri komada u porciji, tvrda kukuruzna tortilja.",
+        "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Tortilla Casa-Hard tacos.jpg"
+      },
+      "koliko" : 1
+    } ],
+    "restoran" : "Tortilla Casa",
+    "vremePorudzbine" : 1643246434299,
+    "cena" : 2000.0,
+    "kupac" : "dwight",
+    "status" : "DOSTAVLJENA"
+  },
+  "TVVdq0eFSf" : {
+    "id" : "TVVdq0eFSf",
+    "poruceniArtikli" : [ {
+      "artikal" : {
+        "naziv" : "7up limenka",
+        "cena" : 100.0,
+        "tip" : "PICE",
+        "restoran" : "Caribic",
+        "kolicina" : 330,
+        "opis" : "7up u limenci - 0.33l.",
+        "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Caribic-7up limenka.jpg"
+      },
+      "koliko" : 1
+    }, {
+      "artikal" : {
+        "naziv" : "Kulen M",
+        "cena" : 480.0,
+        "tip" : "JELO",
+        "restoran" : "Caribic",
+        "kolicina" : 500,
+        "opis" : "Testo, pelat, šunka, sir, šampinjoni, kulen. Srednja - M (27cm).",
+        "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Caribic-Kulen MM.jpg"
+      },
+      "koliko" : 1
+    } ],
+    "restoran" : "Caribic",
+    "vremePorudzbine" : 1639603318965,
+    "cena" : 580.0,
+    "kupac" : "jecapereca",
+    "status" : "DOSTAVLJENA"
+  },
+  "3CisnzbQO9" : {
+    "id" : "3CisnzbQO9",
+    "poruceniArtikli" : [ {
+      "artikal" : {
+        "naziv" : "Burito u tortilji",
+        "cena" : 410.0,
+        "tip" : "JELO",
+        "restoran" : "Tortilla Casa",
+        "kolicina" : 200,
+        "opis" : "Napravi svoju kombinaciju.",
+        "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Tortilla Casa-Burito u tortilji.jpg"
+      },
+      "koliko" : 1
+    } ],
+    "restoran" : "Tortilla Casa",
+    "vremePorudzbine" : 1643245177638,
+    "cena" : 410.0,
+    "kupac" : "alba",
+    "status" : "DOSTAVLJENA"
+  },
+  "ASfdelpQZJ" : {
+    "id" : "ASfdelpQZJ",
+    "poruceniArtikli" : [ {
+      "artikal" : {
+        "naziv" : "Pepsi",
+        "cena" : 100.0,
+        "tip" : "PICE",
+        "restoran" : "Caribic",
+        "kolicina" : 330,
+        "opis" : "Limenka 0.33l.",
+        "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Caribic-Pepsi.jpg"
+      },
+      "koliko" : 2
+    }, {
+      "artikal" : {
+        "naziv" : "Pepperoni Piccante XL",
+        "cena" : 1070.0,
+        "tip" : "JELO",
+        "restoran" : "Caribic",
+        "kolicina" : 1000,
+        "opis" : "Testo, pelat, sir, kulen. Ekstra velika - XL 42cm.",
+        "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Caribic-Pepperoni Piccante.jpg"
+      },
+      "koliko" : 1
+    } ],
+    "restoran" : "Caribic",
+    "vremePorudzbine" : 1639764057258,
+    "cena" : 1270.0,
+    "kupac" : "proba",
+    "status" : "DOSTAVLJENA"
+  },
+  "Lw1evy8m68" : {
+    "id" : "Lw1evy8m68",
+    "poruceniArtikli" : [ {
+      "artikal" : {
+        "naziv" : "Kiki Chicken",
+        "cena" : 360.0,
+        "tip" : "JELO",
+        "restoran" : "Chicken Chill",
+        "kolicina" : 350,
+        "opis" : "Pileće belo meso sa roštilja sečeno na kockice 150 grama, pomfrit 200 grama, sos od kikirikija.",
+        "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Chicken Chill-Kiki Chicken.jpg"
+      },
+      "koliko" : 1
+    }, {
+      "artikal" : {
+        "naziv" : "Pene Chicken (velika porcija)",
+        "cena" : 360.0,
+        "tip" : "JELO",
+        "restoran" : "Chicken Chill",
+        "kolicina" : 400,
+        "opis" : "Pileće belo meso sa roštilja sečeno na kockice 150 grama, pene testenina 250 grama, sos od 4 vrste sira.",
+        "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Chicken Chill-Pene Chicken (velika porcija).jpg"
+      },
+      "koliko" : 1
+    }, {
+      "artikal" : {
+        "naziv" : "Coca Cola Zero",
+        "cena" : 100.0,
+        "tip" : "PICE",
+        "restoran" : "Chicken Chill",
+        "kolicina" : 330,
+        "opis" : "Konzerva 330ml.",
+        "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Chicken Chill-Coca Cola Zero.jpg"
+      },
+      "koliko" : 2
+    } ],
+    "restoran" : "Chicken Chill",
+    "vremePorudzbine" : 1640806793459,
+    "cena" : 920.0,
+    "kupac" : "lupen",
+    "status" : "DOSTAVLJENA"
+  },
+  "HBGHSx6kMX" : {
+    "id" : "HBGHSx6kMX",
+    "poruceniArtikli" : [ {
+      "artikal" : {
+        "naziv" : "Pljeskavica 200g",
+        "cena" : 250.0,
+        "tip" : "JELO",
+        "restoran" : "Ognjište",
+        "kolicina" : 200,
+        "opis" : "Pljeskavica 200 grama.",
+        "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Ognjište-Pljeskavica 200g.jpg"
+      },
+      "koliko" : 6
+    }, {
+      "artikal" : {
+        "naziv" : "Pomfrit",
+        "cena" : 120.0,
+        "tip" : "JELO",
+        "restoran" : "Ognjište",
+        "kolicina" : 100,
+        "opis" : "Porcija pomrita.",
+        "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Ognjište-Pomfrit.jpg"
+      },
+      "koliko" : 5
+    } ],
+    "restoran" : "Ognjište",
+    "vremePorudzbine" : 1640911499831,
+    "cena" : 2100.0,
+    "kupac" : "milos",
+    "status" : "OBRADA"
+  },
+  "c4BCWv4SZz" : {
+    "id" : "c4BCWv4SZz",
+    "poruceniArtikli" : [ {
+      "artikal" : {
+        "naziv" : "Pepperoni Piccante XL",
+        "cena" : 1070.0,
+        "tip" : "JELO",
+        "restoran" : "Caribic",
+        "kolicina" : 1000,
+        "opis" : "Testo, pelat, sir, kulen. Ekstra velika - XL 42cm.",
+        "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Caribic-Pepperoni Piccante.jpg"
+      },
+      "koliko" : 1
+    }, {
+      "artikal" : {
+        "naziv" : "Pepsi",
+        "cena" : 100.0,
+        "tip" : "PICE",
+        "restoran" : "Caribic",
+        "kolicina" : 330,
+        "opis" : "Limenka 0.33l.",
+        "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Caribic-Pepsi.jpg"
+      },
+      "koliko" : 2
+    } ],
+    "restoran" : "Caribic",
+    "vremePorudzbine" : 1639603363889,
+    "cena" : 1270.0,
+    "kupac" : "milos",
+    "status" : "OBRADA"
+  },
+  "Odtcizd6ku" : {
+    "id" : "Odtcizd6ku",
+    "poruceniArtikli" : [ {
+      "artikal" : {
+        "naziv" : "Pomfrit",
+        "cena" : 120.0,
+        "tip" : "JELO",
+        "restoran" : "Ognjište",
+        "kolicina" : 100,
+        "opis" : "Porcija pomrita.",
+        "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Ognjište-Pomfrit.jpg"
+      },
+      "koliko" : 2
+    }, {
+      "artikal" : {
+        "naziv" : "Gurmanska mala",
+        "cena" : 270.0,
+        "tip" : "JELO",
+        "restoran" : "Ognjište",
+        "kolicina" : 200,
+        "opis" : "Mala gurmanska pljeskavica - 200 grama.",
+        "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Ognjište-Gurmanska mala.jpg"
+      },
+      "koliko" : 1
+    }, {
+      "artikal" : {
+        "naziv" : "Pljeskavica 200g",
+        "cena" : 250.0,
+        "tip" : "JELO",
+        "restoran" : "Ognjište",
+        "kolicina" : 200,
+        "opis" : "Pljeskavica 200 grama.",
+        "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Ognjište-Pljeskavica 200g.jpg"
+      },
+      "koliko" : 1
+    } ],
+    "restoran" : "Ognjište",
+    "vremePorudzbine" : 1639609432467,
+    "cena" : 760.0,
+    "kupac" : "proba",
+    "status" : "OTKAZANA"
+  },
+  "hoTOuQtALY" : {
+    "id" : "hoTOuQtALY",
+    "poruceniArtikli" : [ {
+      "artikal" : {
+        "naziv" : "Kačkavaljka",
+        "cena" : 330.0,
+        "tip" : "JELO",
+        "restoran" : "Kuća kobasice",
+        "kolicina" : 150,
+        "opis" : "Svinjski but, kačkavalj.",
+        "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Kuća kobasice-Kačkavaljka.jpg"
+      },
+      "koliko" : 1
+    }, {
+      "artikal" : {
+        "naziv" : "Coca Cola Zero",
+        "cena" : 80.0,
+        "tip" : "PICE",
+        "restoran" : "Kuća kobasice",
+        "kolicina" : 330,
+        "opis" : "Limenka 330ml.",
+        "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Kuća kobasice-Coca Cola Zero.jpg"
+      },
+      "koliko" : 1
+    } ],
+    "restoran" : "Kuća kobasice",
+    "vremePorudzbine" : 1640455675318,
+    "cena" : 410.0,
+    "kupac" : "milos",
+    "status" : "OBRADA"
+  },
+  "OURUlkv9Yt" : {
+    "id" : "OURUlkv9Yt",
+    "poruceniArtikli" : [ {
+      "artikal" : {
+        "naziv" : "Walter desetka",
+        "cena" : 520.0,
+        "tip" : "JELO",
+        "restoran" : "Walter",
+        "kolicina" : 250,
+        "opis" : "Walter ćevapi 10 komada. Juneće meso.",
+        "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Walter-Walter desetka.jpg"
+      },
+      "koliko" : 1
+    } ],
+    "restoran" : "Walter",
+    "vremePorudzbine" : 1643246747116,
+    "cena" : 520.0,
+    "kupac" : "milos",
+    "status" : "DOSTAVLJENA"
+  },
+  "ArXbnZQbF3" : {
+    "id" : "ArXbnZQbF3",
+    "poruceniArtikli" : [ {
+      "artikal" : {
+        "naziv" : "Coca Cola Zero",
+        "cena" : 100.0,
+        "tip" : "PICE",
+        "restoran" : "Chicken Chill",
+        "kolicina" : 330,
+        "opis" : "Konzerva 330ml.",
+        "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Chicken Chill-Coca Cola Zero.jpg"
+      },
+      "koliko" : 2
+    }, {
+      "artikal" : {
+        "naziv" : "Kiki Chicken",
+        "cena" : 360.0,
+        "tip" : "JELO",
+        "restoran" : "Chicken Chill",
+        "kolicina" : 350,
+        "opis" : "Pileće belo meso sa roštilja sečeno na kockice 150 grama, pomfrit 200 grama, sos od kikirikija.",
+        "slika" : "C:\\Users\\Milos\\Desktop\\web-projekat-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\web-2020-21\\images\\article-images\\Chicken Chill-Kiki Chicken.jpg"
+      },
+      "koliko" : 1
+    } ],
+    "restoran" : "Chicken Chill",
+    "vremePorudzbine" : 1641162911373,
+    "cena" : 560.0,
+    "kupac" : "milos",
+    "status" : "OBRADA"
+  }
+}

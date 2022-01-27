@@ -1,0 +1,134 @@
+{
+  "proba" : {
+    "korisnickoIme" : "proba",
+    "lozinka" : "proba",
+    "ime" : "Paul",
+    "prezime" : "Scholes",
+    "pol" : "MUSKO",
+    "datumRodjenja" : "1974-11-16",
+    "tipKorisnika" : "KUPAC",
+    "obrisan" : false,
+    "tipKupca" : {
+      "ime" : "pocetnik",
+      "popust" : 0,
+      "brojBodova" : 0
+    },
+    "svePorudzbine" : [ ],
+    "korpa" : {
+      "artikli" : [ ],
+      "kupac" : "proba",
+      "cena" : 0.0
+    },
+    "sakupljeniBodovi" : -135
+  },
+  "jecapereca" : {
+    "korisnickoIme" : "jecapereca",
+    "lozinka" : "jecapereca",
+    "ime" : "Jelena",
+    "prezime" : "Pekez",
+    "pol" : "ZENSKO",
+    "datumRodjenja" : "1996-03-07",
+    "tipKorisnika" : "KUPAC",
+    "obrisan" : false,
+    "tipKupca" : {
+      "ime" : "pocetnik",
+      "popust" : 0,
+      "brojBodova" : 0
+    },
+    "svePorudzbine" : [ ],
+    "korpa" : {
+      "artikli" : [ ],
+      "kupac" : "jecapereca",
+      "cena" : 0.0
+    },
+    "sakupljeniBodovi" : 209
+  },
+  "milos" : {
+    "korisnickoIme" : "milos",
+    "lozinka" : "asdf",
+    "ime" : "Milos",
+    "prezime" : "Andric",
+    "pol" : "MUSKO",
+    "datumRodjenja" : "1997-06-09",
+    "tipKorisnika" : "KUPAC",
+    "obrisan" : false,
+    "tipKupca" : {
+      "ime" : "pocetnik",
+      "popust" : 0,
+      "brojBodova" : 0
+    },
+    "svePorudzbine" : [ ],
+    "korpa" : {
+      "artikli" : [ ],
+      "kupac" : "milos",
+      "cena" : 0.0
+    },
+    "sakupljeniBodovi" : 857
+  },
+  "alba" : {
+    "korisnickoIme" : "alba",
+    "lozinka" : "asdf",
+    "ime" : "Jessica",
+    "prezime" : "Alba",
+    "pol" : "ZENSKO",
+    "datumRodjenja" : "1981-04-28",
+    "tipKorisnika" : "KUPAC",
+    "obrisan" : false,
+    "tipKupca" : {
+      "ime" : "pocetnik",
+      "popust" : 0,
+      "brojBodova" : 0
+    },
+    "svePorudzbine" : [ ],
+    "korpa" : {
+      "artikli" : [ ],
+      "kupac" : "alba",
+      "cena" : 0.0
+    },
+    "sakupljeniBodovi" : 54
+  },
+  "lupen" : {
+    "korisnickoIme" : "lupen",
+    "lozinka" : "lupen1878",
+    "ime" : "Arsen",
+    "prezime" : "Lupen",
+    "pol" : "MUSKO",
+    "datumRodjenja" : "1878-10-05",
+    "tipKorisnika" : "KUPAC",
+    "obrisan" : false,
+    "tipKupca" : {
+      "ime" : "pocetnik",
+      "popust" : 0,
+      "brojBodova" : 0
+    },
+    "svePorudzbine" : [ ],
+    "korpa" : {
+      "artikli" : [ ],
+      "kupac" : "lupen",
+      "cena" : 0.0
+    },
+    "sakupljeniBodovi" : 122
+  },
+  "dwight" : {
+    "korisnickoIme" : "dwight",
+    "lozinka" : "asdf",
+    "ime" : "Dwight K.",
+    "prezime" : "Schrute",
+    "pol" : "MUSKO",
+    "datumRodjenja" : "2005-03-24",
+    "tipKorisnika" : "KUPAC",
+    "obrisan" : false,
+    "tipKupca" : {
+      "ime" : "pocetnik",
+      "popust" : 0,
+      "brojBodova" : 0
+    },
+    "svePorudzbine" : [ ],
+    "korpa" : {
+      "artikli" : [ ],
+      "kupac" : "dwight",
+      "cena" : 0.0
+    },
+    "sakupljeniBodovi" : 266
+  }
+}

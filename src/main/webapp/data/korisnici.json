@@ -1,0 +1,192 @@
+{
+  "tombrady" : {
+    "korisnickoIme" : "tombrady",
+    "lozinka" : "asdf",
+    "ime" : "Tom",
+    "prezime" : "Brady",
+    "pol" : "MUSKO",
+    "datumRodjenja" : "1977-08-03",
+    "tipKorisnika" : "MENADZER",
+    "obrisan" : false
+  },
+  "jecapereca" : {
+    "korisnickoIme" : "jecapereca",
+    "lozinka" : "jecapereca",
+    "ime" : "Jelena",
+    "prezime" : "Pekez",
+    "pol" : "ZENSKO",
+    "datumRodjenja" : "1996-03-07",
+    "tipKorisnika" : "KUPAC",
+    "obrisan" : false
+  },
+  "milos" : {
+    "korisnickoIme" : "milos",
+    "lozinka" : "asdf",
+    "ime" : "Milos",
+    "prezime" : "Andric",
+    "pol" : "MUSKO",
+    "datumRodjenja" : "1997-06-09",
+    "tipKorisnika" : "KUPAC",
+    "obrisan" : false
+  },
+  "ruud" : {
+    "korisnickoIme" : "ruud",
+    "lozinka" : "sifra123",
+    "ime" : "Ruud",
+    "prezime" : "Van Nistelrooy",
+    "pol" : "MUSKO",
+    "datumRodjenja" : "1976-07-01",
+    "tipKorisnika" : "MENADZER",
+    "obrisan" : false
+  },
+  "alba" : {
+    "korisnickoIme" : "alba",
+    "lozinka" : "asdf",
+    "ime" : "Jessica",
+    "prezime" : "Alba",
+    "pol" : "ZENSKO",
+    "datumRodjenja" : "1981-04-28",
+    "tipKorisnika" : "KUPAC",
+    "obrisan" : false
+  },
+  "admin" : {
+    "korisnickoIme" : "admin",
+    "lozinka" : "admin",
+    "ime" : "Sir Alex",
+    "prezime" : "Ferguson",
+    "pol" : "MUSKO",
+    "datumRodjenja" : "1941-12-31",
+    "tipKorisnika" : "ADMINISTRATOR",
+    "obrisan" : false
+  },
+  "menadzerka" : {
+    "korisnickoIme" : "menadzerka",
+    "lozinka" : "menadzerka",
+    "ime" : "Garbine",
+    "prezime" : "Muguruza",
+    "pol" : "ZENSKO",
+    "datumRodjenja" : "1993-11-08",
+    "tipKorisnika" : "MENADZER",
+    "obrisan" : false
+  },
+  "rihanna" : {
+    "korisnickoIme" : "rihanna",
+    "lozinka" : "asdf",
+    "ime" : "Robin",
+    "prezime" : "Fenty",
+    "pol" : "ZENSKO",
+    "datumRodjenja" : "1988-02-20",
+    "tipKorisnika" : "MENADZER",
+    "obrisan" : false
+  },
+  "dostavljac" : {
+    "korisnickoIme" : "dostavljac",
+    "lozinka" : "dostavljac",
+    "ime" : "Vladimir",
+    "prezime" : "Andric",
+    "pol" : "MUSKO",
+    "datumRodjenja" : "1990-02-14",
+    "tipKorisnika" : "DOSTAVLJAC",
+    "obrisan" : false
+  },
+  "jlo" : {
+    "korisnickoIme" : "jlo",
+    "lozinka" : "asdf",
+    "ime" : "Jennifer",
+    "prezime" : "Lopez",
+    "pol" : "ZENSKO",
+    "datumRodjenja" : "1969-07-24",
+    "tipKorisnika" : "DOSTAVLJAC",
+    "obrisan" : false
+  },
+  "sharapova" : {
+    "korisnickoIme" : "sharapova",
+    "lozinka" : "asdf",
+    "ime" : "Maria",
+    "prezime" : "Sharapova",
+    "pol" : "ZENSKO",
+    "datumRodjenja" : "1987-04-19",
+    "tipKorisnika" : "MENADZER",
+    "obrisan" : false
+  },
+  "anica" : {
+    "korisnickoIme" : "anica",
+    "lozinka" : "glovo",
+    "ime" : "Ana",
+    "prezime" : "Brnabic",
+    "pol" : "MUSKO",
+    "datumRodjenja" : "1975-09-28",
+    "tipKorisnika" : "MENADZER",
+    "obrisan" : false
+  },
+  "henry" : {
+    "korisnickoIme" : "henry",
+    "lozinka" : "asdf",
+    "ime" : "Thierry",
+    "prezime" : "Henry",
+    "pol" : "MUSKO",
+    "datumRodjenja" : "1977-08-17",
+    "tipKorisnika" : "MENADZER",
+    "obrisan" : false
+  },
+  "proba" : {
+    "korisnickoIme" : "proba",
+    "lozinka" : "proba",
+    "ime" : "Paul",
+    "prezime" : "Scholes",
+    "pol" : "MUSKO",
+    "datumRodjenja" : "1974-11-16",
+    "tipKorisnika" : "KUPAC",
+    "obrisan" : false
+  },
+  "camdiaz" : {
+    "korisnickoIme" : "camdiaz",
+    "lozinka" : "stupidpassword123",
+    "ime" : "Cameron",
+    "prezime" : "Diaz",
+    "pol" : "ZENSKO",
+    "datumRodjenja" : "1972-08-30",
+    "tipKorisnika" : "MENADZER",
+    "obrisan" : false
+  },
+  "shakira" : {
+    "korisnickoIme" : "shakira",
+    "lozinka" : "asdf",
+    "ime" : "Shakira",
+    "prezime" : "Ripoll",
+    "pol" : "ZENSKO",
+    "datumRodjenja" : "1977-02-02",
+    "tipKorisnika" : "MENADZER",
+    "obrisan" : false
+  },
+  "petra" : {
+    "korisnickoIme" : "petra",
+    "lozinka" : "sifra123",
+    "ime" : "Petra",
+    "prezime" : "Petrić",
+    "pol" : "ZENSKO",
+    "datumRodjenja" : "1997-01-01",
+    "tipKorisnika" : "MENADZER",
+    "obrisan" : false
+  },
+  "lupen" : {
+    "korisnickoIme" : "lupen",
+    "lozinka" : "lupen1878",
+    "ime" : "Arsen",
+    "prezime" : "Lupen",
+    "pol" : "MUSKO",
+    "datumRodjenja" : "1878-10-05",
+    "tipKorisnika" : "KUPAC",
+    "obrisan" : false
+  },
+  "dwight" : {
+    "korisnickoIme" : "dwight",
+    "lozinka" : "asdf",
+    "ime" : "Dwight K.",
+    "prezime" : "Schrute",
+    "pol" : "MUSKO",
+    "datumRodjenja" : "2005-03-24",
+    "tipKorisnika" : "KUPAC",
+    "obrisan" : false
+  }
+}

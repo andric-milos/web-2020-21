@@ -1,0 +1,65 @@
+{
+  "jecapereca_Big Pizza" : {
+    "kupac" : "jecapereca",
+    "restoran" : "Big Pizza",
+    "tekst" : "Pica je užasna, užegla, kao da je stara 4 dana!!! U Ž A S",
+    "ocena" : 1,
+    "status" : "ODBIJEN"
+  },
+  "alba_Tortilla Casa" : {
+    "kupac" : "alba",
+    "restoran" : "Tortilla Casa",
+    "tekst" : "Preukusna hrana, prijatna atmosfera, savršen ambijent i ljubazno osoblje! Posebne pohvale za Tortilju na Bulevaru :)",
+    "ocena" : 5,
+    "status" : "ODOBREN"
+  },
+  "milos_Walter" : {
+    "kupac" : "milos",
+    "restoran" : "Walter",
+    "tekst" : "Kvalitetni ćevapi, dobar somun, kao i kajmak.",
+    "ocena" : 5,
+    "status" : "ODOBREN"
+  },
+  "proba_Caribic" : {
+    "kupac" : "proba",
+    "restoran" : "Caribic",
+    "tekst" : "Sinoc smo narucili picu sa kulenom i dobili zivo testo, vratili smo picu i porucili drugu istu medjutim testo je takodje bilo zivo, vise se tamo ne vracam!",
+    "ocena" : 3,
+    "status" : "NA_CEKANJU"
+  },
+  "dwight_Tortilla Casa" : {
+    "kupac" : "dwight",
+    "restoran" : "Tortilla Casa",
+    "tekst" : "Porudžbina je bila veća, pa je bilo i dosta grešaka. Nismo dobili sve prelive koje smo naručili, u kranču je bio luk, a naznačeno je da se ne stavlja… Nula bodova, ljubim ruke.",
+    "ocena" : 1,
+    "status" : "ODOBREN"
+  },
+  "milos_Caribic" : {
+    "kupac" : "milos",
+    "restoran" : "Caribic",
+    "tekst" : "Uvek sveža pizza, kada god da dođete.\n\nU većini slučajeva se čeka koji minut, ali isplati se, zato što ćete dobiti svežu picu.\n\nA sveža pizza je najbolja pizza.\n\nAko ste gladni i želite usput na brzinu pojesti pizzu, svakako dođite.\n\nČetvorku sam dao, zato što po mom mišljenju ima i boljih u gradu.\n\nPrijatno i uživajte.",
+    "ocena" : 4,
+    "status" : "ODOBREN"
+  },
+  "milos_Tortilla Casa" : {
+    "kupac" : "milos",
+    "restoran" : "Tortilla Casa",
+    "tekst" : "U roku od godinu i po' dana ste podigli cenu sa 270 na 410, dakle za 140 dinara, a niste podigli kvalitet.",
+    "ocena" : 2,
+    "status" : "ODOBREN"
+  },
+  "jecapereca_Caribic" : {
+    "kupac" : "jecapereca",
+    "restoran" : "Caribic",
+    "tekst" : "Odlično!",
+    "ocena" : 5,
+    "status" : "ODOBREN"
+  },
+  "lupen_Chicken Chill" : {
+    "kupac" : "lupen",
+    "restoran" : "Chicken Chill",
+    "tekst" : "Kiki Chicken je najbolje jelo koje sam probao u skorije vreme. Usluga i dostava su na nivou. Sve preporuke :D",
+    "ocena" : 5,
+    "status" : "ODOBREN"
+  }
+}

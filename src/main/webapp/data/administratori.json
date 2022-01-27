@@ -1,0 +1,12 @@
+{
+  "admin" : {
+    "korisnickoIme" : "admin",
+    "lozinka" : "admin",
+    "ime" : "Sir Alex",
+    "prezime" : "Ferguson",
+    "pol" : "MUSKO",
+    "datumRodjenja" : "1941-12-31",
+    "tipKorisnika" : "ADMINISTRATOR",
+    "obrisan" : false
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "anica" : {
+    "korisnickoIme" : "anica",
+    "lozinka" : "glovo",
+    "ime" : "Ana",
+    "prezime" : "Brnabic",
+    "pol" : "MUSKO",
+    "datumRodjenja" : "1975-09-28",
+    "tipKorisnika" : "MENADZER",
+    "obrisan" : false,
+    "restoran" : "Caribic"
+  },
+  "henry" : {
+    "korisnickoIme" : "henry",
+    "lozinka" : "asdf",
+    "ime" : "Thierry",
+    "prezime" : "Henry",
+    "pol" : "MUSKO",
+    "datumRodjenja" : "1977-08-17",
+    "tipKorisnika" : "MENADZER",
+    "obrisan" : false,
+    "restoran" : "Gastro Novi"
+  },
+  "tombrady" : {
+    "korisnickoIme" : "tombrady",
+    "lozinka" : "asdf",
+    "ime" : "Tom",
+    "prezime" : "Brady",
+    "pol" : "MUSKO",
+    "datumRodjenja" : "1977-08-03",
+    "tipKorisnika" : "MENADZER",
+    "obrisan" : false,
+    "restoran" : "Tortilla Casa"
+  },
+  "camdiaz" : {
+    "korisnickoIme" : "camdiaz",
+    "lozinka" : "stupidpassword123",
+    "ime" : "Cameron",
+    "prezime" : "Diaz",
+    "pol" : "ZENSKO",
+    "datumRodjenja" : "1972-08-30",
+    "tipKorisnika" : "MENADZER",
+    "obrisan" : false,
+    "restoran" : "Chicken Chill"
+  },
+  "shakira" : {
+    "korisnickoIme" : "shakira",
+    "lozinka" : "asdf",
+    "ime" : "Shakira",
+    "prezime" : "Ripoll",
+    "pol" : "ZENSKO",
+    "datumRodjenja" : "1977-02-02",
+    "tipKorisnika" : "MENADZER",
+    "obrisan" : false,
+    "restoran" : "Walter"
+  },
+  "ruud" : {
+    "korisnickoIme" : "ruud",
+    "lozinka" : "sifra123",
+    "ime" : "Ruud",
+    "prezime" : "Van Nistelrooy",
+    "pol" : "MUSKO",
+    "datumRodjenja" : "1976-07-01",
+    "tipKorisnika" : "MENADZER",
+    "obrisan" : false,
+    "restoran" : "Kuća kobasice"
+  },
+  "petra" : {
+    "korisnickoIme" : "petra",
+    "lozinka" : "sifra123",
+    "ime" : "Petra",
+    "prezime" : "Petrić",
+    "pol" : "ZENSKO",
+    "datumRodjenja" : "1997-01-01",
+    "tipKorisnika" : "MENADZER",
+    "obrisan" : false,
+    "restoran" : "Big Pizza"
+  },
+  "menadzerka" : {
+    "korisnickoIme" : "menadzerka",
+    "lozinka" : "menadzerka",
+    "ime" : "Garbine",
+    "prezime" : "Muguruza",
+    "pol" : "ZENSKO",
+    "datumRodjenja" : "1993-11-08",
+    "tipKorisnika" : "MENADZER",
+    "obrisan" : false,
+    "restoran" : "Ognjište"
+  },
+  "rihanna" : {
+    "korisnickoIme" : "rihanna",
+    "lozinka" : "asdf",
+    "ime" : "Robin",
+    "prezime" : "Fenty",
+    "pol" : "ZENSKO",
+    "datumRodjenja" : "1988-02-20",
+    "tipKorisnika" : "MENADZER",
+    "obrisan" : false,
+    "restoran" : "Domaće palačinke"
+  },
+  "sharapova" : {
+    "korisnickoIme" : "sharapova",
+    "lozinka" : "asdf",
+    "ime" : "Maria",
+    "prezime" : "Sharapova",
+    "pol" : "ZENSKO",
+    "datumRodjenja" : "1987-04-19",
+    "tipKorisnika" : "MENADZER",
+    "obrisan" : false,
+    "restoran" : "Dva štapića"
+  }
+}
