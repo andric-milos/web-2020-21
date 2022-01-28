@@ -13,7 +13,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import beans.Komentar;
-import beans.StatusKomentara;
+import enums.StatusKomentara;
 
 public class KomentarDAO {
 	private HashMap<String, Komentar> komentari; // key - komentar.kupac + "_" + komentar.restoran

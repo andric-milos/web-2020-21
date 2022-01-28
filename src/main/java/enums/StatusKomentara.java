@@ -1,4 +1,4 @@
-package beans;
+package enums;
 
 public enum StatusKomentara {
 	NA_CEKANJU,

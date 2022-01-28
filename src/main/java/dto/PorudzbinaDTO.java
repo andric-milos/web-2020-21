@@ -4,7 +4,7 @@ import java.util.List;
 
 import beans.ArtikalSaKolicinom;
 import beans.Porudzbina;
-import beans.StatusPorudzbine;
+import enums.StatusPorudzbine;
 
 public class PorudzbinaDTO {
 	private String id; // 10 karaktera

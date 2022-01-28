@@ -1,5 +1,7 @@
 package beans;
 
+import enums.StatusKomentara;
+
 public class Komentar {
 	private String kupac; // naziv kupac porudzbine koji je ostavio komentar
 	private String restoran; // naziv restorana na koji se komentar odnosi

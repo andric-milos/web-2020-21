@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import enums.StatusPorudzbine;
+
 public class Porudzbina {
 	private String id; // 10 karaktera
 	private List<ArtikalSaKolicinom> poruceniArtikli;

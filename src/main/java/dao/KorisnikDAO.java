@@ -21,10 +21,10 @@ import beans.Dostavljac;
 import beans.Korisnik;
 import beans.Kupac;
 import beans.Menadzer;
-import beans.Pol;
+import enums.Pol;
 import beans.Porudzbina;
-import beans.StatusPorudzbine;
-import beans.TipKorisnika;
+import enums.StatusPorudzbine;
+import enums.TipKorisnika;
 import dto.KorisnikDTO;
 import dto.MenadzerDTO;
 

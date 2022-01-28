@@ -15,7 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import beans.Dostavljac;
 import beans.Porudzbina;
-import beans.StatusPorudzbine;
+import enums.StatusPorudzbine;
 import dto.PorudzbinaDTO;
 
 public class PorudzbinaDAO {

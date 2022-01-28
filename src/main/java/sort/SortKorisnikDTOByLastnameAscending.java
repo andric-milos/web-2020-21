@@ -1,4 +1,4 @@
-package beans.sort;
+package sort;
 
 import java.util.Comparator;
 
@@ -8,7 +8,6 @@ public class SortKorisnikDTOByLastnameAscending implements Comparator<KorisnikDT
 
 	@Override
 	public int compare(KorisnikDTO o1, KorisnikDTO o2) {
-		// TODO Auto-generated method stub
 		return o1.getPrezime().compareToIgnoreCase(o2.getPrezime());
 	}
 

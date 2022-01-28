@@ -2,6 +2,9 @@ package beans;
 
 import java.util.Date;
 
+import enums.Pol;
+import enums.TipKorisnika;
+
 public class Menadzer extends Korisnik {
 	private String restoran;	// naziv restorana kojim menadzerise
 	

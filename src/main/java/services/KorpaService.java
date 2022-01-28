@@ -19,7 +19,7 @@ import beans.ArtikalSaKolicinom;
 import beans.Korisnik;
 import beans.Korpa;
 import beans.Restoran;
-import beans.TipKorisnika;
+import enums.TipKorisnika;
 import dao.KomentarDAO;
 import dao.KorisnikDAO;
 import dao.PorudzbinaDAO;

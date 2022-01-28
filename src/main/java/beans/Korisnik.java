@@ -2,6 +2,9 @@ package beans;
 
 import java.util.Date;
 
+import enums.Pol;
+import enums.TipKorisnika;
+
 public class Korisnik {
 	private String korisnickoIme; // should be unique
 	private String lozinka;

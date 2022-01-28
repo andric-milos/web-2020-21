@@ -4,6 +4,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import enums.StatusRestorana;
+import enums.TipRestorana;
+
 public class Restoran {
 	private String naziv;	// trebalo bi da bude unique, jer na primer u klasi Porudzbina imamo polje koje predstavlja ime restorana
 	private TipRestorana tip;

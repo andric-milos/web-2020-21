@@ -1,6 +1,6 @@
 package dto;
 
-import beans.StatusPorudzbine;
+import enums.StatusPorudzbine;
 
 public class ZahtevZaDostavuDTO {
 	private String id_porudzbine;

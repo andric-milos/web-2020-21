@@ -2,6 +2,8 @@ package beans;
 
 import java.io.File;
 
+import enums.TipArtikla;
+
 public class Artikal {
 	private String naziv;
 	private float cena;

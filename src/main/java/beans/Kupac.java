@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import enums.Pol;
+import enums.TipKorisnika;
+
 public class Kupac extends Korisnik {
 	private TipKupca tipKupca;
 	private List<Porudzbina> svePorudzbine;

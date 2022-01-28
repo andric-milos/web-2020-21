@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import enums.Pol;
+import enums.TipKorisnika;
+
 public class Dostavljac extends Korisnik {
 	private List<Porudzbina> porudzbine; // porudzbine koje treba da dostavi
 
