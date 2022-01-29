@@ -162,6 +162,11 @@ public class UserService {
 	@Path("/register")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response register(RegistracijaDTO dto) {
+		// Trim username, firstname and lastname
+		dto.setKorisnickoIme(dto.getKorisnickoIme().trim());
+		dto.setIme(dto.getIme().trim());
+		dto.setPrezime(dto.getPrezime().trim());
+		
 		// 1. scenario: nevalidan unos podataka
 		if (dto.getKorisnickoIme().equals("") ||
 			dto.getLozinka().equals("") ||
@@ -298,6 +303,11 @@ public class UserService {
 			return Response.status(Status.BAD_REQUEST).entity("NOT LOGGED IN").build();
 		}
 		
+		// Trim username, firstname and lastname
+		dto.setKorisnickoIme(dto.getKorisnickoIme().trim());
+		dto.setIme(dto.getIme().trim());
+		dto.setPrezime(dto.getPrezime().trim());
+		
 		// 2. scenario: nevalidan unos podataka
 		if (dto.getKorisnickoIme().equals("") ||
 			dto.getIme().equals("") ||
@@ -403,11 +413,12 @@ public class UserService {
 			return Response.status(Status.FORBIDDEN).entity("NOT ADMINISTRATOR").build();
 		}
 		
-		// 3. scenario: nevalidan unos podataka
+		// Trim username, firstname and lastname
 		dto.setKorisnickoIme(dto.getKorisnickoIme().trim());
 		dto.setIme(dto.getIme().trim());
 		dto.setPrezime(dto.getPrezime().trim());
 		
+		// 3. scenario: nevalidan unos podataka
 		if (dto.getKorisnickoIme() == null || dto.getKorisnickoIme().equals("") ||
 			dto.getLozinka().equals("") ||
 			dto.getIme() == null || dto.getIme().equals("") ||
@@ -479,6 +490,11 @@ public class UserService {
 		if (korisnik.getTipKorisnika() != TipKorisnika.ADMINISTRATOR) {
 			return Response.status(Status.FORBIDDEN).entity("NOT ADMINISTRATOR").build();
 		}
+		
+		// Trim username, firstname and lastname
+		dto.setKorisnickoIme(dto.getKorisnickoIme().trim());
+		dto.setIme(dto.getIme().trim());
+		dto.setPrezime(dto.getPrezime().trim());
 		
 		// 3. scenario: nevalidan unos podataka
 		if (dto.getKorisnickoIme().equals("") ||
