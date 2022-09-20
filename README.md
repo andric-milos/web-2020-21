@@ -1,6 +1,6 @@
-# web-2020-21
+# Faculty Course "Web Programming" project
 
-2020-21 faculty course "Web programming" project - food delivery **_single-page_** web application. <br>
+2020-21 faculty course "Web Programming" project - food delivery **_single-page_** web application. <br>
 Technologies: _**Java**_ & _**JAX-RS**_; _**Vue.js v2.6**_ & _**Bootstrap v5.0**_ & _**Leaflet**_. <br><br>
 Short description and scope of functionalities:
 * There are 4 types of roles - administrator, manager, deliverer and customer.
